@@ -88,17 +88,6 @@ Item {
 
     }
 
-    LinearGradient {
-            id: mask
-            anchors.fill: tuner
-            gradient: Gradient {
-                GradientStop { position: 0.2; color: "#ffffffff" }
-                GradientStop { position: 0.5; color: "#00ffffff" }
-            }
-            start: Qt.point(0, 0)
-            end: Qt.point(300, 0)
-            visible: false
-        }
     Tuner {
         id:tuner
         height: parent.height * 0.25
@@ -110,13 +99,6 @@ Item {
         anchors.bottomMargin: parent.height * 0.15
     }
 
-    ThresholdMask  {
-        anchors.fill: tuner
-        source: tuner
-        maskSource: mask
-        threshold: 0.9
-        spread: 0.2
-    }
     Item {
         id: bottom
         height: parent.height * 0.15
