@@ -637,5 +637,12 @@
         <file>qml/Radio/Tuner.qml</file>
         <file>qml/RightMenu.qml</file>
         <file>qml/images/2.png</file>
+        <file>qml/Radio/ModeSwitch.qml</file>
+        <file>qml/MenuButton.qml</file>
+        <file>qml/icons/svg/chevron-left.svg</file>
+        <file>qml/icons/svg/chevron-right.svg</file>
+        <file>qml/icons/svg/android-star.svg</file>
+        <file>qml/icons/svg/android-star-outline.svg</file>
+        <file>qml/Radio/RadioDrawer.qml</file>
     </qresource>
 </RCC>
