@@ -28,3 +28,5 @@ Below you can see some screenshots of the current state of the GUI.
 ![A/C temerature control view](https://raw.githubusercontent.com/viktorgino/headunit-gui/master/screenshots/2.png)
 
 ![Radio view](https://raw.githubusercontent.com/viktorgino/headunit-gui/master/screenshots/3.png)
+
+![Radio stations list drawer](https://raw.githubusercontent.com/viktorgino/headunit-gui/master/screenshots/4.png)
