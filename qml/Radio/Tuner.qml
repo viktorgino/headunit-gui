@@ -16,6 +16,8 @@ Item {
     property double freqRealRangeEnd: 108
     property double frequency: 88.8
 
+    signal changed(double frequency)
+
     function slideXtoFreq(freq){
         return 0 - ((freq-freqRangeStart)*freqWidth-tuner.width/2)-2;
     }
@@ -25,7 +27,7 @@ Item {
     function moveToFreq(freq){
         if(freq >= freqRealRangeStart && freq <= freqRealRangeEnd){
             tuneSlider.x = slideXtoFreq(freq);
-            frequency = getFreq();
+            slideUpdate();
         }
     }
     function moveFreqWith(amount){
@@ -34,6 +36,10 @@ Item {
     }
     function getFreq(){
         return -((tuneSlider.x  - tuner.width/2 + 2)/freqWidth - freqRangeStart)
+    }
+    function slideUpdate(){
+        frequency = getFreq();
+        tuner.changed(frequency)
     }
 
     FontLoader{id:ralewayRegular; source:"qrc:/qml/fonts/Raleway-Regular.ttf"}
@@ -148,7 +154,7 @@ Item {
         drag.axis: "XAxis"
         drag.maximumX: (freqRangeStart-freqRealRangeStart)*freqWidth+parent.width/2-2
         drag.minimumX: drag.maximumX - (freqRealRangeEnd - freqRealRangeStart)*100
-        onPositionChanged:frequency = getFreq()
+        onPositionChanged:slideUpdate()
         onWheel: moveFreqWith(wheel.angleDelta.y)
     }
 
