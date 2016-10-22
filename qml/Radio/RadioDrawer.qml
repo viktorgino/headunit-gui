@@ -4,9 +4,11 @@ Item {
     id: drawer
     FontLoader{id:ralewayRegular; source:"qrc:/qml/fonts/Raleway-Regular.ttf"}
 
-    signal itemClicked(double frequency)
+    signal itemClicked(double frequency, var stationName)
 
-    property var listTopMargin: 0
+    property var listTopMargin: 20
+    property var listType: "favourite"
+    property var activeStation: ""
 
     ListModel {
         id: stationModel
@@ -30,15 +32,147 @@ Item {
     Rectangle {
         color: "#64b5f6"
         anchors.fill: parent
-        ListView {
+    }
+
+    Item {
+        id: item1
+        anchors.fill: parent
+
+        Item {
+            id: buttons
+            height: 40
             anchors.topMargin: listTopMargin
-            anchors.fill: parent
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+
+            Rectangle {
+                id: active_button_bg
+                width: parent.width/2+spacer.width/2
+                color: "#ffffff"
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+                opacity: 0.5
+
+                x:if(listType == "all"){
+                    0
+                } else if(listType == "favourite"){
+                    buttons.width/2 - spacer.width/2
+                }
+                Behavior on x {
+
+                    NumberAnimation {
+                        duration: 600
+                        easing.type: Easing.OutBounce
+                    }
+                }
+            }
+
+            Rectangle {
+                id: all_button
+                color: "#f44336"
+                anchors.right: spacer.left
+                anchors.rightMargin: 0
+                anchors.top: parent.top
+                anchors.topMargin: 6
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 6
+                anchors.left: parent.left
+                anchors.leftMargin: 6
+
+                Text {
+                    color: "#ffffff"
+                    text: qsTr("All")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.fill: parent
+                    font.pixelSize: 14
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: listType="all"
+                }
+            }
+
+
+            Item {
+                id: spacer
+                x: parent.width/2-width/2
+                width: 6
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 0
+            }
+
+
+            Rectangle {
+                id: fav_button
+                color: "#009688"
+                anchors.left: spacer.right
+                anchors.leftMargin: 0
+                anchors.top: parent.top
+                anchors.topMargin: 6
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 6
+                anchors.right: parent.right
+                anchors.rightMargin: 6
+
+                Text {
+                    color: "#ffffff"
+                    text: qsTr("Favourites")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.fill: parent
+                    font.pixelSize: 14
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked:listType="favourite"
+                }
+            }
+
+
+        }
+
+        ListView {
+            anchors.top: buttons.bottom
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.topMargin: 0
+            clip: true
             model: stationModel
             delegate: Item{
-                height: 60
+                height: favourite||listType == "all"?60:0
                 anchors.left: parent.left
                 anchors.right: parent.right
+                opacity: favourite||listType == "all"
 
+                Rectangle {
+                    id: rectangle1
+                    color: "#cddc39"
+                    anchors.fill: parent
+                    visible: activeStation == name
+                }
+
+                Rectangle {
+                    height: 1
+                    color: "#ffffff"
+                    opacity: 0.5
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                }
                 Item {
                     anchors.rightMargin: parent.height*0.1
                     anchors.leftMargin: parent.height*0.1
@@ -78,12 +212,17 @@ Item {
                         verticalAlignment: Text.AlignVCenter
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: drawer.itemClicked(frequency)
+                            onClicked: {
+                                activeStation = name;
+                                drawer.itemClicked(frequency,activeStation);
+                            }
                         }
                     }
                 }
             }
-
         }
+
     }
+
+
 }
