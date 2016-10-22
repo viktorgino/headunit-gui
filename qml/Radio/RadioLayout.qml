@@ -9,12 +9,15 @@ Item {
     anchors.fill: parent
     property int left_seat_heat_rate: 0
     property int right_seat_heat_rate: 0
+    property var activeStation: ""
+    clip: true
 
     FontLoader{id:ralewayRegular; source:"qrc:/qml/fonts/Raleway-Regular.ttf"}
 
     function changeState(){
         if(__cclayout.state== ""){
             __cclayout.state="drawerOpen";
+            radioDrawer.activeStation = activeStation;
         } else{
             __cclayout.state="";
         }
@@ -23,6 +26,7 @@ Item {
 
     Item {
         id: main
+        clip: true
         anchors.top: top_menu.bottom
         anchors.topMargin: 0
         anchors.right: parent.right
@@ -60,7 +64,7 @@ Item {
 
                 Text {
                     color: "#ffffff"
-                    text: "BBC Radio 1"
+                    text: activeStation
                     anchors.right: spacer1.left
                     anchors.rightMargin: 0
                     anchors.left: modeSwitch1.right
@@ -208,6 +212,7 @@ Item {
             anchors.rightMargin: 0
             anchors.bottom: parent.bottom
             anchors.bottomMargin: parent.height * 0.15
+            onChanged:activeStation=""
         }
         Item {
             id: bottom
@@ -254,6 +259,7 @@ Item {
     }
 
     RadioDrawer{
+        id: radioDrawer
         width: parent.width*0.3
         anchors.right: main.left
         anchors.rightMargin: 0
@@ -265,6 +271,8 @@ Item {
         onItemClicked: {
             tuner.moveToFreq(frequency);
             changeState();
+            __cclayout.activeStation = stationName;
+            console.log(stationName);
         }
     }
 
@@ -354,21 +362,54 @@ Item {
         }
 
         Item {
-            width: height*2
-            anchors.rightMargin: parent.height*0.1
-            anchors.right: parent.right
+            width: parent.width/2
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.topMargin: parent.height*0.1
             anchors.bottomMargin: parent.height*0.1
             anchors.top: parent.top
             anchors.bottom: parent.bottom
 
             Text {
+                id:clock
                 color: "#ffffff"
-                text: qsTr("18:27")
+                text: Qt.formatDateTime(new Date(),"dddd d/M/yyyy")
+                anchors.fill: parent
                 font.pixelSize: parent.height/2
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
+            }
+            Timer {
+                interval: 500; running: true; repeat: true
+                onTriggered: {
+                    clock.text = Qt.formatDateTime(new Date(),"dddd d/M/yyyy")
+                    date.text = Qt.formatDateTime(new Date(),"HH:mm:ss")
+                }
+            }
+
+        }
+
+        Item {
+            width: height*3
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.topMargin: parent.height*0.1
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: parent.height*0.1
+            Text {
+                id: date
+                color: "#ffffff"
+                text: Qt.formatDateTime(new Date(),"HH:mm:ss")
                 anchors.fill: parent
+                font.pixelSize: parent.height/2
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Timer {
+                repeat: true
+                interval: 1000
+                running: true
             }
         }
     }
