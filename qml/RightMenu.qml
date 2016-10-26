@@ -7,7 +7,7 @@ Item {
     property var menuItems: [
         {
             source :"qrc:/qml/ClimateControl/CCLayout.qml",
-            image:"icons/thermometer.png",
+            image:"icons/svg/thermometer.svg",
             text:"A/C",
             color:"#d32f2f"
         },
@@ -19,19 +19,19 @@ Item {
         },
         {
             source :"qrc:/qml/Radio/RadioLayout.qml",
-            image:"icons/radio-waves.png",
+            image:"icons/svg/radio-waves.svg",
             text:"Radio",
             color:"#512da8"
         },
         {
             source :"Item",
-            image:"icons/social-android.png",
+            image:"icons/svg/social-android.svg",
             text:"Android Auto",
             color:"#388e3c"
         },
         {
             source :"Item",
-            image:"icons/music-note.png",
+            image:"icons/svg/music-note.svg",
             text:"Music",
             color:"#0288d1"
         }
@@ -98,6 +98,7 @@ Item {
                     anchors.leftMargin: 0
                     fillMode: Image.PreserveAspectFit
                     source: menuItems[index].image
+                    smooth: true
                 }
 
                 Text {
