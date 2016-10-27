@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import Qt.labs.settings 1.0
 
 Item {
     id: drawer
@@ -210,6 +211,7 @@ Item {
                         anchors.leftMargin: 16
                         horizontalAlignment: Text.AlignLeft
                         verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {

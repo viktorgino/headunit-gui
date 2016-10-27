@@ -644,5 +644,11 @@
         <file>qml/icons/svg/android-star.svg</file>
         <file>qml/icons/svg/android-star-outline.svg</file>
         <file>qml/Radio/RadioDrawer.qml</file>
+        <file>qml/icons/svg/music-note.svg</file>
+        <file>qml/icons/svg/radio-waves.svg</file>
+        <file>qml/icons/svg/social-android.svg</file>
+        <file>qml/icons/svg/thermometer.svg</file>
+        <file>qml/notifications.qml</file>
+        <file>qml/Notifications.qml</file>
     </qresource>
 </RCC>
