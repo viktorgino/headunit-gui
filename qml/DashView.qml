@@ -1,9 +1,16 @@
 import QtQuick 2.5
 import QtGraphicalEffects 1.0
+import QtQuick.Controls 1.4
 import "ClimateControl"
 
 Item {
-    id: item188
+    id: dashLayout
+
+
+    Notifications {
+        id: notifications1
+        anchors.fill: parent
+    }
 
     LinearGradient {
         anchors.fill: parent
@@ -37,6 +44,7 @@ Item {
             from: 0
             to: 1
         }
+
     }
 
     RightMenu {
@@ -51,4 +59,21 @@ Item {
         onItemChanged:widgetLoader.source = source
     }
 
+
+    states: [
+        State {
+            name: "notificationActive"
+
+            PropertyChanges {
+                target: item1
+                y: dashLayout.height-10-height
+                opacity: 1
+            }
+
+        }
+    ]
+
+    transitions: Transition {
+        NumberAnimation { properties: "y,opacity"; duration: 250}
+    }
 }
