@@ -3,15 +3,16 @@ import QtQuick.Layouts 1.0
 
 Item {
     id: rightMenu
-    signal itemChanged(var source);
+    signal itemChanged(int index);
     function menuItemClicked (y,index){
         active_button_bg.y = y-1;
-        rightMenu.itemChanged(menuItems[index].source);
+        rightMenu.itemChanged(index);
     }
 
     Rectangle {
         color: "#212121"
         anchors.fill: parent
+        opacity: 0.4
     }
 
     Rectangle {

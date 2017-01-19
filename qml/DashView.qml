@@ -28,23 +28,30 @@ Item {
         end: Qt.point(200, 300)
         start: Qt.point(0, 0)
     }
-    Loader {
-        id: widgetLoader
-        source: "qrc:/qml/Radio/RadioLayout.qml"
-        asynchronous: false
-        anchors.rightMargin: 0
-        anchors.right: rightMenu.left
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.top: parent.top
 
-        OpacityAnimator on opacity{
-            duration: 2000
-            easing.type: Easing.InOutQuad
-            from: 0
-            to: 1
+    Image {
+        id: image1
+        fillMode: Image.PreserveAspectCrop
+        anchors.fill: parent
+        source: "file://usr/share/backgrounds/ubuntu16_10_by_Khoir_Rudin.png"
+    }
+
+    Repeater{
+        id: contents
+        model:menuItems
+        Loader {
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.top: parent.top
+            anchors.topMargin: 0
+            anchors.right: rightMenu.left
+            anchors.rightMargin: 0
+            visible: false
+            source: menuItems[index].source
+            asynchronous: false
         }
-
     }
 
     RightMenu {
@@ -56,7 +63,12 @@ Item {
         anchors.topMargin: 0
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
-        onItemChanged:widgetLoader.source = source
+        onItemChanged:{
+            for(var i=0; i<contents.count;i++){
+                contents.itemAt(i).visible = false
+            }
+            contents.itemAt(index).visible = true
+        }
     }
 
 
