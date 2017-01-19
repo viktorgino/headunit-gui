@@ -4,39 +4,6 @@ import QtQuick.Layouts 1.0
 Item {
     id: rightMenu
     signal itemChanged(var source);
-    property var menuItems: [
-        {
-            source :"qrc:/qml/ClimateControl/CCLayout.qml",
-            image:"icons/svg/thermometer.svg",
-            text:"A/C",
-            color:"#d32f2f"
-        },
-        {
-            source :"Item",
-            image:"icons/gear-a.png",
-            text:"Settings",
-            color:"#fbc02d"
-        },
-        {
-            source :"qrc:/qml/Radio/RadioLayout.qml",
-            image:"icons/svg/radio-waves.svg",
-            text:"Radio",
-            color:"#512da8"
-        },
-        {
-            source :"Item",
-            image:"icons/svg/social-android.svg",
-            text:"Android Auto",
-            color:"#388e3c"
-        },
-        {
-            source :"Item",
-            image:"icons/svg/music-note.svg",
-            text:"Music",
-            color:"#0288d1"
-        }
-
-    ]
     function menuItemClicked (y,index){
         active_button_bg.y = y-1;
         rightMenu.itemChanged(menuItems[index].source);
