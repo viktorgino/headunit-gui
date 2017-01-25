@@ -27,6 +27,7 @@ Window {
         anchors.fill: parent
     }
     DashView{
+        id: dashview
         anchors.fill: parent
     }
 

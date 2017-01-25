@@ -6,12 +6,6 @@ import "ClimateControl"
 Item {
     id: dashLayout
 
-
-    Notifications {
-        id: notifications1
-        anchors.fill: parent
-    }
-
     LinearGradient {
         anchors.fill: parent
         gradient: Gradient {
@@ -33,7 +27,7 @@ Item {
         id: image1
         fillMode: Image.PreserveAspectCrop
         anchors.fill: parent
-        source: "file://usr/share/backgrounds/ubuntu16_10_by_Khoir_Rudin.png"
+        source: "qrc:/qml/images/ubuntu16_10_by_Khoir_Rudin.png"
     }
 
     Repeater{
@@ -72,20 +66,22 @@ Item {
     }
 
 
-    states: [
-        State {
-            name: "notificationActive"
-
-            PropertyChanges {
-                target: item1
-                y: dashLayout.height-10-height
-                opacity: 1
-            }
-
-        }
-    ]
 
     transitions: Transition {
         NumberAnimation { properties: "y,opacity"; duration: 250}
+    }
+
+    Connections {
+        target: headunit
+        onDeviceConnected: {
+            notifications1.addNotification({
+                                       image: notification.image,
+                                       title: notification.title,
+                                       text: notification.text})
+        }
+    }
+    Notifications {
+        id: notifications1
+        anchors.fill: parent
     }
 }

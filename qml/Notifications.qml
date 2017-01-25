@@ -5,9 +5,16 @@ Item {
     property int animationInterval : 250
     property int notificationInterval : 5000
     property int margin : 12
+    property int modalHeight : 75
+    property int modalWidth : 300
 
     ListModel {
         id: notifications
+    }
+
+    function myQmlFunction(msg) {
+        console.log("Got message:", msg)
+        return "some return value"
     }
 
     /*
@@ -32,112 +39,129 @@ Item {
                                  notificationTitle:notification.title,
                                  notificationText:notification.text
                              });
+        for(var i=0; i<notificationsList.count;i++){
+            notificationsList.itemAt(i).resources[0].start();
+        }
     }
-    Repeater {
-        id: notificationsList
+    Item{
         anchors.fill: parent
-        model: notifications
-        Item {
-            Timer {
-                interval: 5000; running: true; repeat: false
-                onTriggered: opacity=0
-            }
-            Timer {
-                interval: animationInterval+notificationInterval; running: true; repeat: false
-                onTriggered: notifications.remove(index,1)
-            }
-            y: parent.height - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)
-            width: 300
-            height: 75
-            opacity: 1
+        Repeater {
+            id: notificationsList
+            height: parent.height + margin + modalHeight
+            anchors.right: parent.right
             anchors.left: parent.left
-            anchors.leftMargin: margin
-
-            Rectangle {
-                color: "#ffffff"
-                opacity: 0.5
-                anchors.fill: parent
-            }
-
+            anchors.top: parent.top
+            model: notifications
             Item {
-                width: height
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-
-                Rectangle {
-                    color: "#80ffffff"
-                    radius: height / 2
-                    anchors.rightMargin: 12
-                    anchors.leftMargin: 12
-                    anchors.bottomMargin: 12
-                    anchors.topMargin: 12
-                    anchors.fill: parent
-
-                    Image {
-                        anchors.rightMargin: 10
-                        anchors.leftMargin: 10
-                        anchors.bottomMargin: 10
-                        anchors.topMargin: 10
-                        fillMode: Image.PreserveAspectFit
-                        anchors.fill: parent
-                        source: notificationImage
+                //Don't put any item before this object
+                Timer {
+                    interval: 1; running: true; repeat: false
+                    onTriggered: {
+                        console.log(parent.parent.parent.height);
+                        y = notificationsList.height - (margin + modalHeight) - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)
                     }
                 }
-            }
-
-            Item {
-                anchors.leftMargin: height
+                Timer {
+                    interval: notificationInterval; running: true; repeat: false
+                    onTriggered: opacity=0
+                }
+                Timer {
+                    interval: animationInterval+notificationInterval+1; running: true; repeat: false
+                    onTriggered: notifications.remove(index,1)
+                }
+                y: notificationsList.height - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)//parent.height + margin + height - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)
+                width: modalWidth
+                height: modalHeight
+                opacity: 1
                 anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 0
+                anchors.leftMargin: margin
 
-                Text {
-                    height: parent.height / 2
+                Rectangle {
                     color: "#ffffff"
-                    text: notificationTitle
-                    wrapMode: Text.WordWrap
-                    verticalAlignment: Text.AlignBottom
-                    horizontalAlignment: Text.AlignLeft
+                    opacity: 0.5
+                    anchors.fill: parent
+                }
+
+                Item {
+                    width: height
                     anchors.top: parent.top
                     anchors.topMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    font.pixelSize: 16
-                }
-
-                Text {
-                    height: parent.height / 2
-                    color: "#ffffff"
-                    text: notificationText
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Text.AlignLeft
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: 0
-                    font.pixelSize: 12
-                    anchors.right: parent.right
-                    anchors.leftMargin: 0
-                    anchors.rightMargin: 0
+
+                    Rectangle {
+                        color: "#80ffffff"
+                        radius: height / 2
+                        anchors.rightMargin: 12
+                        anchors.leftMargin: 12
+                        anchors.bottomMargin: 12
+                        anchors.topMargin: 12
+                        anchors.fill: parent
+
+                        Image {
+                            anchors.rightMargin: 10
+                            anchors.leftMargin: 10
+                            anchors.bottomMargin: 10
+                            anchors.topMargin: 10
+                            fillMode: Image.PreserveAspectFit
+                            anchors.fill: parent
+                            source: notificationImage
+                        }
+                    }
+                }
+
+                Item {
+                    anchors.leftMargin: height
                     anchors.left: parent.left
-                }
-            }
-            Behavior on y{
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
 
-                NumberAnimation {
-                    duration: 250
-                }
-            }
-            Behavior on opacity{
+                    Text {
+                        height: parent.height / 2
+                        color: "#ffffff"
+                        text: notificationTitle
+                        wrapMode: Text.WordWrap
+                        verticalAlignment: Text.AlignBottom
+                        horizontalAlignment: Text.AlignLeft
+                        anchors.top: parent.top
+                        anchors.topMargin: 0
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        font.pixelSize: 16
+                    }
 
-                NumberAnimation {
-                    duration: 250
+                    Text {
+                        height: parent.height / 2
+                        color: "#ffffff"
+                        text: notificationText
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignLeft
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 0
+                        font.pixelSize: 12
+                        anchors.right: parent.right
+                        anchors.leftMargin: 0
+                        anchors.rightMargin: 0
+                        anchors.left: parent.left
+                    }
+                }
+                Behavior on y{
+
+                    NumberAnimation {
+                        duration: animationInterval
+                    }
+                }
+                Behavior on opacity{
+
+                    NumberAnimation {
+                        duration: animationInterval
+                    }
                 }
             }
         }

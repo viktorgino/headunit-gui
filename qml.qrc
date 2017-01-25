@@ -649,5 +649,6 @@
         <file>qml/icons/svg/social-android.svg</file>
         <file>qml/icons/svg/thermometer.svg</file>
         <file>qml/Notifications.qml</file>
+        <file>qml/images/ubuntu16_10_by_Khoir_Rudin.png</file>
     </qresource>
 </RCC>
