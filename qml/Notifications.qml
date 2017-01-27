@@ -57,7 +57,6 @@ Item {
                 Timer {
                     interval: 1; running: true; repeat: false
                     onTriggered: {
-                        console.log(parent.parent.parent.height);
                         y = notificationsList.height - (margin + modalHeight) - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)
                     }
                 }
