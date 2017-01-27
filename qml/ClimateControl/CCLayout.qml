@@ -8,18 +8,19 @@ Item {
     property int left_seat_heat_rate : 0
     property int right_seat_heat_rate : 0
     
-    ColumnLayout {
-        anchors.bottomMargin: bottom.height
+    Item {
+        id: item4
+        anchors.bottomMargin: parent.height * 0.15
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.top: parent.top
-        spacing: 0
         
         
         RowLayout {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
+            id: top_buttons
+            anchors.right: parent.right
+            anchors.left: parent.left
             
             Item {
                 Layout.fillHeight: true
@@ -96,9 +97,13 @@ Item {
         }
         
         RowLayout {
+            id: fan_direction
+            height: parent.height *0.6
+            anchors.top: top_buttons.bottom
+            anchors.topMargin: 0
             spacing: 0
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            anchors.right: parent.right
+            anchors.left: parent.left
             
             Item {
                 Layout.fillHeight: true
@@ -115,15 +120,18 @@ Item {
             }
         }
 
-        RowLayout {
-            Layout.fillHeight: true
+        FanSlider {
+            id: fanslider
+            anchors.top: fan_direction.bottom
+            anchors.topMargin: 0
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            Layout.fillHeight: false
             Layout.fillWidth: true
-
-            FanSlider {
-                id: fanslider
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
         }
     }
 
