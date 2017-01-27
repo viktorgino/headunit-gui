@@ -32,7 +32,6 @@ Item {
         y:root.height-height
         Rectangle {
             id: rectangle3
-            //y: 278
             width: root.width
             height: root.height *0.1
             color: "#ffffff"
