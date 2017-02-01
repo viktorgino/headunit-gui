@@ -8,6 +8,7 @@ Item {
     property string imageSrc: "qrc:/qml/icons/alert.png"
     property int margin: height*0.1
     property int ringSize: height*0.05
+    property string name: ""
     function getInnerSquareSide(outterSide){
         return Math.sqrt(2*Math.pow(outterSide/2,2))
     }

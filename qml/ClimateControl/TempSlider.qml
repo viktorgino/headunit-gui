@@ -53,18 +53,16 @@ Item {
             anchors.fill: parent
 
             Repeater{
-                id: repeater1
                 model:__tempslider.stepSize > 0 ? 1 + (__tempslider.maximumValue - __tempslider.minimumValue) / __tempslider.stepSize : 0
                 Item{
-                    id: item3
                     anchors.right: parent.right
                     anchors.rightMargin: 1
                     anchors.left: parent.left
                     anchors.leftMargin: 0
                     Layout.fillHeight: true
                     Layout.fillWidth: true
+                    property int dspNum : __tempslider.maximumValue - index
                     Text {
-                        property int dspNum : __tempslider.maximumValue - index
                         color: (dspNum == __tempslider.value)?"#ffffff":"#212121"
                         text: qsTr(dspNum.toString())
                         anchors.verticalCenter: parent.verticalCenter
@@ -72,7 +70,27 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         font.pixelSize: (dspNum == __tempslider.value)?24:14
                     }
+                    MouseArea {
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                        anchors.left: parent.left
+                        onClicked: {
+                            __tempslider.value = dspNum;
+                        }
+                    }
                 }
+            }
+        }
+
+        MouseArea {
+            anchors.top: __slider_ticks_column.top
+            anchors.right: parent.right
+            anchors.bottom: __slider_ticks_column.bottom
+            anchors.left: parent.left
+            propagateComposedEvents:true
+            onWheel:{
+                __tempslider.value = __tempslider.value + 1 * (wheel.angleDelta.y/Math.abs(wheel.angleDelta.y));
             }
         }
     }
@@ -98,10 +116,10 @@ Item {
         }
 
         Slider {
+            id: __tempslider
             property int steps: __tempslider.stepSize > 0 ? 1 + (__tempslider.maximumValue - __tempslider.minimumValue) / __tempslider.stepSize : 0
             property int test : (__slider_ticks_column.height/steps )/2 - 12.5
             anchors.topMargin: test
-            id: __tempslider
             anchors.bottomMargin: test
             anchors.top: top_text.bottom
             anchors.right: parent.right

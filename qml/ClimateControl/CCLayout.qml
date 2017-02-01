@@ -17,113 +17,27 @@ Item {
         anchors.top: parent.top
         
         
-        RowLayout {
+        TopButtons{
             id: top_buttons
-            anchors.right: parent.right
-            anchors.left: parent.left
-            
-            Item {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-            }
-            
-            Rectangle {
-                height: width/7
-                color: "#33ffffff"
-                radius: height/2
-                Layout.fillWidth: false
-                Layout.fillHeight: false
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
-                border.width: 0
-                width: parent.width * 0.7
-                
-                RowLayout {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    anchors.bottom: parent.bottom
-                    anchors.top: parent.top
+            width: parent.width * 0.7
+            height: parent.height * 0.2
+            anchors.horizontalCenter: parent.horizontalCenter
 
-                    
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                    }
-                    
-                    TopButton {
-                        id: button_rear_defrost
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        imageSrc: "qrc:/qml/icons/svg/rear-window-defrost.svg"
-                    }
-                    
-                    TopButton {
-                        id: button_defrost
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        imageSrc: "qrc:/qml/icons/svg/windshield-defrost.svg"
-                    }
-                    
-                    TopButton {
-                        id: button_ac
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        imageSrc: "qrc:/qml/icons/svg/air-conditioning.svg"
-                    }
-                    
-                    TopButton {
-                        id: button_recirc
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        imageSrc: "qrc:/qml/icons/svg/recirculation.svg"
-                    }
-                    
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                    }
-                    
-                }
-            }
-            
-            
-            Item {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
         }
-        
-        RowLayout {
+
+        FanDirection {
             id: fan_direction
-            height: parent.height *0.6
+            width: height
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: top_buttons.bottom
             anchors.topMargin: 0
-            spacing: 0
-            anchors.right: parent.right
-            anchors.left: parent.left
-            
-            Item {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-
-                FanDirection {
-                    width:height
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: parent.top
-                    anchors.topMargin: 0
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                }
-            }
+            anchors.bottom: fan_slider.top
+            anchors.bottomMargin: 0
         }
 
         FanSlider {
-            id: fanslider
-            anchors.top: fan_direction.bottom
-            anchors.topMargin: 0
+            id: fan_slider
+            height: parent.height *0.2
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
             anchors.left: parent.left
@@ -143,12 +57,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                overlay.visible = false
-                left_tempslider.visible = false
-                right_tempslider.visible = false
-                fanslider.slider_enabled = true
-            }
+            onClicked: __cclayout.state = "base state"
         }
     }
 
@@ -204,12 +113,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: {
-                        left_tempslider.visible = !left_tempslider.visible
-                        overlay.visible = right_tempslider.visible?true:overlay.visible?false:true
-                        fanslider.slider_enabled = !overlay.visible
-                        right_tempslider.visible = false
-                    }
+                    onClicked: __cclayout.state = __cclayout.state == "left slider"?"base state":"left slider"
                 }
 
                 TempSlider {
@@ -445,12 +349,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: {
-                        right_tempslider.visible = !right_tempslider.visible
-                        overlay.visible = left_tempslider.visible?true:overlay.visible?false:true
-                        fanslider.slider_enabled = !overlay.visible
-                        left_tempslider.visible = false
-                    }
+                    onClicked: __cclayout.state = __cclayout.state == "right slider"?"base state":"right slider"
                 }
 
                 TempSlider {
@@ -468,5 +367,43 @@ Item {
             }
         }
     }
+    states: [
+        State {
+            name: "left slider"
+
+            PropertyChanges {
+                target: left_tempslider
+                visible: true
+            }
+
+            PropertyChanges {
+                target: overlay
+                visible: true
+            }
+
+            PropertyChanges {
+                target: fan_slider
+                enabled: false
+            }
+        },
+        State {
+            name: "right slider"
+
+            PropertyChanges {
+                target: right_tempslider
+                visible: true
+            }
+
+            PropertyChanges {
+                target: overlay
+                visible: true
+            }
+
+            PropertyChanges {
+                target: fan_slider
+                enabled: false
+            }
+        }
+    ]
 
 }
