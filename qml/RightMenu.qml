@@ -4,8 +4,8 @@ import QtQuick.Layouts 1.0
 Item {
     id: rightMenu
     signal itemChanged(int index);
-    function menuItemClicked (y,index){
-        active_button_bg.y = y-1;
+    function menuItemClicked (index){
+        active_button_bg.y = menuItemsRepeater.itemAt(index).y;
         rightMenu.itemChanged(index);
     }
 
@@ -48,6 +48,7 @@ Item {
         anchors.fill: parent
 
         Repeater{
+            id:menuItemsRepeater
             model:menuItems.length
             Rectangle {
                 color:menuItems[index].color
@@ -90,7 +91,7 @@ Item {
                 MouseArea {
                     id: mouseArea1
                     anchors.fill: parent
-                    onClicked: menuItemClicked(parent.y,index)
+                    onClicked: menuItemClicked(index)
                 }
             }
         }
