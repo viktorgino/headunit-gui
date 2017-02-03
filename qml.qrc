@@ -648,5 +648,6 @@
         <file>qml/images/ubuntu16_10_by_Khoir_Rudin.png</file>
         <file>qml/ClimateControl/Arrow.qml</file>
         <file>qml/ClimateControl/TopButtons.qml</file>
+        <file>qml/MediaPlayer/MediaPlayerLayout.qml</file>
     </qresource>
 </RCC>

@@ -76,8 +76,8 @@ Item {
                 anchors.leftMargin: margin
 
                 Rectangle {
-                    color: "#ffffff"
-                    opacity: 0.5
+                    color: "#212121"
+                    opacity: 1
                     anchors.fill: parent
                 }
 
