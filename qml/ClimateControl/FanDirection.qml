@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.0
+import "../theme"
 
 Item{
     id: fan_direction
@@ -18,7 +19,7 @@ Item{
         anchors.left: parent.left
 
         Item {
-            id: bottom
+            id: bottom1
             height: parent.width
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -82,7 +83,7 @@ Item{
             }
         }
         Item {
-            id: top
+            id: top1
             height: parent.width
             Layout.fillHeight: true
             Layout.fillWidth: true

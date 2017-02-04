@@ -62,7 +62,7 @@ Item {
     }
 
     Item {
-        id: bottom
+        id: bottom1
         height: parent.height * 0.15
         anchors.left: parent.left
         anchors.leftMargin: 0
