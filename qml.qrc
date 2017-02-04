@@ -633,8 +633,6 @@
         <file>qml/Radio/Tuner.qml</file>
         <file>qml/RightMenu.qml</file>
         <file>qml/images/2.png</file>
-        <file>qml/Radio/ModeSwitch.qml</file>
-        <file>qml/MenuButton.qml</file>
         <file>qml/icons/svg/chevron-left.svg</file>
         <file>qml/icons/svg/chevron-right.svg</file>
         <file>qml/icons/svg/android-star.svg</file>
@@ -646,8 +644,22 @@
         <file>qml/icons/svg/thermometer.svg</file>
         <file>qml/Notifications.qml</file>
         <file>qml/images/ubuntu16_10_by_Khoir_Rudin.png</file>
-        <file>qml/ClimateControl/Arrow.qml</file>
         <file>qml/ClimateControl/TopButtons.qml</file>
         <file>qml/MediaPlayer/MediaPlayerLayout.qml</file>
+        <file>qml/images/music_placeholder.jpg</file>
+        <file>qml/MediaPlayer/MediaDrawer.qml</file>
+        <file>qml/MediaPlayer/MediaDrawerItem.qml</file>
+        <file>qml/theme/ModeSwitch.qml</file>
+        <file>qml/theme/MenuButton.qml</file>
+        <file>qml/theme/Arrow.qml</file>
+        <file>qml/theme/TopMenu.qml</file>
+        <file>qml/Radio/RadioDrawerItem.qml</file>
+        <file>qml/icons/svg/android-list.svg</file>
+        <file>qml/icons/svg/android-person.svg</file>
+        <file>qml/icons/svg/navicon-round.svg</file>
+        <file>qml/MediaPlayer/MediaContainerList.qml</file>
+        <file>qml/MediaPlayer/MediaContainerListItem.qml</file>
+        <file>qml/MediaPlayer/MediaList.qml</file>
+        <file>qml/MediaPlayer/MediaListItem.qml</file>
     </qresource>
 </RCC>
