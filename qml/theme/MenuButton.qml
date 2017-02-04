@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
 
     id:root
-    function changeState(){
+    function changeState(toDefault){
         if(root.state == 'Active' ){
             root.state = ""
         } else{
