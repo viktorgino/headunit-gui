@@ -1,13 +1,15 @@
 import QtQuick 2.0
 
 Item {
-    property var colorInactive: "#ffffff"
-    property var colorActive: "#000000"
-    property var sliderColor: "#212121"
+    property color colorInactive: "#ffffff"
+    property color colorActive: "#000000"
+    property color sliderColor: "#212121"
     property int sliderLeftPosition : slider.margin
     property int sliderRightPosition : slide.width - slider.width - slider.margin
-    property var leftValue : "left"
-    property var rightValue : "right"
+    property string leftValue : "left"
+    property string rightValue : "right"
+    property string leftText : "On"
+    property string rightText : "Off"
     property var switchValue : leftValue
 
     function snapToValue(){
@@ -67,7 +69,7 @@ Item {
         }
 
         Item {
-            id: left
+            id: left1
             width: slider.width
             anchors.left: parent.left
             anchors.bottom: parent.bottom
@@ -80,7 +82,7 @@ Item {
             Text {
                 id: left_text
                 color: colorActive
-                text: qsTr("FM")
+                text: leftText
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 verticalAlignment: Text.AlignVCenter
@@ -89,7 +91,7 @@ Item {
             }
         }
         Item {
-            id: right
+            id: right1
             width: slider.width
             anchors.right: parent.right
             anchors.bottom: parent.bottom
@@ -102,7 +104,7 @@ Item {
             Text {
                 id: right_text
                 color: colorInactive
-                text: qsTr("DAB")
+                text: rightText
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
                 verticalAlignment: Text.AlignVCenter
