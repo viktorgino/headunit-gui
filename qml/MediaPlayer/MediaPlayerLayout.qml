@@ -319,7 +319,6 @@ Item {
                 mediaplayer.playlist.next();
             }
             mediaplayer.play();
-            //mediaplayer.source = "file://"+path;
         }
         onBack: changeState("toContainer")
     }

@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 
 Item {
     id:__media_list
@@ -100,6 +101,8 @@ Item {
                 __media_list.model[index].playNow = true;
                 __media_list.itemClicked(path);
             }
+        }
+        ScrollBar.vertical: ScrollBar {
         }
     }
     Component.onCompleted: {
