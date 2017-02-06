@@ -6,12 +6,13 @@ Item {
     width: parent.width
     property string path: modelData.path + "/" + modelData.name
 
-    signal itemClicked(string path)
+    signal itemClicked(string path, int index)
     Text {
         id: label1
         height: 20
         color: "#ffffff"
         text: modelData.name
+        fontSizeMode: Text.VerticalFit
         clip: true
         verticalAlignment: Text.AlignVCenter
         anchors.top: parent.top
@@ -29,13 +30,14 @@ Item {
         id: label2
         color: "#ffffff"
         text:modelData.path
+        elide: Text.ElideLeft
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5
         font.bold: true
         anchors.rightMargin: 10
         anchors.leftMargin: 10
         anchors.topMargin: 0
-        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        wrapMode: Text.NoWrap
         anchors.top: label1.bottom
         anchors.left: parent.left
         font.pointSize: 9
@@ -50,7 +52,9 @@ Item {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.rightMargin: 10
-        onClicked: __media_list_item.itemClicked(path);
+        onClicked: {
+            __media_list_item.itemClicked(path, index);
+        }
     }
 
 
