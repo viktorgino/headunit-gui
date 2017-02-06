@@ -4,12 +4,19 @@ Item {
     id: __media_container_list_item
     height: 50
     width: parent.width
-    property var path_parts: modelData.path.split("/")
-    property var name: path_parts.splice(-1,1)[0]
-    property var path: path_parts.join("/")
-    signal itemClicked(string item_type,int id)
+    function getName (path){
+        var path_parts = path.split("/");
+        return path_parts.splice(-1,1)[0];
+    }
+    function getPath (path){
+        return path.replace(getName(path),"");
+    }
+
+    property var name: getName(modelData.path)
+    property var path: getPath(modelData.path)
+    signal itemClicked(string item_type,int id,string path, string name, url thumbnail)
     Image {
-        id: image1
+        id: thumbnail
         width: height
         anchors.left: parent.left
         anchors.leftMargin: 10
@@ -25,6 +32,7 @@ Item {
         height: 20
         color: "#ffffff"
         text: name
+        elide: Text.ElideLeft
         clip: true
         verticalAlignment: Text.AlignVCenter
         anchors.top: parent.top
@@ -32,7 +40,7 @@ Item {
         anchors.right: more_button.left
         anchors.rightMargin: 10
         font.pointSize: 11
-        anchors.left: image1.right
+        anchors.left: thumbnail.right
         anchors.leftMargin: 10
         font.bold: true
     }
@@ -42,15 +50,16 @@ Item {
         id: label2
         color: "#ffffff"
         text: path
+        elide: Text.ElideLeft
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5
         font.bold: true
         anchors.rightMargin: 10
         anchors.leftMargin: 10
         anchors.topMargin: 0
-        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        wrapMode: Text.NoWrap
         anchors.top: label1.bottom
-        anchors.left: image1.right
+        anchors.left: thumbnail.right
         font.pointSize: 9
         anchors.right: more_button.left
         verticalAlignment: Text.AlignVCenter
@@ -63,7 +72,7 @@ Item {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.rightMargin: 10
-        onClicked: __media_container_list_item.itemClicked(modelData.item_type,modelData.id)
+        onClicked: __media_container_list_item.itemClicked(modelData.item_type,modelData.id,path,name,thumbnail.source)
     }
 
 

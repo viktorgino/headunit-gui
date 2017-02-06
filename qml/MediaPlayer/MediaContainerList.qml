@@ -8,7 +8,7 @@ Item {
     property url icon;
     property string name;
     property string item_type;
-    signal itemClicked(string item_type,int id)
+    signal itemClicked(string item_type, int id, string path, string name, url thumbnail)
 
     ListView {
         id: listView
@@ -21,7 +21,7 @@ Item {
         anchors.topMargin: 0
         model: __media_container_list.model
         delegate: MediaContainerListItem {
-            onItemClicked: __media_container_list.itemClicked(item_type,id)
+            onItemClicked: __media_container_list.itemClicked(item_type,id,path,name,thumbnail)
         }
         ScrollBar.vertical: ScrollBar {
         }
