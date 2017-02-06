@@ -19,10 +19,10 @@ Item {
         if(__cclayout.state== ""){
             __cclayout.state="drawerOpen";
             radioDrawer.activeStation = activeStation;
-            top_menu.changeMenuButtonState(false);
+            top_menu.menuButtonActive = true;
         } else{
             __cclayout.state="";
-            top_menu.changeMenuButtonState(true);
+            top_menu.menuButtonActive = false;
         }
     }
 

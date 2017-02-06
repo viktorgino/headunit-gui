@@ -1,16 +1,8 @@
 import QtQuick 2.0
 
 Item {
-
     id:root
-    function changeState(toDefault){
-        if(root.state == 'Active' ){
-            root.state = ""
-        } else{
-            root.state = 'Active';
-        }
-    }
-
+    property bool isActive: false
     Item {
         id: item1
         width: root.width
@@ -41,6 +33,7 @@ Item {
     states: [
         State {
             name: "Active"
+            when: root.isActive
 
             PropertyChanges {
                 target: rectangle2

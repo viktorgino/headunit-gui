@@ -16,11 +16,11 @@ Item {
 
     function changeState(caller){
         if(__media_player_layout.state == "" && caller == "button"){
-            __media_player_layout.state="browser open";
-            top_menu.changeMenuButtonState(true);
+            __media_player_layout.state="container list";
+            top_menu.menuButtonActive = true;
         } else if(caller == "button"){
             __media_player_layout.state="";
-            top_menu.changeMenuButtonState(false);
+            top_menu.menuButtonActive = false;
         } else if(caller == "toList"){
             __media_player_layout.state="browser open1";
         } else if(caller == "toContainer"){

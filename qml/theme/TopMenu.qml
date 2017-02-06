@@ -5,9 +5,7 @@ Item {
     id: __root
     signal menuClicked();
     property double bg_opacity: 0.5
-    function changeMenuButtonState(toDefault){
-        menuButton1.changeState(toDefault);
-    }
+    property bool menuButtonActive: false
 
     Rectangle {
         id: overlay1
@@ -44,6 +42,7 @@ Item {
             anchors.topMargin: parent.height*0.2
             anchors.bottom: parent.bottom
             anchors.bottomMargin: parent.height*0.2
+            isActive: __root.menuButtonActive
         }
 
         MouseArea {
