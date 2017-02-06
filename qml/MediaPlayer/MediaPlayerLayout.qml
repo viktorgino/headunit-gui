@@ -16,7 +16,7 @@ Item {
     property bool isBase: false
     function changeState(caller){
         if(__media_player_layout.state == "" && caller == "button"){
-            __media_player_layout.state="container list";
+            __media_player_layout.state="drawer";
             top_menu.menuButtonActive = true;
             isBase = false;
         } else if(caller == "button"){
@@ -387,6 +387,15 @@ Item {
     }
 
     states: [
+        State {
+            name: "drawer"
+            PropertyChanges {
+                target: main
+                anchors.topMargin: 0
+                anchors.rightMargin: -1* parent.width * 0.3
+                anchors.leftMargin: parent.width * 0.3
+            }
+        },
         State {
             name: "container list"
 
