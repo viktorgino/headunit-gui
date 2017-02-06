@@ -79,9 +79,6 @@ Item {
                                        title: notification.title,
                                        text: notification.text})
         }
-        onSetMenuItem:{
-            rightMenu.menuItemClicked(index);
-        }
     }
     Notifications {
         id: notifications1

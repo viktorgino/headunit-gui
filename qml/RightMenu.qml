@@ -73,7 +73,11 @@ Item {
                 Text {
                     id: text1
                     color: "#ffffff"
-                    text: menuItems[index].text
+                    text: {
+                        if(defaultMenuItem == index)
+                            rightMenu.menuItemClicked(index);
+                        menuItems[index].text;
+                    }
                     anchors.top: parent.top
                     anchors.topMargin: 0
                     anchors.bottom: parent.bottom
