@@ -13,18 +13,20 @@ Item {
         var seconds = ((milliseconds % 60000) / 1000).toFixed(0);
         return (seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
     }
-
+    property bool isBase: false
     function changeState(caller){
         if(__media_player_layout.state == "" && caller == "button"){
             __media_player_layout.state="container list";
             top_menu.menuButtonActive = true;
+            isBase = false;
         } else if(caller == "button"){
             __media_player_layout.state="";
             top_menu.menuButtonActive = false;
+            isBase = false;
         } else if(caller == "toList"){
-            __media_player_layout.state="browser open1";
+            __media_player_layout.state="media list";
         } else if(caller == "toContainer"){
-            __media_player_layout.state="browser open";
+            __media_player_layout.state="container list";
         }
     }
     Item {
@@ -191,40 +193,48 @@ Item {
 
             }
 
-            Text {
-                id: media_album_title
-                text: mediaplayer.metaData.albumTitle
-                anchors.top: media_author.bottom
-                anchors.topMargin: 0
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 16
-            }
-
-            Text {
-                id: media_author
-                text: mediaplayer.metaData.leadPerformer
-                anchors.top: media_title.bottom
-                anchors.topMargin: 0
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 16
-            }
-
-            Text {
-                id: media_title
-                text: mediaplayer.metaData.title
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.pixelSize: 24
-            }
-
             Item {
                 id: track_info
-                height: parent.height * 0.2
+                height: parent.height * 0.4
                 anchors.bottom: buttons.top
                 anchors.bottomMargin: 0
                 anchors.right: parent.right
                 anchors.rightMargin: 8
                 anchors.left: parent.left
                 anchors.leftMargin: 8
+
+                Text {
+                    id: media_title
+                    text: mediaplayer.metaData.title?mediaplayer.metaData.title:""
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 24
+                }
+
+                Text {
+                    id: media_author
+                    x: 127
+                    y: -129
+                    text:mediaplayer.getArtist(mediaplayer.metaData)
+                    anchors.top: media_title.bottom
+                    anchors.topMargin: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 16
+                }
+
+                Text {
+                    id: media_album_title
+                    x: 39
+                    y: -108
+                    text: mediaplayer.metaData.albumTitle?mediaplayer.metaData.albumTitle:""
+                    anchors.top: media_author.bottom
+                    anchors.topMargin: 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.pixelSize: 16
+                }
+
+
             }
 
             Image {
@@ -237,7 +247,7 @@ Item {
                 anchors.bottomMargin: 0
                 anchors.top: parent.top
                 anchors.topMargin: 8
-                source: mediaplayer.metaData.coverArtUrlLarge
+                source: typeof(mediaplayer.metaData.coverArtUrlLarge) != "undefined"?mediaplayer.metaData.coverArtUrlLarge:""
             }
         }
 
@@ -275,7 +285,65 @@ Item {
         onPlaying: {
             playButton.source = "qrc:/qml/icons/pause.png";
         }
+        function getArtist(){
+            var m = metaData;
+            return m.contributingArtist?m.contributingArtist:
+                                         m.contributingArtist?m.leadPerformer:
+                                                               m.contributingArtist?m.albumArtist:
+                                                                                     m.contributingArtist?m.metaData.author:
+                                                                                                           m.contributingArtist?m.writer:"";
+        }
     }
+
+    MediaList {
+        id: mediaList
+        width: parent.width * 0.7
+        anchors.leftMargin: -1 * width
+        opacity: 0
+        anchors.top: top_menu.bottom
+        anchors.topMargin: 0
+        anchors.left: main.left
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        onItemClicked: {
+            changeState("button");
+            mediaplayer.playlist.clear();
+            var itemToPlay = 0;
+            for(var i=0; i<model.length; i++){
+                if(model[i].playNow)
+                    itemToPlay = i+1;
+                mediaplayer.playlist.addItem("file://"+model[i].path + '/' + model[i].name );
+            }
+            //No function in QT to play a song with a given id so we skip to it
+            for(var i=0; i<itemToPlay; i++){
+                mediaplayer.playlist.next();
+            }
+            mediaplayer.play();
+            //mediaplayer.source = "file://"+path;
+        }
+        onBack: changeState("toContainer")
+    }
+
+
+    MediaContainerList {
+        id: mediaContainerList
+        width: parent.width * 0.7
+        anchors.leftMargin: parent.width
+        opacity: 0
+        anchors.top: top_menu.bottom
+        anchors.topMargin: 0
+        anchors.left: main.left
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        onItemClicked: {
+            changeState("toList");
+            mediaList.model = mediaLibrary.audioFolderContent(id);
+            mediaList.thumbnail = thumbnail;
+            mediaList.title = name;
+            mediaList.sub_title = path;
+        }
+    }
+
 
     MediaDrawer {
         id: mediaDrawer
@@ -305,42 +373,6 @@ Item {
             __media_player_layout.changeState("toContainer")
         }
     }
-    MediaList {
-        id: mediaList
-        opacity: 0.5
-        visible: false
-        anchors.top: top_menu.bottom
-        anchors.topMargin: 0
-        anchors.left: main.left
-        anchors.leftMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        onItemClicked: {
-            changeState("button");
-            mediaplayer.source = "file://"+path;
-        }
-    }
-
-    MediaContainerList {
-        id: mediaContainerList
-        opacity: 0
-        visible: false
-        anchors.top: top_menu.bottom
-        anchors.topMargin: 0
-        anchors.left: main.left
-        anchors.leftMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        onItemClicked: {
-            changeState("toList");
-            mediaList.model = mediaLibrary.audioFolderContent(id);
-        }
-    }
-
 
     TopMenu{
         id: top_menu
@@ -357,7 +389,7 @@ Item {
 
     states: [
         State {
-            name: "browser open"
+            name: "container list"
 
             PropertyChanges {
                 target: main
@@ -375,6 +407,7 @@ Item {
 
             PropertyChanges {
                 target: mediaContainerList
+                anchors.leftMargin: 0
                 opacity: 1
                 visible: true
             }
@@ -385,7 +418,7 @@ Item {
             }
         },
         State {
-            name: "browser open1"
+            name: "media list"
             PropertyChanges {
                 target: main
                 anchors.leftMargin: parent.width * 0.3
@@ -413,14 +446,15 @@ Item {
 
             PropertyChanges {
                 target: mediaList
+                anchors.leftMargin: 0
                 opacity: 1
                 visible: true
             }
         }
     ]
-    transitions: Transition {
+    transitions:
+        Transition {
         SequentialAnimation {
-            NumberAnimation { properties: "visible"; duration: 1}
             NumberAnimation { properties: "anchors.leftMargin,anchors.rightMargin,opacity,width"; duration: 250}
             NumberAnimation { properties: "visible"; duration: 1}
         }
