@@ -16,8 +16,6 @@ Item{
     property color color:baseColor
     signal clicked()
 
-    anchors.fill: parent
-
     Text {
         text: parent.text
         color: baseColor

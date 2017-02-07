@@ -146,6 +146,7 @@ Item {
 
                         ImageButton{
                             id: shuffle_button
+                        anchors.fill: parent
                             checkable: true
                             checked: (nowPlaying.playbackMode == Playlist.Random)
                             imageSource: "qrc:/qml/icons/shuffle.png"
@@ -167,6 +168,7 @@ Item {
 
                         ImageButton{
                             id: prev_button
+                        anchors.fill: parent
                             imageSource: "qrc:/qml/icons/skip-backward.png"
                             onClicked: mediaplayer.playlist.previous()
                         }
@@ -182,6 +184,7 @@ Item {
                             Layout.fillWidth: true
                             imageSource: "qrc:/qml/icons/play.png"
                             id:playButton
+                        anchors.fill: parent
                             onClicked: {
                                 switch (mediaplayer.playbackState){
                                 case MediaPlayer.PlayingState:
@@ -203,6 +206,7 @@ Item {
 
                         ImageButton{
                             id: next_button
+                        anchors.fill: parent
                             Layout.fillHeight: true
                             Layout.fillWidth: true
                             imageSource: "qrc:/qml/icons/skip-forward.png"
@@ -235,6 +239,7 @@ Item {
                                     return "";
                                 }
                             }
+                        anchors.fill: parent
                             onClicked: {
                                 if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
                                     nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
