@@ -16,12 +16,6 @@ Item{
     property color color:baseColor
     signal clicked()
 
-    Text {
-        text: parent.text
-        color: baseColor
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-    }
 
     Image {
         id:__image_button_image
@@ -38,6 +32,13 @@ Item{
         enabled: true
         source: __image_button_image
     }
+    Text {
+        text: parent.text
+        color: baseColor
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+    }
+
     MouseArea{
         anchors.fill: parent
         onPressed: {
