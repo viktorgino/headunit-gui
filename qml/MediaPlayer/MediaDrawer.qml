@@ -17,12 +17,6 @@ Item {
         anchors.fill: parent
         model: ListModel {
             ListElement {
-                name: "Now playing"
-                icon: "qrc:/qml/icons/radio-waves.png"
-                item_type: "now_playing"
-            }
-
-            ListElement {
                 name: "Playlists"
                 icon: "qrc:/qml/icons/svg/android-list.svg"
                 item_type: "playlists"

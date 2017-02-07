@@ -1,10 +1,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.0
 import QtMultimedia 5.7
-import QtQuick.Dialogs 1.0
-import QtGraphicalEffects 1.0
 import "../theme"
 
 Item {
@@ -28,6 +25,20 @@ Item {
             __media_player_layout.state="media list";
         } else if(caller == "toContainer"){
             __media_player_layout.state="container list";
+        } else if(caller == "toNowPlaying"){
+            top_menu.menuButtonActive = true;
+            __media_player_layout.state="now playing";
+        }
+    }
+
+    //No function in QT to play a song with a given id so we skip to it
+    function playItem (toPlay){
+        for(var i=0; i<Math.abs(toPlay); i++){
+            if(toPlay > 0){
+                nowPlaying.next();
+            } else {
+                nowPlaying.previous();
+            }
         }
     }
     Item {
@@ -47,265 +58,277 @@ Item {
             anchors.topMargin: 15
             anchors.fill: parent
 
-            Image {
-                id: thumbnail_image
-                width: parent.width * 0.3
-                fillMode: Image.PreserveAspectFit
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                source: typeof(mediaplayer.metaData.coverArtUrlLarge) != "undefined"?mediaplayer.metaData.coverArtUrlLarge:""
-            }
-
             Item {
                 id: item6
-                anchors.left: thumbnail_image.right
-                anchors.leftMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
+                height: parent.height * 0.2
                 anchors.top: parent.top
                 anchors.topMargin: 0
                 anchors.right: parent.right
                 anchors.rightMargin: 0
-
-                Item {
-                    id: track_info
-                    height: parent.height * 0.4
-                    anchors.bottom: buttons.top
-                    anchors.bottomMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 8
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                ImageButton{
+                    width: height
+                    anchors.topMargin: parent.height * 0.2
+                    anchors.bottomMargin: parent.height * 0.2
+                    anchors.leftMargin: parent.height * 0.2
                     anchors.left: parent.left
-                    anchors.leftMargin: 8
-
-                    Text {
-                        id: media_title
-                        color: "#ffffff"
-                        text: mediaplayer.metaData.title?mediaplayer.metaData.title:""
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
-                        anchors.left: parent.left
-                        anchors.leftMargin: 0
-                        anchors.top: parent.top
-                        anchors.topMargin: 0
-                        font.pixelSize: 24
-                    }
-
-                    Text {
-                        id: media_author
-                        color: "#ffffff"
-                        text:mediaplayer.getArtist(mediaplayer.metaData)
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
-                        anchors.left: parent.left
-                        anchors.leftMargin: 0
-                        anchors.top: media_title.bottom
-                        anchors.topMargin: 0
-                        font.pixelSize: 16
-                    }
-
-                    Text {
-                        id: media_album_title
-                        color: "#ffffff"
-                        text: mediaplayer.metaData.albumTitle?mediaplayer.metaData.albumTitle:""
-                        verticalAlignment: Text.AlignTop
-                        horizontalAlignment: Text.AlignHCenter
-                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
-                        anchors.left: parent.left
-                        anchors.leftMargin: 0
-                        anchors.top: media_author.bottom
-                        anchors.topMargin: 0
-                        font.pixelSize: 16
-                    }
-
-
-                }
-
-                RowLayout {
-                    id: buttons
-                    width: parent.width * 0.5
-                    height: width/5
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottom: slider_wrapper.top
-                    anchors.bottomMargin: 0
-
-                    Item {
-                        id: item1
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-
-                        ImageButton{
-                            id: shuffle_button
-                        anchors.fill: parent
-                            checkable: true
-                            checked: (nowPlaying.playbackMode == Playlist.Random)
-                            imageSource: "qrc:/qml/icons/shuffle.png"
-                            changeColorOnPress:false
-                            onClicked: {
-                                if(parent.checked){
-                                    nowPlaying.playbackMode = Playlist.Random
-                                } else {
-                                    nowPlaying.playbackMode = Playlist.Sequential
-                                }
-                            }
-                        }
-                    }
-
-                    Item {
-                        id: item2
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-
-                        ImageButton{
-                            id: prev_button
-                        anchors.fill: parent
-                            imageSource: "qrc:/qml/icons/skip-backward.png"
-                            onClicked: mediaplayer.playlist.previous()
-                        }
-                    }
-
-                    Item {
-                        id: item3
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-
-                        ImageButton{
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            imageSource: "qrc:/qml/icons/play.png"
-                            id:playButton
-                        anchors.fill: parent
-                            onClicked: {
-                                switch (mediaplayer.playbackState){
-                                case MediaPlayer.PlayingState:
-                                    mediaplayer.pause()
-                                    break;
-                                case MediaPlayer.PausedState:
-                                case MediaPlayer.StoppedState:
-                                    mediaplayer.play()
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                    Item {
-                        id: item4
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-
-                        ImageButton{
-                            id: next_button
-                        anchors.fill: parent
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            imageSource: "qrc:/qml/icons/skip-forward.png"
-                            onClicked: mediaplayer.playlist.next()
-                        }
-                    }
-
-                    Item {
-                        id: item5
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-
-                        ImageButton {
-                            id: loop_button
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            //checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
-                            imageSource: "qrc:/qml/icons/refresh.png"
-                            changeColorOnPress:false
-                            text: {
-                                switch(nowPlaying.playbackMode){
-                                case Playlist.CurrentItemInLoop:
-                                    checked=true;
-                                    return "1";
-                                case Playlist.Loop:
-                                    checked=true;
-                                    return "All";
-                                default:
-                                    checked=false;
-                                    return "";
-                                }
-                            }
-                        anchors.fill: parent
-                            onClicked: {
-                                if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
-                                    nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
-                                } else if (nowPlaying.playbackMode == Playlist.CurrentItemInLoop){
-                                    nowPlaying.playbackMode = Playlist.Loop;
-                                } else {
-                                    nowPlaying.playbackMode = Playlist.Sequential;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Item {
-                    id: slider_wrapper
-                    height: parent.height * 0.2
                     anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
+                    anchors.top: parent.top
+                    imageSource: "qrc:/qml/icons/radio-waves.png"
+                    onClicked: changeState("toNowPlaying")
+                }
+            }
+
+            Image {
+                id: thumbnail_image
+                width: parent.width * 0.3
+                height: width
+                anchors.topMargin: 0
+                fillMode: Image.PreserveAspectCrop
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.top: item6.bottom
+                source: typeof(mediaplayer.metaData.coverArtUrlLarge) != "undefined"?mediaplayer.metaData.coverArtUrlLarge:""
+            }
+
+            Item {
+                id: track_info
+                anchors.top: item6.bottom
+                anchors.topMargin: 0
+                anchors.bottom: buttons.top
+                anchors.bottomMargin: 0
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                anchors.left: thumbnail_image.right
+                anchors.leftMargin: 0
+
+                Text {
+                    id: media_title
+                    color: "#ffffff"
+                    text: mediaplayer.metaData.title?mediaplayer.metaData.title:""
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                     anchors.right: parent.right
                     anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    font.pixelSize: 24
+                }
 
-                    Slider {
-                        id: sliderHorizontal1
-                        anchors.top: parent.top
-                        anchors.topMargin: 0
-                        value: mediaplayer.position
-                        maximumValue: mediaplayer.duration
-                        stepSize: 1
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
-                        anchors.left: parent.left
-                        anchors.leftMargin: 0
-                        onValueChanged: {
-                            if(value != mediaplayer.position){
-                                mediaplayer.seek(value)
-                            }
-                        }
-                    }
+                Text {
+                    id: media_author
+                    color: "#ffffff"
+                    text:mediaplayer.getArtist(mediaplayer.metaData)
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.top: media_title.bottom
+                    anchors.topMargin: 0
+                    font.pixelSize: 16
+                }
 
-                    Text {
-                        id: text1
-                        color: "#ffffff"
-                        text: getReadableTime(mediaplayer.position)
-                        anchors.top: sliderHorizontal1.bottom
-                        anchors.topMargin: 0
-                        anchors.left: parent.left
-                        anchors.leftMargin: 0
-                        font.pixelSize: 12
-                    }
-
-                    Text {
-                        id: text2
-                        color: "#ffffff"
-                        text: getReadableTime(mediaplayer.duration)
-                        anchors.right: parent.right
-                        anchors.rightMargin: 0
-                        anchors.top: sliderHorizontal1.bottom
-                        font.pixelSize: 12
-                        anchors.topMargin: 0
-                    }
+                Text {
+                    id: media_album_title
+                    color: "#ffffff"
+                    text: mediaplayer.metaData.albumTitle?mediaplayer.metaData.albumTitle:""
+                    verticalAlignment: Text.AlignTop
+                    horizontalAlignment: Text.AlignHCenter
+                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.top: media_author.bottom
+                    anchors.topMargin: 0
+                    font.pixelSize: 16
                 }
 
 
             }
+
+            RowLayout {
+                id: buttons
+                width: height * 5
+                height: parent.height*0.15
+                anchors.horizontalCenter: track_info.horizontalCenter
+                anchors.bottom: slider_wrapper.top
+                anchors.bottomMargin: 0
+
+                Item {
+                    id: item1
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    ImageButton{
+                        id: shuffle_button
+                        anchors.fill: parent
+                        checkable: true
+                        checked: (nowPlaying.playbackMode == Playlist.Random)
+                        imageSource: "qrc:/qml/icons/shuffle.png"
+                        changeColorOnPress:false
+                        onClicked: {
+                            if(parent.checked){
+                                nowPlaying.playbackMode = Playlist.Random
+                            } else {
+                                nowPlaying.playbackMode = Playlist.Sequential
+                            }
+                        }
+                    }
+                }
+
+                Item {
+                    id: item2
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    ImageButton{
+                        id: prev_button
+                        anchors.fill: parent
+                        imageSource: "qrc:/qml/icons/skip-backward.png"
+                        onClicked: mediaplayer.playlist.previous()
+                    }
+                }
+
+                Item {
+                    id: item3
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    ImageButton{
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        imageSource: "qrc:/qml/icons/play.png"
+                        id:playButton
+                        anchors.fill: parent
+                        onClicked: {
+                            switch (mediaplayer.playbackState){
+                            case MediaPlayer.PlayingState:
+                                mediaplayer.pause()
+                                break;
+                            case MediaPlayer.PausedState:
+                            case MediaPlayer.StoppedState:
+                                mediaplayer.play()
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                Item {
+                    id: item4
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    ImageButton{
+                        id: next_button
+                        anchors.fill: parent
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        imageSource: "qrc:/qml/icons/skip-forward.png"
+                        onClicked: mediaplayer.playlist.next()
+                    }
+                }
+
+                Item {
+                    id: item5
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+
+                    ImageButton {
+                        id: loop_button
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        //checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
+                        imageSource: "qrc:/qml/icons/refresh.png"
+                        changeColorOnPress:false
+                        text: {
+                            switch(nowPlaying.playbackMode){
+                            case Playlist.CurrentItemInLoop:
+                                checked=true;
+                                return "1";
+                            case Playlist.Loop:
+                                checked=true;
+                                return "All";
+                            default:
+                                checked=false;
+                                return "";
+                            }
+                        }
+                        anchors.fill: parent
+                        onClicked: {
+                            if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
+                                nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
+                            } else if (nowPlaying.playbackMode == Playlist.CurrentItemInLoop){
+                                nowPlaying.playbackMode = Playlist.Loop;
+                            } else {
+                                nowPlaying.playbackMode = Playlist.Sequential;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Item {
+                id: slider_wrapper
+                height: parent.height * 0.2
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 8
+                anchors.left: thumbnail_image.right
+                anchors.leftMargin: 8
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+
+                Slider {
+                    id: sliderHorizontal1
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    value: mediaplayer.position
+                    maximumValue: mediaplayer.duration
+                    stepSize: 1
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    onValueChanged: {
+                        if(value != mediaplayer.position){
+                            mediaplayer.seek(value)
+                        }
+                    }
+                }
+
+                Text {
+                    id: text1
+                    color: "#ffffff"
+                    text: getReadableTime(mediaplayer.position)
+                    anchors.top: sliderHorizontal1.bottom
+                    anchors.topMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    font.pixelSize: 12
+                }
+
+                Text {
+                    id: text2
+                    color: "#ffffff"
+                    text: getReadableTime(mediaplayer.duration)
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.top: sliderHorizontal1.bottom
+                    font.pixelSize: 12
+                    anchors.topMargin: 0
+                }
+            }
+
+
+
+
         }
 
         Rectangle {
@@ -340,7 +363,6 @@ Item {
 
     MediaPlayer {
         id: mediaplayer
-        source: "file:///media/gino/Gino HDD/music/Trap/VA_-_All_Trap_Music_Vol_3-WEB-2014-BiLDERBERG/14-massappeals_-_im_good.mp3"
         playlist: nowPlaying
         autoLoad: true
         audioRole: MediaPlayer.MusicRole
@@ -382,12 +404,10 @@ Item {
                     itemToPlay = i+1;
                 mediaplayer.playlist.addItem("file://"+model[i].path + '/' + model[i].name );
             }
-            //No function in QT to play a song with a given id so we skip to it
-            for(var i=0; i<itemToPlay; i++){
-                mediaplayer.playlist.next();
-            }
+            __media_player_layout.playItem(itemToPlay)
             mediaplayer.play();
             thumbnail_image.source = thumbnail;
+            nowPlayingList.model = model
         }
         onBack: changeState("toContainer")
     }
@@ -442,6 +462,30 @@ Item {
         }
     }
 
+    NowPlayingList {
+        id: nowPlayingList
+        x: -1* parent.width * 0.3
+        width: parent.width * 0.3
+        transformOrigin: Item.Center
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
+        anchors.top: top_menu.bottom
+        anchors.topMargin: 0
+        nowPlaying: nowPlaying.currentIndex
+        onItemClicked: {
+            var diff = 0;
+            var curInd = nowPlaying.currentIndex;
+            if(nowPlaying.currentIndex > index){
+                diff = index - curInd;
+            } else {
+                diff = Math.abs((curInd - index));
+            }
+
+            __media_player_layout.playItem(diff);
+            changeState("button");
+        }
+    }
+
     TopMenu{
         id: top_menu
         height: parent.height*0.10
@@ -454,6 +498,7 @@ Item {
         onMenuClicked: changeState("button")
         bg_opacity: overlay.opacity
     }
+
 
     states: [
         State {
@@ -473,7 +518,6 @@ Item {
             PropertyChanges {
                 target: mouseArea5
                 enabled: true
-                opacity: 1
             }
         },
         State {
@@ -538,12 +582,30 @@ Item {
                 opacity: 1
                 visible: true
             }
+        },
+        State {
+            name: "now playing"
+
+            PropertyChanges {
+                target: nowPlayingList
+                x: 0
+            }
+
+            PropertyChanges {
+                target: mouseArea5
+                enabled: true
+            }
+
+            PropertyChanges {
+                target: overlay
+                visible: true
+            }
         }
     ]
     transitions:
         Transition {
         SequentialAnimation {
-            NumberAnimation { properties: "anchors.leftMargin,anchors.rightMargin,opacity,width"; duration: 250}
+            NumberAnimation { properties: "anchors.leftMargin,anchors.rightMargin,opacity,width,x"; duration: 250}
             NumberAnimation { properties: "visible"; duration: 1}
         }
     }

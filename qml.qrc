@@ -663,5 +663,7 @@
         <file>qml/MediaPlayer/MediaListItem.qml</file>
         <file>qml/icons/svg/android-arrow-back.svg</file>
         <file>qml/theme/ImageButton.qml</file>
+        <file>qml/MediaPlayer/NowPlayingList.qml</file>
+        <file>qml/MediaPlayer/NowPlayingListItem.qml</file>
     </qresource>
 </RCC>
