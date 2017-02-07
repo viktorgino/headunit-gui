@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.0
 import QtMultimedia 5.7
 import QtQuick.Dialogs 1.0
+import QtGraphicalEffects 1.0
 import "../theme"
 
 Item {
@@ -76,6 +77,7 @@ Item {
 
                 Text {
                     id: text1
+                    color: "#ffffff"
                     text: getReadableTime(mediaplayer.position)
                     anchors.top: sliderHorizontal1.bottom
                     anchors.topMargin: 0
@@ -86,6 +88,7 @@ Item {
 
                 Text {
                     id: text2
+                    color: "#ffffff"
                     text: getReadableTime(mediaplayer.duration)
                     anchors.right: parent.right
                     anchors.rightMargin: 0
@@ -97,57 +100,62 @@ Item {
 
             RowLayout {
                 id: buttons
-                height: parent.height * 0.2
+                width: parent.width * 0.5
+                height: width/5
+                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: slider_wrapper.top
                 anchors.bottomMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 8
-                anchors.left: parent.left
-                anchors.leftMargin: 8
 
-                Image {
-                    width: 100
-                    height: 100
-                    fillMode: Image.PreserveAspectFit
+                Item {
+                    id: item1
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    source: "qrc:/qml/icons/shuffle.png"
 
-                    MouseArea {
-                        id: mouseArea4
-                        anchors.fill: parent
-                        onClicked: nowPlaying.shuffle()
+                    ImageButton{
+                        id: shuffle_button
+                        x: -1213
+                        y: 0
+                        checkable: true
+                        checked: (nowPlaying.playbackMode == Playlist.Random)
+                        imageSource: "qrc:/qml/icons/shuffle.png"
+                        changeColorOnPress:false
+                        onClicked: {
+                            if(parent.checked){
+                                nowPlaying.playbackMode = Playlist.Random
+                            } else {
+                                nowPlaying.playbackMode = Playlist.Sequential
+                            }
+                        }
                     }
                 }
 
-                Image {
-                    width: 100
-                    height: 100
-                    fillMode: Image.PreserveAspectFit
+                Item {
+                    id: item2
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    source: "qrc:/qml/icons/skip-backward.png"
 
-                    MouseArea {
-                        id: mouseArea2
-                        anchors.fill: parent
+                    ImageButton{
+                        id: prev_button
+                        x: -819
+                        y: 0
+                        imageSource: "qrc:/qml/icons/skip-backward.png"
                         onClicked: mediaplayer.playlist.previous()
                     }
                 }
 
-                Image {
-                    id:playButton
-                    width: 100
-                    height: 100
-                    Layout.fillWidth: true
+                Item {
+                    id: item3
                     Layout.fillHeight: true
-                    source: "qrc:/qml/icons/play.png"
-                    fillMode: Image.PreserveAspectFit
+                    Layout.fillWidth: true
 
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        onClicked:{
+                    ImageButton{
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        imageSource: "qrc:/qml/icons/play.png"
+                        id:playButton
+                        x: -425
+                        y: 0
+                        onClicked: {
                             switch (mediaplayer.playbackState){
                             case MediaPlayer.PlayingState:
                                 mediaplayer.pause()
@@ -161,36 +169,60 @@ Item {
                     }
                 }
 
-                Image {
-                    width: 100
-                    height: 100
-                    Layout.fillWidth: true
+                Item {
+                    id: item4
                     Layout.fillHeight: true
-                    source: "qrc:/qml/icons/skip-forward.png"
-                    fillMode: Image.PreserveAspectFit
+                    Layout.fillWidth: true
 
-                    MouseArea {
-                        id: mouseArea1
-                        anchors.fill: parent
+                    ImageButton{
+                        id: next_button
+                        x: -625
+                        y: 0
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        imageSource: "qrc:/qml/icons/skip-forward.png"
                         onClicked: mediaplayer.playlist.next()
                     }
                 }
 
-                Image {
-                    width: 100
-                    height: 100
-                    Layout.fillWidth: true
+                Item {
+                    id: item5
                     Layout.fillHeight: true
-                    source: "qrc:/qml/icons/refresh.png"
-                    fillMode: Image.PreserveAspectFit
+                    Layout.fillWidth: true
 
-                    MouseArea {
-                        id: mouseArea3
-                        anchors.fill: parent
-                        onClicked: mediaplayer.loops = MediaPlayer.Infinite
+                    ImageButton {
+                        id: loop_button
+                        x: -825
+                        y: 0
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        //checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
+                        imageSource: "qrc:/qml/icons/refresh.png"
+                        changeColorOnPress:false
+                        text: {
+                            switch(nowPlaying.playbackMode){
+                            case Playlist.CurrentItemInLoop:
+                                checked=true;
+                                return "1";
+                            case Playlist.Loop:
+                                checked=true;
+                                return "All";
+                            default:
+                                checked=false;
+                                return "";
+                            }
+                        }
+                        onClicked: {
+                            if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
+                                nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
+                            } else if (nowPlaying.playbackMode == Playlist.CurrentItemInLoop){
+                                nowPlaying.playbackMode = Playlist.Loop;
+                            } else {
+                                nowPlaying.playbackMode = Playlist.Sequential;
+                            }
+                        }
                     }
                 }
-
             }
 
             Item {
@@ -205,6 +237,7 @@ Item {
 
                 Text {
                     id: media_title
+                    color: "#ffffff"
                     text: mediaplayer.metaData.title?mediaplayer.metaData.title:""
                     anchors.top: parent.top
                     anchors.topMargin: 0
@@ -216,6 +249,7 @@ Item {
                     id: media_author
                     x: 127
                     y: -129
+                    color: "#ffffff"
                     text:mediaplayer.getArtist(mediaplayer.metaData)
                     anchors.top: media_title.bottom
                     anchors.topMargin: 0
@@ -227,6 +261,7 @@ Item {
                     id: media_album_title
                     x: 39
                     y: -108
+                    color: "#ffffff"
                     text: mediaplayer.metaData.albumTitle?mediaplayer.metaData.albumTitle:""
                     anchors.top: media_author.bottom
                     anchors.topMargin: 0
@@ -265,25 +300,36 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
             opacity: 0.5
+
+            MouseArea {
+                id: mouseArea5
+                enabled: false
+                anchors.fill: parent
+                onClicked: changeState("button")
+            }
+
         }
     }
 
     Playlist{
         id: nowPlaying
+        playbackMode : Playlist.Sequential
     }
 
     MediaPlayer {
         id: mediaplayer
         source: "file:///media/gino/Gino HDD/music/Trap/VA_-_All_Trap_Music_Vol_3-WEB-2014-BiLDERBERG/14-massappeals_-_im_good.mp3"
         playlist: nowPlaying
+        autoLoad: true
+        audioRole: MediaPlayer.MusicRole
         onPaused: {
-            playButton.source = "qrc:/qml/icons/play.png";
+            playButton.imageSource = "qrc:/qml/icons/play.png";
         }
         onStopped: {
-            playButton.source = "qrc:/qml/icons/play.png";
+            playButton.imageSource = "qrc:/qml/icons/play.png";
         }
         onPlaying: {
-            playButton.source = "qrc:/qml/icons/pause.png";
+            playButton.imageSource = "qrc:/qml/icons/pause.png";
         }
         function getArtist(){
             var m = metaData;
@@ -395,6 +441,17 @@ Item {
                 anchors.rightMargin: -1* parent.width * 0.3
                 anchors.leftMargin: parent.width * 0.3
             }
+
+            PropertyChanges {
+                target: overlay
+                visible: true
+            }
+
+            PropertyChanges {
+                target: mouseArea5
+                enabled: true
+                opacity: 1
+            }
         },
         State {
             name: "container list"
@@ -467,7 +524,4 @@ Item {
             NumberAnimation { properties: "visible"; duration: 1}
         }
     }
-
-
-
 }

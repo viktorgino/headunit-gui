@@ -105,7 +105,4 @@ Item {
         ScrollBar.vertical: ScrollBar {
         }
     }
-    Component.onCompleted: {
-        console.log("asd");
-    }
 }
