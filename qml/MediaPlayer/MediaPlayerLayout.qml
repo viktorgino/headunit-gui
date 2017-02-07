@@ -47,242 +47,259 @@ Item {
             anchors.topMargin: 15
             anchors.fill: parent
 
-            Item {
-                id: slider_wrapper
-                height: parent.height * 0.2
+            Image {
+                id: thumbnail_image
+                width: parent.width * 0.3
+                fillMode: Image.PreserveAspectFit
+                anchors.left: parent.left
+                anchors.leftMargin: 0
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 0
-                anchors.left: parent.left
-                anchors.leftMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-
-                Slider {
-                    id: sliderHorizontal1
-                    anchors.top: parent.top
-                    anchors.topMargin: 0
-                    value: mediaplayer.position
-                    maximumValue: mediaplayer.duration
-                    stepSize: 1
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    onValueChanged: {
-                        if(value != mediaplayer.position){
-                            mediaplayer.seek(value)
-                        }
-                    }
-                }
-
-                Text {
-                    id: text1
-                    color: "#ffffff"
-                    text: getReadableTime(mediaplayer.position)
-                    anchors.top: sliderHorizontal1.bottom
-                    anchors.topMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    font.pixelSize: 12
-                }
-
-                Text {
-                    id: text2
-                    color: "#ffffff"
-                    text: getReadableTime(mediaplayer.duration)
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.top: sliderHorizontal1.bottom
-                    font.pixelSize: 12
-                    anchors.topMargin: 0
-                }
-            }
-
-            RowLayout {
-                id: buttons
-                width: parent.width * 0.5
-                height: width/5
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: slider_wrapper.top
-                anchors.bottomMargin: 0
-
-                Item {
-                    id: item1
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-
-                    ImageButton{
-                        id: shuffle_button
-                        x: -1213
-                        y: 0
-                        checkable: true
-                        checked: (nowPlaying.playbackMode == Playlist.Random)
-                        imageSource: "qrc:/qml/icons/shuffle.png"
-                        changeColorOnPress:false
-                        onClicked: {
-                            if(parent.checked){
-                                nowPlaying.playbackMode = Playlist.Random
-                            } else {
-                                nowPlaying.playbackMode = Playlist.Sequential
-                            }
-                        }
-                    }
-                }
-
-                Item {
-                    id: item2
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-
-                    ImageButton{
-                        id: prev_button
-                        x: -819
-                        y: 0
-                        imageSource: "qrc:/qml/icons/skip-backward.png"
-                        onClicked: mediaplayer.playlist.previous()
-                    }
-                }
-
-                Item {
-                    id: item3
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-
-                    ImageButton{
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        imageSource: "qrc:/qml/icons/play.png"
-                        id:playButton
-                        x: -425
-                        y: 0
-                        onClicked: {
-                            switch (mediaplayer.playbackState){
-                            case MediaPlayer.PlayingState:
-                                mediaplayer.pause()
-                                break;
-                            case MediaPlayer.PausedState:
-                            case MediaPlayer.StoppedState:
-                                mediaplayer.play()
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                Item {
-                    id: item4
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-
-                    ImageButton{
-                        id: next_button
-                        x: -625
-                        y: 0
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        imageSource: "qrc:/qml/icons/skip-forward.png"
-                        onClicked: mediaplayer.playlist.next()
-                    }
-                }
-
-                Item {
-                    id: item5
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-
-                    ImageButton {
-                        id: loop_button
-                        x: -825
-                        y: 0
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        //checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
-                        imageSource: "qrc:/qml/icons/refresh.png"
-                        changeColorOnPress:false
-                        text: {
-                            switch(nowPlaying.playbackMode){
-                            case Playlist.CurrentItemInLoop:
-                                checked=true;
-                                return "1";
-                            case Playlist.Loop:
-                                checked=true;
-                                return "All";
-                            default:
-                                checked=false;
-                                return "";
-                            }
-                        }
-                        onClicked: {
-                            if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
-                                nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
-                            } else if (nowPlaying.playbackMode == Playlist.CurrentItemInLoop){
-                                nowPlaying.playbackMode = Playlist.Loop;
-                            } else {
-                                nowPlaying.playbackMode = Playlist.Sequential;
-                            }
-                        }
-                    }
-                }
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                source: typeof(mediaplayer.metaData.coverArtUrlLarge) != "undefined"?mediaplayer.metaData.coverArtUrlLarge:""
             }
 
             Item {
-                id: track_info
-                height: parent.height * 0.4
-                anchors.bottom: buttons.top
-                anchors.bottomMargin: 0
-                anchors.right: parent.right
-                anchors.rightMargin: 8
-                anchors.left: parent.left
-                anchors.leftMargin: 8
-
-                Text {
-                    id: media_title
-                    color: "#ffffff"
-                    text: mediaplayer.metaData.title?mediaplayer.metaData.title:""
-                    anchors.top: parent.top
-                    anchors.topMargin: 0
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 24
-                }
-
-                Text {
-                    id: media_author
-                    x: 127
-                    y: -129
-                    color: "#ffffff"
-                    text:mediaplayer.getArtist(mediaplayer.metaData)
-                    anchors.top: media_title.bottom
-                    anchors.topMargin: 0
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 16
-                }
-
-                Text {
-                    id: media_album_title
-                    x: 39
-                    y: -108
-                    color: "#ffffff"
-                    text: mediaplayer.metaData.albumTitle?mediaplayer.metaData.albumTitle:""
-                    anchors.top: media_author.bottom
-                    anchors.topMargin: 0
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    font.pixelSize: 16
-                }
-
-
-            }
-
-            Image {
-                id: image1
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                anchors.left: parent.left
+                id: item6
+                anchors.left: thumbnail_image.right
                 anchors.leftMargin: 0
-                anchors.bottom: track_info.top
+                anchors.bottom: parent.bottom
                 anchors.bottomMargin: 0
                 anchors.top: parent.top
-                anchors.topMargin: 8
-                source: typeof(mediaplayer.metaData.coverArtUrlLarge) != "undefined"?mediaplayer.metaData.coverArtUrlLarge:""
+                anchors.topMargin: 0
+                anchors.right: parent.right
+                anchors.rightMargin: 0
+
+                Item {
+                    id: track_info
+                    height: parent.height * 0.4
+                    anchors.bottom: buttons.top
+                    anchors.bottomMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 8
+                    anchors.left: parent.left
+                    anchors.leftMargin: 8
+
+                    Text {
+                        id: media_title
+                        color: "#ffffff"
+                        text: mediaplayer.metaData.title?mediaplayer.metaData.title:""
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        anchors.top: parent.top
+                        anchors.topMargin: 0
+                        font.pixelSize: 24
+                    }
+
+                    Text {
+                        id: media_author
+                        color: "#ffffff"
+                        text:mediaplayer.getArtist(mediaplayer.metaData)
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        anchors.top: media_title.bottom
+                        anchors.topMargin: 0
+                        font.pixelSize: 16
+                    }
+
+                    Text {
+                        id: media_album_title
+                        color: "#ffffff"
+                        text: mediaplayer.metaData.albumTitle?mediaplayer.metaData.albumTitle:""
+                        verticalAlignment: Text.AlignTop
+                        horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        anchors.top: media_author.bottom
+                        anchors.topMargin: 0
+                        font.pixelSize: 16
+                    }
+
+
+                }
+
+                RowLayout {
+                    id: buttons
+                    width: parent.width * 0.5
+                    height: width/5
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: slider_wrapper.top
+                    anchors.bottomMargin: 0
+
+                    Item {
+                        id: item1
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        ImageButton{
+                            id: shuffle_button
+                            checkable: true
+                            checked: (nowPlaying.playbackMode == Playlist.Random)
+                            imageSource: "qrc:/qml/icons/shuffle.png"
+                            changeColorOnPress:false
+                            onClicked: {
+                                if(parent.checked){
+                                    nowPlaying.playbackMode = Playlist.Random
+                                } else {
+                                    nowPlaying.playbackMode = Playlist.Sequential
+                                }
+                            }
+                        }
+                    }
+
+                    Item {
+                        id: item2
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        ImageButton{
+                            id: prev_button
+                            imageSource: "qrc:/qml/icons/skip-backward.png"
+                            onClicked: mediaplayer.playlist.previous()
+                        }
+                    }
+
+                    Item {
+                        id: item3
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        ImageButton{
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            imageSource: "qrc:/qml/icons/play.png"
+                            id:playButton
+                            onClicked: {
+                                switch (mediaplayer.playbackState){
+                                case MediaPlayer.PlayingState:
+                                    mediaplayer.pause()
+                                    break;
+                                case MediaPlayer.PausedState:
+                                case MediaPlayer.StoppedState:
+                                    mediaplayer.play()
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    Item {
+                        id: item4
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        ImageButton{
+                            id: next_button
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            imageSource: "qrc:/qml/icons/skip-forward.png"
+                            onClicked: mediaplayer.playlist.next()
+                        }
+                    }
+
+                    Item {
+                        id: item5
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        ImageButton {
+                            id: loop_button
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            //checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
+                            imageSource: "qrc:/qml/icons/refresh.png"
+                            changeColorOnPress:false
+                            text: {
+                                switch(nowPlaying.playbackMode){
+                                case Playlist.CurrentItemInLoop:
+                                    checked=true;
+                                    return "1";
+                                case Playlist.Loop:
+                                    checked=true;
+                                    return "All";
+                                default:
+                                    checked=false;
+                                    return "";
+                                }
+                            }
+                            onClicked: {
+                                if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
+                                    nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
+                                } else if (nowPlaying.playbackMode == Playlist.CurrentItemInLoop){
+                                    nowPlaying.playbackMode = Playlist.Loop;
+                                } else {
+                                    nowPlaying.playbackMode = Playlist.Sequential;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Item {
+                    id: slider_wrapper
+                    height: parent.height * 0.2
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+
+                    Slider {
+                        id: sliderHorizontal1
+                        anchors.top: parent.top
+                        anchors.topMargin: 0
+                        value: mediaplayer.position
+                        maximumValue: mediaplayer.duration
+                        stepSize: 1
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        onValueChanged: {
+                            if(value != mediaplayer.position){
+                                mediaplayer.seek(value)
+                            }
+                        }
+                    }
+
+                    Text {
+                        id: text1
+                        color: "#ffffff"
+                        text: getReadableTime(mediaplayer.position)
+                        anchors.top: sliderHorizontal1.bottom
+                        anchors.topMargin: 0
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        font.pixelSize: 12
+                    }
+
+                    Text {
+                        id: text2
+                        color: "#ffffff"
+                        text: getReadableTime(mediaplayer.duration)
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        anchors.top: sliderHorizontal1.bottom
+                        font.pixelSize: 12
+                        anchors.topMargin: 0
+                    }
+                }
+
+
             }
         }
 
@@ -365,6 +382,7 @@ Item {
                 mediaplayer.playlist.next();
             }
             mediaplayer.play();
+            thumbnail_image.source = thumbnail;
         }
         onBack: changeState("toContainer")
     }
