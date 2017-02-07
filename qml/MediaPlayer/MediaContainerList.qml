@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Controls 2.1
 
 Item {
@@ -51,6 +51,7 @@ Item {
             anchors.top: parent.top
             anchors.topMargin: 10
             source: __media_container_list.icon
+            mipmap:true
         }
 
         Text {

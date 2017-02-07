@@ -22,7 +22,8 @@ Item{
         anchors.fill: parent
         source: parent.imageSource
         fillMode: Image.PreserveAspectFit
-        //visible: false
+        mipmap:true
+        visible: false
     }
 
     ColorOverlay {

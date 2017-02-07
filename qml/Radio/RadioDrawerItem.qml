@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 
 Item{
     height: favourite||listType == "all"?60:0
@@ -43,6 +43,7 @@ Item{
             anchors.bottomMargin: parent.height*0.2
             source: favourite?"../icons/svg/android-star.svg":"../icons/svg/android-star-outline.svg"
             //source: "../icons/svg/android-star-outline.svg"
+            mipmap:true
 
             MouseArea {
                 anchors.fill: parent

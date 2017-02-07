@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 
 Item {
     id: __media_list_item
@@ -73,6 +73,7 @@ Item {
             anchors.fill: parent
             source: "qrc:/qml/icons/svg/navicon-round.svg"
             fillMode: Image.PreserveAspectCrop
+            mipmap:true
         }
     }
 

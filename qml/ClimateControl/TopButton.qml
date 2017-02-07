@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.0
 import "../images"
@@ -62,6 +62,7 @@ Item {
             anchors.verticalCenter: rectangle2.verticalCenter
             fillMode: Image.PreserveAspectFit
             source:top_button.imageSrc
+            mipmap:true
         }
 
         ColorOverlay {

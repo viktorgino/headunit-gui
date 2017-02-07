@@ -1,4 +1,4 @@
-import QtQuick 2.7
+import QtQuick 2.6
 import QtGraphicalEffects 1.0
 Item {
     id: __now_playing_list_item
@@ -67,6 +67,7 @@ Item {
             source: "qrc:/qml/icons/play.png"
             fillMode: Image.PreserveAspectCrop
             visible: false
+            mipmap:true
         }
         ColorOverlay {
             anchors.fill: playing_button_image
@@ -90,8 +91,6 @@ Item {
 
     MouseArea {
         id: mouseArea
-        x: 310
-        y: 5
         anchors.fill: parent
         onClicked: {
             __now_playing_list_item.itemClicked(index);

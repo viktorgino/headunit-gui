@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.4
@@ -139,6 +139,7 @@ Item {
                                 fillMode: Image.PreserveAspectFit
                                 anchors.fill: parent
                                 source: "../icons/svg/chevron-left.svg"
+                                mipmap:true
                             }
 
                             MouseArea {
@@ -191,6 +192,7 @@ Item {
                                 anchors.fill: parent
                                 source: "../icons/svg/chevron-right.svg"
                                 fillMode: Image.PreserveAspectFit
+                                mipmap:true
                             }
 
                             MouseArea {

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Controls 2.1
 
 Item {
@@ -33,6 +33,7 @@ Item {
                 anchors.fill: parent
                 fillMode: Image.PreserveAspectCrop
                 source: __media_list.thumbnail
+                mipmap:true
             }
         }
 

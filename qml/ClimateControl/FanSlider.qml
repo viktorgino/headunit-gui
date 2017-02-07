@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.0
@@ -22,6 +22,7 @@ Item{
                 source: "qrc:/qml/icons/svg/ac.svg"
                 width: 40
                 height: 40
+                mipmap:true
             }
         }
 
@@ -53,6 +54,7 @@ Item{
                 width: 80
                 height: 80
                 visible: (fanslider.value != fanslider.maximumValue)
+                mipmap:true
             }
         }
     }

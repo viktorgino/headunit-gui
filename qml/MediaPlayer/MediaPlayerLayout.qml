@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick 2.6
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.0
 import QtMultimedia 5.7
@@ -90,6 +90,7 @@ Item {
                 anchors.leftMargin: 0
                 anchors.top: item6.bottom
                 source: typeof(mediaplayer.metaData.coverArtUrlLarge) != "undefined"?mediaplayer.metaData.coverArtUrlLarge:""
+                mipmap:true
             }
 
             Item {

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Controls 2.1
 
 Item {
@@ -59,6 +59,7 @@ Item {
             anchors.bottomMargin: 10
             anchors.top: parent.top
             anchors.topMargin: 10
+            mipmap:true
         }
 
         Text {

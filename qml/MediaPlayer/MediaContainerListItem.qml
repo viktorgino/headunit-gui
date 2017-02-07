@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 
 Item {
     id: __media_container_list_item
@@ -26,6 +26,7 @@ Item {
         anchors.topMargin: 0
         fillMode: Image.PreserveAspectCrop
         source:modelData.thumbnail == ""?"qrc:/qml/images/music_placeholder.jpg":"file:/"+modelData.thumbnail
+        mipmap:true
     }
     Text {
         id: label1
@@ -91,6 +92,7 @@ Item {
             anchors.fill: parent
             source: "qrc:/qml/icons/svg/navicon-round.svg"
             fillMode: Image.PreserveAspectCrop
+            mipmap:true
         }
     }
 

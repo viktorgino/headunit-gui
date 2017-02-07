@@ -1,4 +1,4 @@
-import QtQuick 2.5
+import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.0
 
@@ -145,6 +145,7 @@ Item {
                     anchors.bottomMargin: 0
                     fillMode: Image.PreserveAspectFit
                     source: "qrc:/qml/icons/svg/seat-heat.svg"
+                    mipmap:true
                 }
 
                 ColorOverlay {
@@ -247,6 +248,7 @@ Item {
                     anchors.top: parent.top
                     anchors.right: parent.right
                     source: "qrc:/qml/icons/svg/seat-heat.svg"
+                    mipmap:true
                 }
 
                 ColorOverlay {

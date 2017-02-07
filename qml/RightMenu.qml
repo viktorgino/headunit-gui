@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Layouts 1.0
 
 Item {
@@ -58,16 +58,14 @@ Item {
 
                 Image {
                     id: ac_image
-                    y: 33
                     width: 30
                     height: 30
                     anchors.verticalCenter: parent.verticalCenter
-
                     anchors.left: parent.left
                     anchors.leftMargin: 0
                     fillMode: Image.PreserveAspectFit
                     source: menuItems[index].image
-                    smooth: true
+                    mipmap:true
                 }
 
                 Text {

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 Item {
     id: __drawer_item
     height: 50
@@ -15,6 +15,7 @@ Item {
         anchors.topMargin: 5
         fillMode: Image.PreserveAspectFit
         source:icon
+        mipmap:true
     }
     Text {
         id: label1
@@ -35,8 +36,6 @@ Item {
 
     MouseArea {
         id: mouseArea
-        x: 60
-        y: 5
         anchors.fill: parent
         onClicked: parent.itemClicked(name,icon,item_type)
     }

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import QtQuick.Layouts 1.0
 import "../theme"
@@ -123,5 +123,6 @@ Item{
         anchors.top: parent.top
         fillMode: Image.PreserveAspectFit
         source: "../icons/svg/seat.svg"
+        mipmap:true
     }
 }
