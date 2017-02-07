@@ -1,5 +1,5 @@
 import QtQuick 2.7
-
+import QtGraphicalEffects 1.0
 Item {
     id: __now_playing_list_item
     height: 50
@@ -21,7 +21,7 @@ Item {
         verticalAlignment: Text.AlignVCenter
         anchors.top: parent.top
         anchors.topMargin: 5
-        anchors.right: more_button.left
+        anchors.right: play_button.left
         anchors.rightMargin: 10
         font.pointSize: 11
         anchors.left: parent.left
@@ -45,38 +45,33 @@ Item {
         anchors.top: label1.bottom
         anchors.left: parent.left
         font.pointSize: 9
-        anchors.right: more_button.left
+        anchors.right: play_button.left
         verticalAlignment: Text.AlignVCenter
-    }
-
-    MouseArea {
-        id: mouseArea
-        anchors.right: more_button.left
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.rightMargin: 10
-        onClicked: {
-            __now_playing_list_item.itemClicked(index);
-        }
     }
 
 
 
     Item {
-        id: more_button
+        id: play_button
         width: height
         anchors.rightMargin: 10
-        anchors.bottomMargin: 5
-        anchors.topMargin: 5
+        anchors.bottomMargin: 10
+        anchors.topMargin: 10
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: parent.top
 
         Image {
+            id: playing_button_image
             anchors.fill: parent
             source: "qrc:/qml/icons/play.png"
             fillMode: Image.PreserveAspectCrop
+            visible: false
+        }
+        ColorOverlay {
+            anchors.fill: playing_button_image
+            source: playing_button_image
+            color:"#00ff00"
             visible: index==nowPlaying
         }
     }
@@ -91,6 +86,16 @@ Item {
         anchors.leftMargin: 0
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
+    }
+
+    MouseArea {
+        id: mouseArea
+        x: 310
+        y: 5
+        anchors.fill: parent
+        onClicked: {
+            __now_playing_list_item.itemClicked(index);
+        }
     }
 
 }
