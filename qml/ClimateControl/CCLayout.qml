@@ -138,6 +138,7 @@ Item {
 
                 Image {
                     id:left_seat_icon
+                    visible: false
                     anchors.bottom: left_seat_heat.top
                     anchors.right: parent.right
                     anchors.left: parent.left
@@ -150,9 +151,8 @@ Item {
 
                 ColorOverlay {
                     id: left_seat_overaly
-                    color: "#ff5722"
+                    color: left_seat_heat_rate >= 1?"#ff5722":"#ffffff"
                     anchors.fill: left_seat_icon
-                    visible: left_seat_heat_rate >= 1?true:false
                     enabled: true
                     source: left_seat_icon
                 }
@@ -248,14 +248,14 @@ Item {
                     anchors.top: parent.top
                     anchors.right: parent.right
                     source: "qrc:/qml/icons/svg/seat-heat.svg"
+                    visible:false
                     mipmap:true
                 }
 
                 ColorOverlay {
                     id: right_seat_overaly
-                    color: "#ff5722"
+                    color: right_seat_heat_rate >= 1?"#ff5722":"#ffffff"
                     anchors.fill: right_seat_icon
-                    visible: right_seat_heat_rate >= 1?true:false
                     enabled: true
                     source: right_seat_icon
                 }
