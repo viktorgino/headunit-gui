@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.cpp</file>
         <file>qml/DashView.qml</file>
         <file>qml/main.qml</file>
         <file>qml/ClimateControl/FanDirection.qml</file>
