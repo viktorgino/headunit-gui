@@ -171,11 +171,10 @@ Item {
                         id: shuffle_button
                         anchors.fill: parent
                         checkable: true
-                        checked: (nowPlaying.playbackMode == Playlist.Random)
                         imageSource: "qrc:/qml/icons/shuffle.png"
                         changeColorOnPress:false
                         onClicked: {
-                            if(parent.checked){
+                            if(checked){
                                 nowPlaying.playbackMode = Playlist.Random
                             } else {
                                 nowPlaying.playbackMode = Playlist.Sequential
@@ -246,24 +245,22 @@ Item {
                         id: loop_button
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        //checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
+                        checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
                         imageSource: "qrc:/qml/icons/refresh.png"
                         changeColorOnPress:false
                         text: {
                             switch(nowPlaying.playbackMode){
                             case Playlist.CurrentItemInLoop:
-                                checked=true;
                                 return "1";
                             case Playlist.Loop:
-                                checked=true;
                                 return "All";
                             default:
-                                checked=false;
                                 return "";
                             }
                         }
                         anchors.fill: parent
                         onClicked: {
+                            shuffle_button.checked = false
                             if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
                                 nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
                             } else if (nowPlaying.playbackMode == Playlist.CurrentItemInLoop){

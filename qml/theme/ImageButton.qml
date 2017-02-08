@@ -50,7 +50,8 @@ Item{
             if(checkable)
                 parent.checked = !parent.checked;
             parent.clicked()
-            __image_button_color.color = parent.color;
+            if(changeColorOnPress)
+                __image_button_color.color = parent.color;
         }
     }
     onCheckedChanged: {
