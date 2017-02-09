@@ -163,111 +163,82 @@ Item {
                 anchors.bottom: slider_wrapper.top
                 anchors.bottomMargin: 0
 
-                Item {
-                    id: item1
-
-                    ImageButton{
-                        id: shuffle_button
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        checkable: true
-                        imageSource: "qrc:/qml/icons/shuffle.png"
-                        changeColorOnPress:false
-                        onClicked: {
-                            if(checked){
-                                nowPlaying.playbackMode = Playlist.Random
-                            } else {
-                                nowPlaying.playbackMode = Playlist.Sequential
-                            }
+                ImageButton{
+                    id: shuffle_button
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    checkable: true
+                    imageSource: "qrc:/qml/icons/shuffle.png"
+                    changeColorOnPress:false
+                    onClicked: {
+                        if(checked){
+                            nowPlaying.playbackMode = Playlist.Random
+                        } else {
+                            nowPlaying.playbackMode = Playlist.Sequential
                         }
                     }
                 }
 
-                Item {
-                    id: item2
+                ImageButton{
+                    id: prev_button
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-
-                    ImageButton{
-                        id: prev_button
-                        anchors.fill: parent
-                        imageSource: "qrc:/qml/icons/skip-backward.png"
-                        onClicked: mediaplayer.playlist.previous()
-                    }
+                    imageSource: "qrc:/qml/icons/skip-backward.png"
+                    onClicked: mediaplayer.playlist.previous()
                 }
 
-                Item {
-                    id: item3
+                ImageButton{
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-
-                    ImageButton{
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        imageSource: "qrc:/qml/icons/play.png"
-                        id:playButton
-                        anchors.fill: parent
-                        onClicked: {
-                            switch (mediaplayer.playbackState){
-                            case MediaPlayer.PlayingState:
-                                mediaplayer.pause()
-                                break;
-                            case MediaPlayer.PausedState:
-                            case MediaPlayer.StoppedState:
-                                mediaplayer.play()
-                                break;
-                            }
+                    imageSource: "qrc:/qml/icons/play.png"
+                    id:playButton
+                    onClicked: {
+                        switch (mediaplayer.playbackState){
+                        case MediaPlayer.PlayingState:
+                            mediaplayer.pause()
+                            break;
+                        case MediaPlayer.PausedState:
+                        case MediaPlayer.StoppedState:
+                            mediaplayer.play()
+                            break;
                         }
                     }
                 }
 
-                Item {
-                    id: item4
+                ImageButton{
+                    id: next_button
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-
-                    ImageButton{
-                        id: next_button
-                        anchors.fill: parent
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        imageSource: "qrc:/qml/icons/skip-forward.png"
-                        onClicked: mediaplayer.playlist.next()
-                    }
+                    imageSource: "qrc:/qml/icons/skip-forward.png"
+                    onClicked: mediaplayer.playlist.next()
                 }
 
-                Item {
-                    id: item5
+
+                ImageButton {
+                    id: loop_button
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-
-                    ImageButton {
-                        id: loop_button
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
-                        imageSource: "qrc:/qml/icons/refresh.png"
-                        changeColorOnPress:false
-                        text: {
-                            switch(nowPlaying.playbackMode){
-                            case Playlist.CurrentItemInLoop:
-                                return "1";
-                            case Playlist.Loop:
-                                return "All";
-                            default:
-                                return "";
-                            }
+                    checked: (nowPlaying.playbackMode == Playlist.CurrentItemInLoop || nowPlaying.playbackMode == Playlist.Loop)
+                    imageSource: "qrc:/qml/icons/refresh.png"
+                    changeColorOnPress:false
+                    text: {
+                        switch(nowPlaying.playbackMode){
+                        case Playlist.CurrentItemInLoop:
+                            return "1";
+                        case Playlist.Loop:
+                            return "All";
+                        default:
+                            return "";
                         }
-                        anchors.fill: parent
-                        onClicked: {
-                            shuffle_button.checked = false
-                            if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
-                                nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
-                            } else if (nowPlaying.playbackMode == Playlist.CurrentItemInLoop){
-                                nowPlaying.playbackMode = Playlist.Loop;
-                            } else {
-                                nowPlaying.playbackMode = Playlist.Sequential;
-                            }
+                    }
+                    onClicked: {
+                        shuffle_button.checked = false
+                        if(nowPlaying.playbackMode == Playlist.Sequential || nowPlaying.playbackMode == Playlist.Random){
+                            nowPlaying.playbackMode = Playlist.CurrentItemInLoop;
+                        } else if (nowPlaying.playbackMode == Playlist.CurrentItemInLoop){
+                            nowPlaying.playbackMode = Playlist.Loop;
+                        } else {
+                            nowPlaying.playbackMode = Playlist.Sequential;
                         }
                     }
                 }
