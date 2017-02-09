@@ -2,6 +2,7 @@ import QtQuick 2.6
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.0
 import QtMultimedia 5.7
+import Qt.labs.settings 1.0
 import "../theme"
 
 Item {
@@ -164,12 +165,11 @@ Item {
 
                 Item {
                     id: item1
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
 
                     ImageButton{
                         id: shuffle_button
-                        anchors.fill: parent
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
                         checkable: true
                         imageSource: "qrc:/qml/icons/shuffle.png"
                         changeColorOnPress:false
@@ -373,6 +373,7 @@ Item {
         onPlaying: {
             playButton.imageSource = "qrc:/qml/icons/pause.png";
         }
+
         function getArtist(){
             var m = metaData;
             return m.contributingArtist?m.contributingArtist:
@@ -380,6 +381,18 @@ Item {
                                                                m.contributingArtist?m.albumArtist:
                                                                                      m.contributingArtist?m.metaData.author:
                                                                                                            m.contributingArtist?m.writer:"";
+        }
+        function setPlaylist(model){
+            playlist.clear();
+            var itemToPlay = 0;
+            for(var i=0; i<model.length; i++){
+                if(model[i].playNow)
+                    itemToPlay = i+1;
+                playlist.addItem("file://"+model[i].path + '/' + model[i].name );
+            }
+            __media_player_layout.playItem(itemToPlay)
+            play();
+            thumbnail_image.source = thumbnail;
         }
     }
 
@@ -395,16 +408,6 @@ Item {
         anchors.bottomMargin: 0
         onItemClicked: {
             changeState("button");
-            mediaplayer.playlist.clear();
-            var itemToPlay = 0;
-            for(var i=0; i<model.length; i++){
-                if(model[i].playNow)
-                    itemToPlay = i+1;
-                mediaplayer.playlist.addItem("file://"+model[i].path + '/' + model[i].name );
-            }
-            __media_player_layout.playItem(itemToPlay)
-            mediaplayer.play();
-            thumbnail_image.source = thumbnail;
             nowPlayingList.model = model
         }
         onBack: changeState("toContainer")
@@ -481,6 +484,9 @@ Item {
 
             __media_player_layout.playItem(diff);
             changeState("button");
+        }
+        onModelChanged: {
+            mediaplayer.setPlaylist(model)
         }
     }
 
@@ -606,5 +612,11 @@ Item {
             NumberAnimation { properties: "anchors.leftMargin,anchors.rightMargin,opacity,width,x"; duration: 250}
             NumberAnimation { properties: "visible"; duration: 1}
         }
+    }
+
+
+    Settings {
+        id: mediaplayer_settings
+        property alias nowPlaying: nowPlayingList.model
     }
 }
