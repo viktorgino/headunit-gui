@@ -90,7 +90,6 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 0
                 anchors.top: item6.bottom
-                source: typeof(mediaplayer.metaData.coverArtUrlLarge) != "undefined"?mediaplayer.metaData.coverArtUrlLarge:""
                 mipmap:true
             }
 
@@ -363,7 +362,6 @@ Item {
             }
             __media_player_layout.playItem(itemToPlay)
             play();
-            thumbnail_image.source = thumbnail;
         }
     }
 
@@ -379,7 +377,8 @@ Item {
         anchors.bottomMargin: 0
         onItemClicked: {
             changeState("button");
-            nowPlayingList.model = model
+            nowPlayingList.model = model;
+            thumbnail_image.source = thumbnail;
         }
         onBack: changeState("toContainer")
     }
@@ -589,5 +588,6 @@ Item {
     Settings {
         id: mediaplayer_settings
         property alias nowPlaying: nowPlayingList.model
+        property alias thumbnailImage: thumbnail_image.source
     }
 }
