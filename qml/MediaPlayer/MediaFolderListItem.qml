@@ -1,7 +1,7 @@
 import QtQuick 2.6
 
 Item {
-    id: __media_container_list_item
+    id: __media_folder_list_item
     height: 50
     width: parent.width
     function getName (path){
@@ -73,7 +73,7 @@ Item {
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.rightMargin: 10
-        onClicked: __media_container_list_item.itemClicked(modelData.item_type,modelData.id,path,name,thumbnail.source)
+        onClicked: __media_folder_list_item.itemClicked(modelData.item_type,modelData.id,path,name,thumbnail.source)
     }
 
 

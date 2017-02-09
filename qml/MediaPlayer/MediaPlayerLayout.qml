@@ -384,8 +384,8 @@ Item {
     }
 
 
-    MediaContainerList {
-        id: mediaContainerList
+    MediaFolderList {
+        id: media_folder_list
         width: parent.width * 0.7
         anchors.leftMargin: parent.width
         opacity: 0
@@ -417,18 +417,18 @@ Item {
         onItemClicked: {
             switch(item_type){
             case "folders":
-                mediaContainerList.model = mediaLibrary.audioFolders;
+                media_folder_list.model = mediaLibrary.audioFolders;
                 break;
             case "playlists":
-                mediaContainerList.model = mediaLibrary.playlists;
+                media_folder_list.model = mediaLibrary.playlists;
                 break;
             default:
-                mediaContainerList.model = 0;
+                media_folder_list.model = 0;
                 break;
             }
-            mediaContainerList.icon = icon;
-            mediaContainerList.name = name;
-            mediaContainerList.item_type = item_type;
+            media_folder_list.icon = icon;
+            media_folder_list.name = name;
+            media_folder_list.item_type = item_type;
             __media_player_layout.changeState("toContainer")
         }
     }
@@ -512,7 +512,7 @@ Item {
             }
 
             PropertyChanges {
-                target: mediaContainerList
+                target: media_folder_list
                 anchors.leftMargin: 0
                 opacity: 1
                 visible: true
@@ -540,7 +540,7 @@ Item {
             }
 
             PropertyChanges {
-                target: mediaContainerList
+                target: media_folder_list
                 opacity: 0.5
                 visible: false
             }

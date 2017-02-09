@@ -2,7 +2,7 @@ import QtQuick 2.6
 import QtQuick.Controls 2.1
 
 Item {
-    id: __media_container_list
+    id: __media_folder_list
     clip: true
     property var model;
     property url icon;
@@ -19,9 +19,9 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.topMargin: 0
-        model: __media_container_list.model
-        delegate: MediaContainerListItem {
-            onItemClicked: __media_container_list.itemClicked(item_type,id,path,name,thumbnail)
+        model: __media_folder_list.model
+        delegate: MediaFolderListItem {
+            onItemClicked: __media_folder_list.itemClicked(item_type,id,path,name,thumbnail)
         }
         ScrollBar.vertical: ScrollBar {
         }
@@ -50,14 +50,14 @@ Item {
             anchors.bottomMargin: 10
             anchors.top: parent.top
             anchors.topMargin: 10
-            source: __media_container_list.icon
+            source: __media_folder_list.icon
             mipmap:true
         }
 
         Text {
             id: text1
             color: "#ffffff"
-            text: qsTr(__media_container_list.name)
+            text: qsTr(__media_folder_list.name)
             anchors.left: image.right
             anchors.leftMargin: 10
             anchors.right: parent.right
