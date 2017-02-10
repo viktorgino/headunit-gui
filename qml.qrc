@@ -656,13 +656,15 @@
         <file>qml/icons/svg/android-list.svg</file>
         <file>qml/icons/svg/android-person.svg</file>
         <file>qml/icons/svg/navicon-round.svg</file>
-        <file>qml/MediaPlayer/MediaContainerList.qml</file>
-        <file>qml/MediaPlayer/MediaContainerListItem.qml</file>
-        <file>qml/MediaPlayer/MediaList.qml</file>
         <file>qml/MediaPlayer/MediaListItem.qml</file>
         <file>qml/icons/svg/android-arrow-back.svg</file>
         <file>qml/theme/ImageButton.qml</file>
         <file>qml/MediaPlayer/NowPlayingList.qml</file>
         <file>qml/MediaPlayer/NowPlayingListItem.qml</file>
+        <file>qml/MediaPlayer/MediaFolderListItem.qml</file>
+        <file>qml/MediaPlayer/MediaContainerList.qml</file>
+        <file>qml/MediaPlayer/MediaContainerListItem.qml</file>
+        <file>qml/MediaPlayer/MediaList.qml</file>
+        <file>qml/MediaPlayer/ScrollIndicator.qml</file>
     </qresource>
 </RCC>

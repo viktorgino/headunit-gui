@@ -13,6 +13,7 @@ Item {
         return (seconds == 60 ? (minutes+1) + ":00" : minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
     }
     property bool isBase: false
+    clip: true
     function changeState(caller){
         if(__media_player_layout.state == "" && caller == "button"){
             __media_player_layout.state="drawer";
@@ -358,7 +359,7 @@ Item {
             for(var i=0; i<model.length; i++){
                 if(model[i].playNow)
                     itemToPlay = i+1;
-                playlist.addItem("file://"+model[i].path + '/' + model[i].name );
+                playlist.addItem("file://"+model[i].path);
             }
             __media_player_layout.playItem(itemToPlay)
             play();
@@ -383,9 +384,8 @@ Item {
         onBack: changeState("toContainer")
     }
 
-
-    MediaFolderList {
-        id: media_folder_list
+    MediaContainerList {
+        id: media_container_list
         width: parent.width * 0.7
         anchors.leftMargin: parent.width
         opacity: 0
@@ -395,11 +395,25 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         onItemClicked: {
-            changeState("toList");
-            mediaList.model = mediaLibrary.audioFolderContent(id);
-            mediaList.thumbnail = thumbnail;
-            mediaList.title = name;
-            mediaList.sub_title = path;
+            switch(itemData.item_type){
+            case "folders":
+                changeState("toList");
+                mediaList.model = mediaLibrary.audioFolderContent(itemData.id);
+                mediaList.thumbnail = itemData.thumbnail;
+                mediaList.title = itemData.name;
+                mediaList.sub_title = itemData.path;
+                break;
+            case "playlists":
+                break;
+            case "artists":
+                break;
+            case "albums":
+                break;
+            case "genres":
+                break;
+            default:
+                break;
+            }
         }
     }
 
@@ -415,21 +429,31 @@ Item {
         anchors.right: main.left
         anchors.rightMargin: 0
         onItemClicked: {
+            media_container_list.icon = icon;
+            media_container_list.name = name;
+            media_container_list.model = 0;
+            media_container_list.item_type = item_type;
             switch(item_type){
             case "folders":
-                media_folder_list.model = mediaLibrary.audioFolders;
+                media_container_list.model = mediaLibrary.audioFolders;
                 break;
             case "playlists":
-                media_folder_list.model = mediaLibrary.playlists;
+                media_container_list.model = mediaLibrary.playlists;
+                break;
+            case "artists":
+                media_container_list.model = mediaLibrary.getArtists();
+                break;
+            case "albums":
+                media_container_list.model = mediaLibrary.getAlbums();
+                break;
+            case "genres":
+                media_container_list.model = mediaLibrary.getGenres();
                 break;
             default:
-                media_folder_list.model = 0;
+                media_container_list.model = 0;
                 break;
             }
-            media_folder_list.icon = icon;
-            media_folder_list.name = name;
-            media_folder_list.item_type = item_type;
-            __media_player_layout.changeState("toContainer")
+            __media_player_layout.changeState("toContainer");
         }
     }
 
@@ -495,35 +519,6 @@ Item {
             }
         },
         State {
-            name: "container list"
-
-            PropertyChanges {
-                target: main
-                anchors.topMargin: 0
-                anchors.rightMargin: -1* parent.width * 0.3
-                anchors.leftMargin: parent.width * 0.3
-            }
-
-            PropertyChanges {
-                target: overlay
-                color: "#000000"
-                opacity: 0.9
-                visible: true
-            }
-
-            PropertyChanges {
-                target: media_folder_list
-                anchors.leftMargin: 0
-                opacity: 1
-                visible: true
-            }
-
-            PropertyChanges {
-                target: __media_player_layout
-                clip: true
-            }
-        },
-        State {
             name: "media list"
             PropertyChanges {
                 target: main
@@ -537,12 +532,6 @@ Item {
                 color: "#000000"
                 opacity: 0.9
                 visible: true
-            }
-
-            PropertyChanges {
-                target: media_folder_list
-                opacity: 0.5
-                visible: false
             }
 
             PropertyChanges {
@@ -573,6 +562,34 @@ Item {
             PropertyChanges {
                 target: overlay
                 visible: true
+            }
+        },
+        State {
+            name: "container list"
+            PropertyChanges {
+                target: main
+                anchors.topMargin: 0
+                anchors.rightMargin: -1* parent.width * 0.3
+                anchors.leftMargin: parent.width * 0.3
+            }
+
+            PropertyChanges {
+                target: overlay
+                color: "#000000"
+                opacity: 0.9
+                visible: true
+            }
+
+            PropertyChanges {
+                target: media_container_list
+                opacity: 1
+                anchors.leftMargin: 0
+                visible: true
+            }
+
+            PropertyChanges {
+                target: __media_player_layout
+                clip: true
             }
         }
     ]

@@ -6,16 +6,13 @@ Item {
     width: parent.width
     property string path: modelData.path + "/" + modelData.name
     property int nowPlaying : 0
-    property var nameArr : modelData.name.split("-")
-    property string track: nameArr[0]
-    property string artist: nameArr.length > 1?nameArr[1]:path
 
     signal itemClicked(int index)
     Text {
         id: label1
         height: 20
         color: "#ffffff"
-        text: track
+        text: modelData.title
         fontSizeMode: Text.VerticalFit
         clip: true
         verticalAlignment: Text.AlignVCenter
@@ -33,7 +30,7 @@ Item {
     Text {
         id: label2
         color: "#ffffff"
-        text:artist
+        text:modelData.artist
         elide: Text.ElideLeft
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5

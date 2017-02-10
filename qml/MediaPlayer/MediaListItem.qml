@@ -4,14 +4,13 @@ Item {
     id: __media_list_item
     height: 50
     width: parent.width
-    property string path: modelData.path + "/" + modelData.name
 
     signal itemClicked(string path, int index)
     Text {
         id: label1
         height: 20
         color: "#ffffff"
-        text: modelData.name
+        text: modelData.title
         fontSizeMode: Text.VerticalFit
         clip: true
         verticalAlignment: Text.AlignVCenter
@@ -29,7 +28,7 @@ Item {
     Text {
         id: label2
         color: "#ffffff"
-        text:modelData.path
+        text:modelData.artist
         elide: Text.ElideLeft
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5
@@ -53,11 +52,9 @@ Item {
         anchors.top: parent.top
         anchors.rightMargin: 10
         onClicked: {
-            __media_list_item.itemClicked(path, index);
+            __media_list_item.itemClicked(modelData.path, index);
         }
     }
-
-
 
     Item {
         id: more_button
