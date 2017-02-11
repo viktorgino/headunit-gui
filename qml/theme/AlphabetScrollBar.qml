@@ -15,10 +15,12 @@ Item {
     property string bottomItemFirstLetter: "..."
     signal positionViewAtIndex(int index, var mode);
     onLettersChanged: {
-        if(letters.length > 0){
-            console.log(Object.keys(letters)[0]);
-            firstLetter = Object.keys(letters)[0];
-            lastLetter = Object.keys(letters)[Object.keys(letters).length-1];
+        if(typeof(letters) !== "undefined"){
+            if(letters.length > 0){
+                console.log(Object.keys(letters)[0]);
+                firstLetter = Object.keys(letters)[0];
+                lastLetter = Object.keys(letters)[Object.keys(letters).length-1];
+            }
         }
     }
 
@@ -70,6 +72,9 @@ Item {
                         return 0;
                     } else {
                         var angle = 0 - (90/7 * diff);
+                        //var y_i = diff * (letter_height+letter_height*0.5);
+                        //console.log(diff);
+                        //var angle = Math.acos(y_i/scroller.x);
                         var ret =  scroller.x * Math.cos(angle*(Math.PI / 180));
                         return ret;
                     }

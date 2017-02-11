@@ -22,29 +22,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.topMargin: 0
-        model: parent.model
-        onModelChanged: {
-            var letters = [];
-            if(count > 0){
-                for(var item in model){
-                    var letter;
-                    var name = model[item].name;
-                    if(typeof(name) !== "undefined"){
-                        letter = name.substring(0, 1);
-                        if(scroll_bar.alphabet.indexOf(letter) === -1){
-                            letter = "...";
-                        }
-                    } else {
-                        letter = "...";
-                    }
-
-                    if(!letters.hasOwnProperty(letter)){
-                        letters[letter] = item;
-                    }
-                }
-            }
-            scroll_bar.letters = letters;
-        }
+        model: parent.model.data
         delegate: switch(item_type){
                   case "folders":
                       media_folder_list_item
@@ -126,6 +104,7 @@ Item {
         anchors.right: parent.right
         anchors.rightMargin: 0
         count:listView.count
+        letters : model.firstLetters
         topItemFirstLetter:{
             if(listView.count > 0){
                 var name;

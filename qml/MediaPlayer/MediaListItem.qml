@@ -10,7 +10,7 @@ Item {
         id: label1
         height: 20
         color: "#ffffff"
-        text: modelData.title
+        text: modelData.name
         fontSizeMode: Text.VerticalFit
         clip: true
         verticalAlignment: Text.AlignVCenter

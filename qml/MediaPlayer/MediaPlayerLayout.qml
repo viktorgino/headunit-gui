@@ -395,21 +395,27 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         onItemClicked: {
+            changeState("toList");
             switch(itemData.item_type){
             case "folders":
-                changeState("toList");
-                mediaList.model = mediaLibrary.audioFolderContent(itemData.id);
+                mediaList.model = mediaLibrary.audioFolderContent(itemData.id).data;
                 mediaList.thumbnail = itemData.thumbnail;
                 mediaList.title = itemData.name;
                 mediaList.sub_title = itemData.path;
                 break;
             case "playlists":
+                mediaList.model = mediaLibrary.getPlaylistContent(itemData.name).data;
                 break;
             case "artists":
+                mediaList.model = mediaLibrary.getArtistContent(itemData.name).data;
                 break;
             case "albums":
+                mediaList.model = mediaLibrary.getAlbumContent(itemData.name).data;
                 break;
             case "genres":
+                var tst = mediaLibrary.getGenreContent(itemData.name).data;
+                console.log(tst[0]);
+                mediaList.model = tst;
                 break;
             default:
                 break;
