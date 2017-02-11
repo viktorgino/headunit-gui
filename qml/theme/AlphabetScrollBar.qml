@@ -31,7 +31,7 @@ Item {
     Rectangle{
         color:"grey"
         //radius: width/2
-        width:20
+        width:parent.width
         height: parent.height/alphabet.length
         opacity: 1 + (scroller.x/10)
         y:{
@@ -75,7 +75,7 @@ Item {
                     }
                 }
                 Behavior on x {
-                    NumberAnimation { duration: 50}
+                    NumberAnimation { duration: 100}
                 }
                 width: parent.width
                 text:scroll_bar.alphabet[index]

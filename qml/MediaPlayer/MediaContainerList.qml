@@ -118,7 +118,7 @@ Item {
     }
     AlphabetScrollBar{
         id: scroll_bar
-        width: 20
+        width: parent.width*0.05
         anchors.top: header.bottom
         anchors.topMargin: 0
         anchors.bottom: parent.bottom
