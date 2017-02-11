@@ -666,5 +666,6 @@
         <file>qml/MediaPlayer/MediaContainerListItem.qml</file>
         <file>qml/MediaPlayer/MediaList.qml</file>
         <file>qml/MediaPlayer/ScrollIndicator.qml</file>
+        <file>qml/theme/AlphabetScrollBar.qml</file>
     </qresource>
 </RCC>

@@ -1,6 +1,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
+import "../theme"
 
 Item {
     id: __media_container_list
@@ -9,19 +10,7 @@ Item {
     property url icon
     property string name
     property string item_type
-    property var letters : []
     signal itemClicked(var itemData)
-    onModelChanged: {
-        letters = [];
-        if(model.length > 0){
-            for(var item in model){
-                var letter = model[item]["name"].substring(0, 1);
-                if(!letters.hasOwnProperty(letter)){
-                    letters[letter] = item;
-                }
-            }
-        }
-    }
 
     ListView {
         id: listView
@@ -103,8 +92,7 @@ Item {
             font.pixelSize: 16
         }
     }
-
-    Item{
+    AlphabetScrollBar{
         id: scroll_bar
         width: 20
         anchors.top: header.bottom
@@ -113,95 +101,36 @@ Item {
         anchors.bottomMargin: 0
         anchors.right: parent.right
         anchors.rightMargin: 0
-        Rectangle{
-            opacity: 0.5
-            property var alphabet : "...,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".split(",");
-            height: parent.height/alphabet.length
-            width:20
-            radius: 10
-            id: scroller
-            property int current_indx: 10
-            onYChanged: {
+        count:listView.count
+        topItemFirstLetter:{
+            var letter = listView.itemAt(1,listView.contentY).name.substring(0, 1).toUpperCase();
+            if(alphabet.indexOf(letter) === -1){
+                letter = "..."
             }
+            return letter;
         }
-
-        ColumnLayout {
-            anchors.fill: parent
-            id:scroll_column
-            Repeater{
-                model:scroller.alphabet
-                id:scroll_repeater
-                Text{
-                    Layout.fillHeight: true
-                    property int indx: index
-                    x : {
-                        var diff;
-                        if(index > scroller.current_indx){
-                            diff = scroller.current_indx - index
-                        } else if(index === scroller.current_indx) {
-                            diff = 0;
-                        } else {
-                            diff =  scroller.current_indx - index
-                        }
-                        if(diff > 7 || diff < -7){
-                            return 0;
-                        } else {
-                            var angle = 0- (90/7 * diff);
-                            var ret =  scroller.x * Math.cos(angle*(Math.PI / 180))
-                            //console.log("Letter : "+scroller.alphabet[index]+" | Diff : " + diff +" | Angle : " + angle + " | ret: " + ret + " | scroller.x: " + scroller.x);
-                            return ret;
-                        }
-                    }
-                    text:scroller.alphabet[index]
-                    horizontalAlignment: Text.AlignRight
-                    verticalAlignment: Text.AlignTop
-                    color:"white"
-                }
+        bottomItemFirstLetter:{
+            var letter = listView.itemAt(1,listView.contentY+listView.height-1).name.substring(0, 1).toUpperCase();
+            if(alphabet.indexOf(letter) === -1){
+                letter = "..."
             }
+            return letter;
         }
-        MouseArea {
-            anchors.fill: parent
-            propagateComposedEvents: false
-            preventStealing: false
-            property bool isMouseDown: false
-            function getIndex(y){
-                return Math.floor(y/(scroll_column.height / scroller.alphabet.length));
-            }
-
-            onPressed: {
-                isMouseDown=true;
-                scroller.y=mouse.y-10
-                scroller.current_indx = getIndex(mouse.y);
-                var letter = scroller.alphabet[scroller.current_indx];
-                if(typeof(letter) === "undefined")
-                    listView.positionViewAtIndex(0,ListView.Beginning);
-                else
-                    listView.positionViewAtIndex(__media_container_list.letters[scroller.alphabet[scroller.current_indx]],ListView.Beginning);
-            }
-            onReleased: {
-                isMouseDown=false;
-                scroller.x=0
-            }
-            onCanceled: {
-                isMouseDown=false;
-            }
-            onPositionChanged: {
-                if(mouse.y <= scroll_bar.height & mouse.y >= 0){
-                    scroller.y=mouse.y
-                    var letter = scroller.alphabet[scroller.current_indx];
-                    if(typeof(letter) === "undefined")
-                        listView.positionViewAtIndex(0,ListView.Beginning);
-                    else
-                        listView.positionViewAtIndex(__media_container_list.letters[scroller.alphabet[scroller.current_indx]],ListView.Beginning);
-                }
-                if(mouse.x >= -100 & mouse.x <= 0){
-                    scroller.x=mouse.x
-                }
-                scroller.current_indx = getIndex(mouse.y);
-            }
-            onClicked: {
-            }
-        }
+        onPositionViewAtIndex: listView.positionViewAtIndex(index,mode);
     }
-
+    onModelChanged: {
+        var letters = [];
+        if(model.length > 0){
+            for(var item in model){
+                var letter = model[item]["name"].substring(0, 1);
+                if(scroll_bar.alphabet.indexOf(letter) === -1){
+                    letter = "..."
+                }
+                if(!letters.hasOwnProperty(letter)){
+                    letters[letter] = item;
+                }
+            }
+        }
+        scroll_bar.letters = letters;
+    }
 }
