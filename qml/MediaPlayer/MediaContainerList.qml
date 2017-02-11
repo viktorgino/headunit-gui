@@ -23,6 +23,28 @@ Item {
         anchors.left: parent.left
         anchors.topMargin: 0
         model: parent.model
+        onModelChanged: {
+            var letters = [];
+            if(count > 0){
+                for(var item in model){
+                    var letter;
+                    var name = model[item].name;
+                    if(typeof(name) !== "undefined"){
+                        letter = name.substring(0, 1);
+                        if(scroll_bar.alphabet.indexOf(letter) === -1){
+                            letter = "...";
+                        }
+                    } else {
+                        letter = "...";
+                    }
+
+                    if(!letters.hasOwnProperty(letter)){
+                        letters[letter] = item;
+                    }
+                }
+            }
+            scroll_bar.letters = letters;
+        }
         delegate: switch(item_type){
                   case "folders":
                       media_folder_list_item
@@ -39,6 +61,7 @@ Item {
                     itemData.item_type = __media_container_list.item_type;
                     __media_container_list.itemClicked(itemData)
                 }
+                width: listView.width
             }
         }
         Component{
@@ -48,6 +71,7 @@ Item {
                     itemData.item_type = __media_container_list.item_type;
                     __media_container_list.itemClicked(itemData)
                 }
+                width: listView.width
             }
         }
 
@@ -103,34 +127,49 @@ Item {
         anchors.rightMargin: 0
         count:listView.count
         topItemFirstLetter:{
-            var letter = listView.itemAt(1,listView.contentY).name.substring(0, 1).toUpperCase();
-            if(alphabet.indexOf(letter) === -1){
-                letter = "..."
+            if(listView.count > 0){
+                var name;
+                var top_item = listView.itemAt(1,listView.contentY)
+                if(top_item === null){
+                    name = listView.model[0].name;
+                } else {
+                    name = top_item.name;
+                }
+                if(typeof(name) !== "undefined"){
+                    var letter = name.substring(0, 1).toUpperCase();
+                    if(alphabet.indexOf(letter) === -1){
+                        letter = alphabet[0];
+                    }
+                    return letter;
+                } else {
+                    return alphabet[0];
+                }
+            } else {
+                return alphabet[0];
             }
-            return letter;
         }
         bottomItemFirstLetter:{
-            var letter = listView.itemAt(1,listView.contentY+listView.height-1).name.substring(0, 1).toUpperCase();
-            if(alphabet.indexOf(letter) === -1){
-                letter = "..."
+            if(listView.count > 0){
+                var name;
+                var bottom_item = listView.itemAt(1,listView.contentY+listView.height-1);
+                if(bottom_item === null){
+                    name = listView.model[listView.count -1].name;
+                } else {
+                    name = bottom_item.name;
+                }
+                if(typeof(name) !== "undefined"){
+                    var letter = name.substring(0, 1).toUpperCase();
+                    if(alphabet.indexOf(letter) === -1){
+                        letter = alphabet[0];
+                    }
+                    return letter;
+                } else {
+                    return alphabet[0];
+                }
+            } else {
+                return alphabet[0];
             }
-            return letter;
         }
         onPositionViewAtIndex: listView.positionViewAtIndex(index,mode);
-    }
-    onModelChanged: {
-        var letters = [];
-        if(model.length > 0){
-            for(var item in model){
-                var letter = model[item]["name"].substring(0, 1);
-                if(scroll_bar.alphabet.indexOf(letter) === -1){
-                    letter = "..."
-                }
-                if(!letters.hasOwnProperty(letter)){
-                    letters[letter] = item;
-                }
-            }
-        }
-        scroll_bar.letters = letters;
     }
 }

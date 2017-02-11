@@ -3,7 +3,6 @@ import QtQuick 2.6
 Item {
     id: __media_container_list_item
     height: 50
-    width: parent.width
     property string name: modelData.name
     signal itemClicked(var itemData)
     Text {
@@ -13,7 +12,7 @@ Item {
         text: modelData.name
         elide: Text.ElideLeft
         clip: true
-        verticalAlignment: Text.AlignVCenter
+        verticalAlignment: Text.AlignTop
         anchors.top: parent.top
         anchors.topMargin: 5
         anchors.right: parent.right

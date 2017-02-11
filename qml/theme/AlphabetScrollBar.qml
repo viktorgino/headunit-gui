@@ -15,8 +15,11 @@ Item {
     property string bottomItemFirstLetter: "..."
     signal positionViewAtIndex(int index, var mode);
     onLettersChanged: {
-        firstLetter = Object.keys(letters)[0];
-        lastLetter = Object.keys(letters)[Object.keys(letters).length-1];
+        if(letters.length > 0){
+            console.log(Object.keys(letters)[0]);
+            firstLetter = Object.keys(letters)[0];
+            lastLetter = Object.keys(letters)[Object.keys(letters).length-1];
+        }
     }
 
     Rectangle{
@@ -76,7 +79,7 @@ Item {
                 }
                 width: parent.width
                 text:scroll_bar.alphabet[index]
-                font.pointSize: letter_height *0.8
+                font.pointSize: letter_height!=0?letter_height *0.8:5
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 color:{
