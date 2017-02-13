@@ -33,16 +33,6 @@ Item {
         }
     }
 
-    //No function in QT to play a song with a given id so we skip to it
-    function playItem (toPlay){
-        for(var i=0; i<Math.abs(toPlay); i++){
-            if(toPlay > 0){
-                nowPlaying.next();
-            } else {
-                nowPlaying.previous();
-            }
-        }
-    }
     Item {
         id: main
         anchors.top: top_menu.bottom
@@ -358,10 +348,10 @@ Item {
             var itemToPlay = 0;
             for(var i=0; i<model.length; i++){
                 if(model[i].playNow)
-                    itemToPlay = i+1;
+                    itemToPlay = i;
                 playlist.addItem("file://"+model[i].path);
             }
-            __media_player_layout.playItem(itemToPlay)
+            nowPlaying.currentIndex = itemToPlay;
             play();
         }
     }
@@ -395,27 +385,34 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         onItemClicked: {
-            changeState("toList");
             switch(itemData.item_type){
             case "folders":
+                changeState("toList");
                 mediaList.model = mediaLibrary.audioFolderContent(itemData.id).data;
                 mediaList.thumbnail = itemData.thumbnail;
                 mediaList.title = itemData.name;
                 mediaList.sub_title = itemData.path;
                 break;
             case "playlists":
+                changeState("toList");
                 mediaList.model = mediaLibrary.getPlaylistContent(itemData.path, itemData.name);
                 break;
             case "artists":
+                changeState("toList");
                 mediaList.model = mediaLibrary.getArtistContent(itemData.name).data;
                 break;
             case "albums":
+                changeState("toList");
                 mediaList.model = mediaLibrary.getAlbumContent(itemData.name).data;
                 break;
             case "genres":
-                var tst = mediaLibrary.getGenreContent(itemData.name).data;
-                console.log(tst[0]);
-                mediaList.model = tst;
+                changeState("toList");
+                mediaList.model = mediaLibrary.getGenreContent(itemData.name).data;
+                break;
+            case "songs":
+                changeState("button");
+                nowPlayingList.model = itemData.data;
+                thumbnail_image.source = itemData.thumbnail;
                 break;
             default:
                 break;
@@ -455,6 +452,9 @@ Item {
             case "genres":
                 media_container_list.model = mediaLibrary.getGenres();
                 break;
+            case "songs":
+                media_container_list.model = mediaLibrary.getSongs();
+                break;
             default:
                 media_container_list.model = 0;
                 break;
@@ -472,18 +472,11 @@ Item {
         anchors.bottomMargin: 0
         anchors.top: top_menu.bottom
         anchors.topMargin: 0
-        nowPlaying: nowPlaying.currentIndex
+        currentPlaying: nowPlaying.currentIndex
         onItemClicked: {
-            var diff = 0;
-            var curInd = nowPlaying.currentIndex;
-            if(nowPlaying.currentIndex > index){
-                diff = index - curInd;
-            } else {
-                diff = Math.abs((curInd - index));
-            }
-
-            __media_player_layout.playItem(diff);
+            nowPlaying.currentIndex = index;
             changeState("button");
+            mediaplayer.play();
         }
         onModelChanged: {
             mediaplayer.setPlaylist(model)
@@ -611,6 +604,7 @@ Item {
     Settings {
         id: mediaplayer_settings
         property alias nowPlaying: nowPlayingList.model
+        property alias nowPlayingCurrentIndex: nowPlaying.currentIndex
         property alias thumbnailImage: thumbnail_image.source
     }
 }

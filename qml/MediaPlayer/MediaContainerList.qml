@@ -24,9 +24,12 @@ Item {
         anchors.topMargin: 0
         model: parent.model.data
         delegate: switch(item_type){
-                  case "folders":
                   case "playlists":
+                  case "folders":
                       media_folder_list_item
+                      break;
+                  case "songs":
+                      media_list_item
                       break;
                   default:
                       media_container_list_item
@@ -46,8 +49,24 @@ Item {
         Component{
             id:media_folder_list_item
             MediaFolderListItem {
+                sub_title: item_type=="folders"?"path":""
                 onItemClicked: {
                     itemData.item_type = __media_container_list.item_type;
+                    __media_container_list.itemClicked(itemData)
+                }
+                width: listView.width
+            }
+        }
+        Component{
+            id:media_list_item
+            MediaListItem {
+                onItemClicked: {
+                    __media_container_list.model.data[index].playNow = true;
+                    var itemData = {
+                        item_type : __media_container_list.item_type,
+                        thumbnail:__media_container_list.model.data[index].thumbnail,
+                        data:__media_container_list.model.data
+                    }
                     __media_container_list.itemClicked(itemData)
                 }
                 width: listView.width

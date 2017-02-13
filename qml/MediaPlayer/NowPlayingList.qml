@@ -8,8 +8,11 @@ Item {
     property url icon
     property string name
     property string item_type
-    property int nowPlaying : 0
+    property int currentPlaying : 0
     signal itemClicked(int index)
+    onCurrentPlayingChanged: {
+        listView.positionViewAtIndex(currentPlaying,ListView.Beginning);
+    }
 
     Rectangle {
         id: rectangle1
@@ -28,7 +31,7 @@ Item {
         anchors.topMargin: 0
         model: parent.model
         delegate: NowPlayingListItem {
-            nowPlaying: __now_playing_list.nowPlaying
+            currentPlaying: __now_playing_list.currentPlaying
             onItemClicked: __now_playing_list.itemClicked(index)
         }
         ScrollBar.vertical: ScrollBar {

@@ -5,6 +5,7 @@ Item {
     height: 50
     width: parent.width
 
+    property string sub_title: "path"
     signal itemClicked(var itemData)
     Image {
         id: thumbnail
@@ -41,7 +42,7 @@ Item {
     Text {
         id: label2
         color: "#ffffff"
-        text: modelData.path
+        text: sub_title == "path"?modelData.path:modelData.count + (modelData.count==1? " Item" : " Items")
         elide: Text.ElideLeft
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5

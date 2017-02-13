@@ -5,7 +5,7 @@ Item {
     height: 50
     width: parent.width
     property string path: modelData.path + "/" + modelData.name
-    property int nowPlaying : 0
+    property int currentPlaying : 0
 
     signal itemClicked(int index)
     Text {
@@ -70,7 +70,7 @@ Item {
             anchors.fill: playing_button_image
             source: playing_button_image
             color:"#00ff00"
-            visible: index==nowPlaying
+            visible: index==currentPlaying
         }
     }
 

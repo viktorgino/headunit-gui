@@ -6,6 +6,7 @@ Item {
     width: parent.width
 
     signal itemClicked(string path, int index)
+    property string name: modelData.name
     Text {
         id: label1
         height: 20
@@ -16,7 +17,7 @@ Item {
         verticalAlignment: Text.AlignVCenter
         anchors.top: parent.top
         anchors.topMargin: 5
-        anchors.right: more_button.left
+        anchors.right: parent.right
         anchors.rightMargin: 10
         font.pointSize: 11
         anchors.left: parent.left
@@ -40,37 +41,19 @@ Item {
         anchors.top: label1.bottom
         anchors.left: parent.left
         font.pointSize: 9
-        anchors.right: more_button.left
+        anchors.right: parent.right
         verticalAlignment: Text.AlignVCenter
     }
 
     MouseArea {
         id: mouseArea
-        anchors.right: more_button.left
+        anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.top: parent.top
-        anchors.rightMargin: 10
+        anchors.rightMargin: 0
         onClicked: {
             __media_list_item.itemClicked(modelData.path, index);
-        }
-    }
-
-    Item {
-        id: more_button
-        width: height
-        anchors.rightMargin: 10
-        anchors.bottomMargin: 5
-        anchors.topMargin: 5
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.top: parent.top
-
-        Image {
-            anchors.fill: parent
-            source: "qrc:/qml/icons/svg/navicon-round.svg"
-            fillMode: Image.PreserveAspectCrop
-            mipmap:true
         }
     }
 
