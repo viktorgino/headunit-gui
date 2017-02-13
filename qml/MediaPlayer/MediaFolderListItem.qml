@@ -4,16 +4,7 @@ Item {
     id: __media_folder_list_item
     height: 50
     width: parent.width
-    function getName (path){
-        var path_parts = path.split("/");
-        return path_parts.splice(-1,1)[0];
-    }
-    function getPath (path){
-        return path.replace(getName(path),"");
-    }
 
-    property var name: getName(modelData.path)
-    property var path: getPath(modelData.path)
     signal itemClicked(var itemData)
     Image {
         id: thumbnail
@@ -32,7 +23,7 @@ Item {
         id: label1
         height: 20
         color: "#ffffff"
-        text:name
+        text:modelData.name
         elide: Text.ElideLeft
         clip: true
         verticalAlignment: Text.AlignVCenter
@@ -50,7 +41,7 @@ Item {
     Text {
         id: label2
         color: "#ffffff"
-        text: path
+        text: modelData.path
         elide: Text.ElideLeft
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5
@@ -72,8 +63,6 @@ Item {
         onClicked:{
             var itemData = modelData;
             itemData.thumbnail = thumbnail_image.source;
-            itemData.name = parent.name
-            itemData.path = parent.path
             __media_folder_list_item.itemClicked(itemData);
         }
     }

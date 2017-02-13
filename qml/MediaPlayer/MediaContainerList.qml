@@ -25,6 +25,7 @@ Item {
         model: parent.model.data
         delegate: switch(item_type){
                   case "folders":
+                  case "playlists":
                       media_folder_list_item
                       break;
                   default:

@@ -404,7 +404,7 @@ Item {
                 mediaList.sub_title = itemData.path;
                 break;
             case "playlists":
-                mediaList.model = mediaLibrary.getPlaylistContent(itemData.name).data;
+                mediaList.model = mediaLibrary.getPlaylistContent(itemData.path, itemData.name);
                 break;
             case "artists":
                 mediaList.model = mediaLibrary.getArtistContent(itemData.name).data;
