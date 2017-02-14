@@ -13,6 +13,7 @@ Item {
     property string lastLetter: "Z"
     property string topItemFirstLetter: "..."
     property string bottomItemFirstLetter: "..."
+    property int fontSize: letter_height!=0?letter_height *0.8:5
     signal positionViewAtIndex(int index, var mode);
     onLettersChanged: {
         if(typeof(letters) !== "undefined"){
@@ -72,9 +73,6 @@ Item {
                         return 0;
                     } else {
                         var angle = 0 - (90/7 * diff);
-                        //var y_i = diff * (letter_height+letter_height*0.5);
-                        //console.log(diff);
-                        //var angle = Math.acos(y_i/scroller.x);
                         var ret =  scroller.x * Math.cos(angle*(Math.PI / 180));
                         return ret;
                     }
@@ -84,7 +82,7 @@ Item {
                 }
                 width: parent.width
                 text:scroll_bar.alphabet[index]
-                font.pointSize: letter_height!=0?letter_height *0.8:5
+                font.pointSize: fontSize
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 color:{
