@@ -1,0 +1,3 @@
+[submodule "quickcross"]
+	path = quickcross
+	url = https://github.com/benlau/quickcross.git

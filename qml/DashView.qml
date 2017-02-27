@@ -75,10 +75,19 @@ Item {
         target: headunit
         onDeviceConnected: {
             notifications1.addNotification({
-                                       image: notification.image,
-                                       title: notification.title,
-                                       text: notification.text})
+                                               image: notification.image,
+                                               title: notification.title,
+                                               text: notification.text})
         }
+    }
+
+    Connections {
+        target: mediaLibrary
+        onMediaScanningFinished:
+            notifications1.addNotification({
+                                               image: "qrc:/qml/icons/android-search.png",
+                                               title: "Media Scanning finished",
+                                               text: ""})
     }
     Notifications {
         id: notifications1

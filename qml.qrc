@@ -667,5 +667,11 @@
         <file>qml/MediaPlayer/MediaList.qml</file>
         <file>qml/MediaPlayer/ScrollIndicator.qml</file>
         <file>qml/theme/AlphabetScrollBar.qml</file>
+        <file>qml/icons/android-color-palette.png</file>
+        <file>qml/SettingsPage/SettingsPageItem.qml</file>
+        <file>qml/SettingsPage/SettingsPage.qml</file>
+        <file>qml/SettingsPage/SettingsPageSectionHeader.qml</file>
+        <file>qml/SettingsPage/SettingsPageMediaLocations.qml</file>
+        <file>qml/SettingsPage/FileBrowser.qml</file>
     </qresource>
 </RCC>

@@ -17,11 +17,11 @@ Item {
         anchors.rightMargin: 0
         boundsBehavior: Flickable.DragOverBounds
         clip: true
-        anchors.top: header.bottom
+        anchors.top: parent.top
         anchors.right: scroll_bar.left
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        anchors.topMargin: 0
+        anchors.topMargin: parent.height * 0.15
         model: parent.model.data
         delegate: switch(item_type){
                   case "playlists":
