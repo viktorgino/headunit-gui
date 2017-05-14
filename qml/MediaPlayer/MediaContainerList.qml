@@ -22,7 +22,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.topMargin: parent.height * 0.15
-        model: parent.model.data
+        model: (parent.model ? parent.model.data : [] )
         delegate: switch(item_type){
                   case "playlists":
                   case "folders":
@@ -124,7 +124,7 @@ Item {
         anchors.right: parent.right
         anchors.rightMargin: 0
         count:listView.count
-        letters : model.firstLetters
+        letters : (model ? model.firstLetters : [] )
         topItemFirstLetter:{
             if(listView.count > 0){
                 var name;
