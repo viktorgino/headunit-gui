@@ -58,10 +58,13 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         onItemChanged:{
-            for(var i=0; i<contents.count;i++){
-                contents.itemAt(i).visible = false
+            console.info("contents.count: " + contents.count)
+            if(contents.count > 0) {
+                for(var i=0; i<contents.count;i++){
+                    contents.itemAt(i).visible = false
+                }
+                contents.itemAt(index).visible = true
             }
-            contents.itemAt(index).visible = true
         }
     }
 
@@ -75,9 +78,9 @@ Item {
         target: headunit
         onDeviceConnected: {
             notifications1.addNotification({
-                                               image: notification.image,
-                                               title: notification.title,
-                                               text: notification.text})
+               image: notification.image,
+               title: notification.title,
+               text: notification.text})
         }
     }
 
@@ -85,9 +88,9 @@ Item {
         target: mediaLibrary
         onMediaScanningFinished:
             notifications1.addNotification({
-                                               image: "qrc:/qml/icons/android-search.png",
-                                               title: "Media Scanning finished",
-                                               text: ""})
+               image: "qrc:/qml/icons/android-search.png",
+               title: "Media Scanning finished",
+               text: ""})
     }
     Notifications {
         id: notifications1
