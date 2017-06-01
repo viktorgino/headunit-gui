@@ -58,8 +58,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         onItemChanged:{
-            console.info("contents.count: " + contents.count)
-            if(contents.count > 0) {
+            if(contents.count > 0){
                 for(var i=0; i<contents.count;i++){
                     contents.itemAt(i).visible = false
                 }

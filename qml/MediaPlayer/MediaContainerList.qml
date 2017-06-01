@@ -6,7 +6,7 @@ import "../theme"
 Item {
     id: __media_container_list
     clip: true
-    property var model
+    property var model : []
     property url icon
     property string name
     property string item_type

@@ -18,7 +18,6 @@ Item {
     onLettersChanged: {
         if(typeof(letters) !== "undefined"){
             if(letters.length > 0){
-                console.log(Object.keys(letters)[0]);
                 firstLetter = Object.keys(letters)[0];
                 lastLetter = Object.keys(letters)[Object.keys(letters).length-1];
             }
