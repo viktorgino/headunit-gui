@@ -1,15 +1,17 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
+import QtQuick.Window 2.2
 import "ClimateControl"
 import "Radio"
 Window {
 
     id: window
     visible: true
-    width: 800
-    height: 480
     title: qsTr("viktorgino's HeadUnit GUI")
+    visibility: Window.AutomaticVisibility
+    width: Screen.width
+    height: Screen.height
 
     Settings {
         property alias x: window.x
@@ -30,5 +32,16 @@ Window {
         id: dashview
         anchors.fill: parent
     }
-
+    Shortcut {
+        sequence: "F11"
+        onActivated: {
+            console.log("width: "+Screen.width+"height: "+Screen.height);
+            if(window.visibility == Window.FullScreen)
+                window.visibility = Window.Windowed
+            else if(window.visibility == Window.Windowed)
+                window.visibility = Window.Maximized
+            else
+                window.visibility = Window.FullScreen
+        }
+    }
 }

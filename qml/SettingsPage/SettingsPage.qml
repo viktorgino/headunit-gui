@@ -54,6 +54,9 @@ Item {
                     case "Android Auto":
                         pageLoader.sourceComponent = androidAuto
                         break;
+                    case "Quit headunit-desktop":
+                        Qt.quit();
+                        break;
                     }
                     pageText.text = name
                 }
@@ -80,8 +83,13 @@ Item {
 
                 ListElement {
                     name: "Android Auto"
-                    iconImage: "qrc:/qml/icons/android-settings.png"
+                    iconImage: "qrc:/qml/icons/svg/social-android.svg"
                     section:"Media app"
+                }
+                ListElement {
+                    name: "Quit headunit-desktop"
+                    iconImage: "qrc:/qml/icons/log-out.png"
+                    section:"Other"
                 }
             }
             section.property: "section"
