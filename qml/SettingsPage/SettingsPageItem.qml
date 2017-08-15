@@ -1,4 +1,4 @@
-import QtQuick 2.6
+import QtQuick 2.8
 import QtGraphicalEffects 1.0
 
 Item {
@@ -9,7 +9,7 @@ Item {
     anchors.leftMargin: 8
     anchors.right: parent.right
     anchors.left: parent.left
-    signal clicked(string name)
+    signal elemClicked(string name)
 
     Image {
         id:__icon_image
@@ -68,6 +68,6 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        onClicked: parent.clicked(name)
+        onClicked: parent.elemClicked(name)
     }
 }

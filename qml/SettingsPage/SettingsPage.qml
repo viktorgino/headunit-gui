@@ -1,4 +1,4 @@
-import QtQuick 2.6
+import QtQuick 2.8
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtGraphicalEffects 1.0
@@ -15,6 +15,13 @@ Item {
     Component {
         id:mediaLocations
         SettingsPageMediaLocations{
+            anchors.fill: parent
+        }
+    }
+
+    Component {
+        id:androidAuto
+        SettingsPageAA{
             anchors.fill: parent
         }
     }
@@ -38,11 +45,14 @@ Item {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             delegate:SettingsPageItem{
-                onClicked: {
+                onElemClicked: {
                     root.state = "page loaded"
                     switch(name){
                     case "Media locations":
                         pageLoader.sourceComponent = mediaLocations
+                        break;
+                    case "Android Auto":
+                        pageLoader.sourceComponent = androidAuto
                         break;
                     }
                     pageText.text = name
@@ -53,25 +63,25 @@ Item {
                 ListElement {
                     name: "Theme"
                     iconImage: "qrc:/qml/icons/android-color-palette.png"
-                    section:"General settings"
+                    section:"General"
                 }
 
                 ListElement {
                     name: "Behaviour"
                     iconImage: "qrc:/qml/icons/android-settings.png"
-                    section:"General settings"
+                    section:"General"
                 }
 
                 ListElement {
                     name: "Media locations"
                     iconImage: "qrc:/qml/icons/android-folder.png"
-                    section:"Media player settings"
+                    section:"Media app"
                 }
 
                 ListElement {
-                    name: "Other"
+                    name: "Android Auto"
                     iconImage: "qrc:/qml/icons/android-settings.png"
-                    section:"Media player settings"
+                    section:"Media app"
                 }
             }
             section.property: "section"

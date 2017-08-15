@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 Item {
+    id:__root
     property color colorInactive: "#ffffff"
     property color colorActive: "#000000"
     property color sliderColor: "#212121"
@@ -125,5 +126,10 @@ Item {
         }
 
     }
-
+    Component.onCompleted: {
+        if(switchValue == leftValue)
+            changeSide("left")
+        else
+            changeSide("right")
+    }
 }
