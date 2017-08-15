@@ -673,5 +673,6 @@
         <file>qml/SettingsPage/SettingsPageSectionHeader.qml</file>
         <file>qml/SettingsPage/SettingsPageMediaLocations.qml</file>
         <file>qml/SettingsPage/FileBrowser.qml</file>
+        <file>qml/SettingsPage/SettingsPageAA.qml</file>
     </qresource>
 </RCC>
