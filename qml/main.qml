@@ -35,7 +35,6 @@ Window {
     Shortcut {
         sequence: "F11"
         onActivated: {
-            console.log("width: "+Screen.width+"height: "+Screen.height);
             if(window.visibility == Window.FullScreen)
                 window.visibility = Window.Windowed
             else if(window.visibility == Window.Windowed)
