@@ -97,7 +97,7 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: margin
                 Loader {
-                    sourceComponent: delegateItem?delegateItem:delegate
+                    sourceComponent: typeof(delegateItem)==="undefined"?delegate:delegateItem
                     anchors.fill: parent
                 }
 

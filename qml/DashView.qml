@@ -83,6 +83,7 @@ Item {
         }
     }
 
+
     Connections {
         target: mediaLibrary
         onMediaScanningFinished:
@@ -91,8 +92,35 @@ Item {
                title: "Media Scanning finished",
                text: ""})
     }
+
+
+    Connections {
+        target: telephonyManager
+        onIncomingCall:{
+            notifications1.addNotification({
+               image: "qrc:/qml/icons/svg/android-call.svg",
+               title: "Incoming Call",
+               text: "caller : " + caller + " | caller_number: " + caller_number})
+            callNotification.caller = caller_number
+            callNotification.callPath = call_path
+            callNotification.show();
+        }
+    }
+
+    CallNotification {
+        id: callNotification
+        anchors.fill: parent
+        onAnswer: {
+            telephonyManager.answerCall(callNotification.callPath)
+        }
+        onDecline: {
+            telephonyManager.declineCall(callNotification.callPath)
+        }
+    }
+
     Notifications {
         id: notifications1
         anchors.fill: parent
     }
+
 }

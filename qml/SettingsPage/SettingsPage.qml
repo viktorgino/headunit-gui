@@ -25,6 +25,12 @@ Item {
             anchors.fill: parent
         }
     }
+    Component {
+        id:bluetooth
+        SettingsPageBluetooth{
+            anchors.fill: parent
+        }
+    }
 
     Item {
         id: main
@@ -57,6 +63,9 @@ Item {
                     case "Quit headunit-desktop":
                         Qt.quit();
                         break;
+                    case "Bluetooth":
+                        pageLoader.sourceComponent = bluetooth
+                        break;
                     }
                     pageText.text = name
                 }
@@ -78,13 +87,19 @@ Item {
                 ListElement {
                     name: "Media locations"
                     iconImage: "qrc:/qml/icons/android-folder.png"
-                    section:"Media app"
+                    section:"Media apps"
                 }
 
                 ListElement {
                     name: "Android Auto"
                     iconImage: "qrc:/qml/icons/svg/social-android.svg"
-                    section:"Media app"
+                    section:"Media apps"
+                }
+
+                ListElement {
+                    name: "Bluetooth"
+                    iconImage: "qrc:/qml/icons/bluetooth.png"
+                    section:"Media apps"
                 }
                 ListElement {
                     name: "Quit headunit-desktop"
