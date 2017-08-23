@@ -1,5 +1,5 @@
 import QtQuick 2.5
-import QtQuick.Window 2.3
+import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import "ClimateControl"
 import "Radio"
@@ -18,7 +18,6 @@ Window {
         property alias width: window.width
         property alias height: window.height
         property alias visibility: window.visibility
-        property alias screen: window.screen
     }
 
     FontLoader{id:ralewayRegular; source:"qrc:/qml/fonts/Raleway-Regular.ttf"}
