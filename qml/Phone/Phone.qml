@@ -1,11 +1,13 @@
+import QtQml 2.2
 import QtQuick 2.5
 import MeeGo.QOfono 0.2
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
+import QtQuick.Controls.Material 2.0
+import QtBluetooth 5.7
 
 Item {
     id:__root
-    property string modemPath : ""
     Item {
         id: item1
         anchors.top: item2.bottom
@@ -223,7 +225,7 @@ Item {
     Item {
         id: item2
         height: parent.height*0.1
-        anchors.top: parent.top
+        anchors.top: toolBar.bottom
         anchors.topMargin: 8
         anchors.left: parent.left
         anchors.leftMargin: 8
@@ -279,8 +281,151 @@ Item {
 
     }
 
+    ToolBar {
+        id: toolBar
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+
+        RowLayout {
+            anchors.fill: parent
+            ToolButton {
+                text: qsTr("‹")
+                onClicked: stack.pop()
+            }
+            Label {
+                text: "Title"
+                elide: Label.ElideRight
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
+                Layout.fillWidth: true
+            }
+            ToolButton {
+                text: qsTr("⋮")
+                onClicked: menu.open()
+                Menu {
+                    id: menu
+                    x: -width+parent.width
+                    y: parent.height
+
+                    MenuItem {
+                        id: menuItem
+                        text: "Bluetooth"
+
+                        Switch {
+                            id:btPowerSwitch
+                            checked: telephonyManager.btConnectionState > 0
+                            anchors.right: parent.right
+                            anchors.rightMargin: 0
+                            onCheckedChanged: {
+                                telephonyManager.btConnectionState = checked?1:0
+                                if(checked)
+                                    btModel.running = true
+                            }
+                        }
+                    }
+                    MenuItem {
+                        text: "Visible"
+
+                        Switch {
+                            id:btVisibilitySwitch
+                            checked: telephonyManager.btConnectionState == 2
+                            anchors.right: parent.right
+                            anchors.rightMargin: 0
+                            onCheckedChanged: {
+                                telephonyManager.btConnectionState = checked?2:1
+                                btModel.running = true
+                            }
+                        }
+                    }
+                    MenuItem {
+                        Rectangle {
+                            height: 1
+                            color: "#1E000000"
+                            anchors.right: parent.right
+                            anchors.rightMargin: 8
+                            anchors.left: parent.left
+                            anchors.leftMargin: 8
+                        }
+                        Text{
+                            height: font.pointSize+16
+                            anchors.right: parent.right
+                            anchors.rightMargin: 8
+                            anchors.left: parent.left
+                            anchors.leftMargin: 8
+                            text: "Paired Devices"
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            font.pointSize: 11
+                        }
+                    }
+                    Instantiator {
+                        model:btModel
+                        onObjectAdded: menu.addItem(object )
+                        onObjectRemoved: menu.removeItem( 3+index )
+                        delegate: MenuItem {
+                            text: deviceName
+
+                            Switch {
+                                checked: {
+                                    for(var i = 0; i < telephonyManager.connectedDevices.length; i++){
+                                        if(telephonyManager.connectedDevices[i] == remoteAddress){
+                                            return 1;
+                                        }
+                                    }
+                                    return 0;
+                                }
+
+                                anchors.right: parent.right
+                                anchors.rightMargin: 0
+                                enabled: false
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Button {
+        id: button
+        text: qsTr("Button")
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: 16
+        onClicked: {
+            console.log("is phonebook valid? " + phonebook.valid);
+            phonebook.beginImport();
+        }
+    }
+    BluetoothDiscoveryModel {
+        id: btModel
+        running: true
+        discoveryMode: BluetoothDiscoveryModel.DeviceDiscovery
+        //onDiscoveryModeChanged: console.log("Discovery mode: " + discoveryMode)
+        //onServiceDiscovered: console.log("Found new service " + service.deviceAddress + " " + service.deviceName + " " + service.serviceName);
+        onDeviceDiscovered: console.log("New device: " + device)
+        onErrorChanged: {
+            switch (btModel.error) {
+            case BluetoothDiscoveryModel.PoweredOffError:
+                console.log("Error: Bluetooth device not turned on"); break;
+            case BluetoothDiscoveryModel.InputOutputError:
+                console.log("Error: Bluetooth I/O Error"); break;
+            case BluetoothDiscoveryModel.InvalidBluetoothAdapterError:
+                console.log("Error: Invalid Bluetooth Adapter Error"); break;
+            case BluetoothDiscoveryModel.NoError:
+                break;
+            default:
+                console.log("Error: Unknown Error"); break;
+            }
+        }
+    }
+
     OfonoNetworkRegistration {
-        modemPath: __root.modemPath
+        modemPath: ofonomodem.modemPath
         id: netreg
 
         onNetworkOperatorsChanged : {
@@ -296,21 +441,33 @@ Item {
             //netreg.currentOperatorPath*/
             if(available){
                 //textLine2.text = manager.available ? netreg.currentOperatorPath :"Ofono not available"
-                __root.modemPath = manager.modems[0]
-                phonebook.beginImport();
+                ofonomodem.modemPath = manager.modems[0]
             }
         }
         onModemAdded: {
-            __root.modemPath = manager.modems[0]
+            ofonomodem.modemPath = manager.modems[0]
         }
         onModemRemoved: {
-            __root.modemPath = ""
+            ofonomodem.modemPath = ""
+        }
+    }
+    OfonoModem{
+        id:ofonomodem
+        onModemPathChanged: {
+            online = true;
+            powered = true;
+        }
+        onPoweredChanged: {
+            console.log("name : " + name + " | manufacturer: " + manufacturer + " | model: " + model + " | type: " + type);
+            console.log("Interfaces:")
+            for(var i=0; i < interfaces.length; i++)
+                console.log("    "+interfaces[i])
         }
     }
 
     OfonoVoiceCallManager{
         id:vcm
-        modemPath: __root.modemPath
+        modemPath: ofonomodem.modemPath
         onCallAdded: {
             console.log(call)
             voice_call.voiceCallPath = call
@@ -339,22 +496,29 @@ Item {
     }
     OfonoPhonebook{
         id:phonebook
-        modemPath: __root.modemPath
+        modemPath: ofonomodem.modemPath
         onImportReady: {
             console.log("onImportReady")
             console.log(vcardData)
         }
+        onImportFailed: {
+            console.log("onImportFailed")
+        }
+
+        onImportingChanged: {
+            console.log("onImportingChanged")
+        }
     }
     OfonoHandsfree{
         id:hands_free
-        modemPath: __root.modemPath
+        modemPath: ofonomodem.modemPath
         Component.onCompleted: {
             text5.text = hands_free.batteryChargeLevel
         }
     }
     OfonoHandsfreeAudioManager{
         id:audio_man
-        modemPath: __root.modemPath
+        modemPath: ofonomodem.modemPath
         onCardAdded: {
             console.log("onCardAdded")
         }
@@ -362,10 +526,14 @@ Item {
             console.log("onCardRemoved")
         }
         Component.onCompleted: {
-            console.log("Cards:");
-            for(var i = 0; cards() < i; i++){
-                console.log("    "+cards()[i]);
+            if(cards().length > 0){
+                console.log("Cards:");
+                for(var i = 0; cards() < i; i++){
+                    console.log("    "+cards()[i]);
+                }
             }
         }
     }
+
+
 }

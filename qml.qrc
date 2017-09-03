@@ -682,5 +682,6 @@
         <file>qml/icons/svg/android-call.svg</file>
         <file>qml/icons/svg/mic-a.svg</file>
         <file>qml/CallNotification.qml</file>
+        <file>qml/Phone/BluetoothSettings.qml</file>
     </qresource>
 </RCC>
