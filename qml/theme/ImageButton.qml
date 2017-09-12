@@ -23,19 +23,19 @@ Item{
         source: parent.imageSource
         fillMode: Image.PreserveAspectFit
         mipmap:true
-        visible: false
+        visible: true
     }
 
     ColorOverlay {
         id: __image_button_color
-        color: parent.color
+        color: __image_button.color
         anchors.fill: __image_button_image
         enabled: true
         source: __image_button_image
     }
     Text {
         text: parent.text
-        color: baseColor
+        color: __image_button.baseColor
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
     }
