@@ -572,6 +572,18 @@ Item {
         onOperationalChanged:{
         }
     }
+    Connections{
+        target: headunit
+        onBtConnectionRequest:{
+            for(var i = 0 ; i < bluezManager.devices.length; i++){
+                if(bluezManager.devices[i].address === address){
+                    bluezManager.devices[i].connectToDevice();
+                } else {
+                    bluezManager.devices[i].disconnectFromDevice();
+                }
+            }
+        }
+    }
 
     OfonoNetworkRegistration {
         modemPath: ofonomodem.modemPath
@@ -601,9 +613,6 @@ Item {
         onModemPathChanged: {
             online = true;
             powered = true;
-        }
-        onPoweredChanged: {
-            console.log("name : " + name + " | manufacturer: " + manufacturer + " | model: " + model + " | type: " + type);
         }
     }
 
