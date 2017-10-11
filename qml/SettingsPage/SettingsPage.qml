@@ -2,6 +2,7 @@ import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtGraphicalEffects 1.0
+import "Audio"
 
 
 Item {
@@ -28,6 +29,12 @@ Item {
     Component {
         id:bluetooth
         SettingsPageBluetooth{
+            anchors.fill: parent
+        }
+    }
+    Component {
+        id:volume
+        SettingsPageVolume2{
             anchors.fill: parent
         }
     }
@@ -66,6 +73,9 @@ Item {
                     case "Bluetooth":
                         pageLoader.sourceComponent = bluetooth
                         break;
+                    case "Audio":
+                        pageLoader.sourceComponent = volume
+                        break;
                     }
                     pageText.text = name
                 }
@@ -99,6 +109,12 @@ Item {
                 ListElement {
                     name: "Bluetooth"
                     iconImage: "qrc:/qml/icons/bluetooth.png"
+                    section:"Media apps"
+                }
+
+                ListElement {
+                    name: "Audio"
+                    iconImage: "qrc:/qml/icons/volume-high.png"
                     section:"Media apps"
                 }
                 ListElement {
