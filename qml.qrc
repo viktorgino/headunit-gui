@@ -690,5 +690,8 @@
         <file>qml/SettingsPage/Audio/icon.js</file>
         <file>qml/SettingsPage/Audio/SettingsPageVolume2.qml</file>
         <file>qml/SettingsPage/Audio/SmallToolButton.qml</file>
+        <file>qml/Phone/Contacts.qml</file>
+        <file>qml/Phone/Dialer.qml</file>
+        <file>qml/Phone/Call.qml</file>
     </qresource>
 </RCC>

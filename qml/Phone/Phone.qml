@@ -9,271 +9,7 @@ import "../theme"
 Item {
     id:__root
     property int deviceIndex: 0
-    Item {
-        id: item1
-        anchors.top: item2.bottom
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.rightMargin: 8
-        anchors.leftMargin: 8
-        anchors.bottomMargin: 8
-        anchors.topMargin: 0
-
-
-        GridLayout {
-            id: gridLayout
-            width: parent.width * 0.5
-            rows: 4
-            columns: 3
-            anchors.left: parent.left
-            anchors.bottom: dial_buttons.top
-            anchors.top: parent.top
-            Repeater{
-                id: dial_nums
-                model:ListModel {
-                    ListElement {
-                        name: "1"
-                    }
-
-                    ListElement {
-                        name: "2"
-                    }
-
-                    ListElement {
-                        name: "3"
-                    }
-
-                    ListElement {
-                        name: "4"
-                    }
-
-                    ListElement {
-                        name: "5"
-                    }
-
-                    ListElement {
-                        name: "6"
-                    }
-
-                    ListElement {
-                        name: "7"
-                    }
-
-                    ListElement {
-                        name: "8"
-                    }
-                    ListElement {
-                        name: "9"
-                    }
-                    ListElement {
-                        name: "*"
-                    }
-                    ListElement {
-                        name: "0"
-                    }
-                    ListElement {
-                        name: "#"
-                    }
-                }
-                delegate: Item {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Text{
-                        text:model.name
-                        font.pointSize: height > 0 ? height * 0.6 : 12
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.fill: parent
-
-                        MouseArea {
-                            id: mouseArea
-                            anchors.fill: parent
-                            onClicked: dialer_num.insert(dialer_num.cursorPosition,parent.text)
-                        }
-                    }
-                }
-            }
-        }
-
-        Item {
-            id: dial_buttons
-            height: parent.height * 0.2
-            anchors.right: gridLayout.right
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-
-            Rectangle {
-                id:dial
-                width: height
-                color: "#558b2f"
-                anchors.left: parent.left
-                anchors.leftMargin: 8
-                anchors.top: parent.top
-                anchors.topMargin: 8
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 8
-
-                Image {
-                    id: image1
-                    anchors.rightMargin: parent.width*0.1
-                    anchors.leftMargin: parent.width*0.1
-                    anchors.bottomMargin: parent.height*0.1
-                    anchors.topMargin: parent.height*0.1
-                    fillMode: Image.PreserveAspectFit
-                    anchors.fill: parent
-                    source: "qrc:/qml/icons/svg/android-call.svg"
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        vcm.dial(dialer_num.text, "");
-                    }
-                }
-            }
-
-            Rectangle {
-                id:mic
-                width: height
-                color: "#1e88e5"
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
-                anchors.topMargin: 8
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 8
-
-                Image {
-                    anchors.rightMargin: parent.width*0.1
-                    anchors.leftMargin: parent.width*0.1
-                    anchors.bottomMargin: parent.height*0.1
-                    anchors.topMargin: parent.height*0.1
-                    fillMode: Image.PreserveAspectFit
-                    anchors.fill: parent
-                    source: "qrc:/qml/icons/svg/mic-a.svg"
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        hands_free.voiceRecognition = true;
-                    }
-                }
-            }
-
-            Rectangle {
-                id:hangup
-                width: height
-                color: "#c62828"
-                anchors.right: parent.right
-                anchors.rightMargin: 8
-                anchors.top: parent.top
-                anchors.bottomMargin: 8
-                anchors.topMargin: 8
-                anchors.bottom: parent.bottom
-
-                Image {
-                    id: image2
-                    anchors.bottomMargin: 0
-                    anchors.rightMargin: parent.width*0.1
-                    anchors.leftMargin: parent.width*0.1
-                    anchors.topMargin: parent.height*0.15
-                    rotation: 135
-                    anchors.fill: parent
-                    source: "qrc:/qml/icons/svg/android-call.svg"
-                    fillMode: Image.PreserveAspectFit
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        vcm.hangupAll();
-                    }
-                }
-            }
-        }
-
-        TextField {
-            id: dialer_num
-            text: "+"
-            font.pointSize: 30
-            anchors.left: gridLayout.right
-            anchors.right: parent.right
-            anchors.top: parent.top
-            validator: RegExpValidator { regExp :/[+]?[0-9#*]*/}
-
-            Image {
-                id: image
-                width: height * 1.2
-                fillMode: Image.PreserveAspectFit
-                anchors.right: parent.right
-                anchors.rightMargin: 0
-                anchors.top: parent.top
-                anchors.topMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 0
-                source: "qrc:/qml/icons/svg/backspace-outline.svg"
-
-                MouseArea {
-                    id: mouseArea1
-                    anchors.fill: parent
-                    onClicked: {
-                        dialer_num.remove(dialer_num.cursorPosition-1, dialer_num.cursorPosition);
-                    }
-                }
-            }
-        }
-        Component {
-            id:mediaPlayer
-            MediaPlayer {
-                bluezManager: __root.bluezManager
-                deviceIndex: __root.deviceIndex
-            }
-        }
-
-        Loader {
-            sourceComponent: mediaPlayer
-            active: typeof(bluezManager.devices[deviceIndex])!=="undefined" && bluezManager.devices[deviceIndex].mediaPlayer!==null
-            id: item3
-            anchors.left: dial_buttons.right
-            anchors.leftMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 168
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-        }
-
-    }
-
-    Item {
-        id: item2
-        height: parent.height*0.1
-        anchors.top: toolBar.bottom
-        anchors.topMargin: 8
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-
-        Text {
-            id: text1
-            text: netreg.name
-            anchors.left: parent.left
-            anchors.leftMargin: 8
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: 22
-        }
-
-        Text {
-            id: text4
-            text: qsTr("Signal: ")+netreg.strength + "%"
-            anchors.right: parent.right
-            anchors.rightMargin: 8
-            font.pixelSize: 22
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-    }
+    property QtObject bluezManager : BluezQt.Manager
 
     ToolBar {
         id: toolBar
@@ -374,6 +110,14 @@ Item {
                                     }
                                 }
                             }
+                            Connections{
+                                target:bluezManager.devices[deviceIndex]
+                                onConnectedChanged:{
+                                    if(connected){
+                                        telephonyManager.getPhonebooks(bluezManager.devices[deviceIndex].address)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -381,7 +125,143 @@ Item {
         }
     }
 
-    property QtObject bluezManager : BluezQt.Manager
+    Item {
+        id: item2
+        height: parent.height*0.1
+        anchors.top: toolBar.bottom
+        anchors.topMargin: 8
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        anchors.right: parent.right
+        anchors.rightMargin: 8
+
+        Text {
+            id: text1
+            text: netreg.name
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 22
+        }
+
+        Text {
+            id: text4
+            text: qsTr("Signal: ")+netreg.strength + "%"
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            font.pixelSize: 22
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+    }
+
+    Item {
+        id: item1
+        anchors.top: item2.bottom
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.rightMargin: 8
+        anchors.leftMargin: 8
+        anchors.bottomMargin: 8
+        anchors.topMargin: 0
+
+
+        Component {
+            id:mediaPlayer
+            MediaPlayer {
+                bluezManager: __root.bluezManager
+                deviceIndex: __root.deviceIndex
+            }
+        }
+
+        Component {
+            id:contacts
+            Contacts {
+                contactCardHeight:phoneView.height/5
+                onDial: {
+                    vcm.dial(contact.phoneNumber.number,"")
+                    phoneView.push(dialer)
+                    tabBar.currentIndex=0
+                }
+            }
+        }
+
+        Component {
+            id:dialer
+            Dialer {
+                onDial: vcm.dial(number,"")
+                onHangup: vcm.hangupAll()
+            }
+        }
+
+        RowLayout {
+            id: rowLayout
+            anchors.fill: parent
+            Item {
+                id: item3
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+
+                StackView{
+                    id:phoneView
+                    clip: true
+                    anchors.bottom: tabBar.top
+                    anchors.bottomMargin: 0
+                    anchors.top: parent.top
+                    anchors.topMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    initialItem:dialer
+                }
+
+                TabBar {
+                    id: tabBar
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    currentIndex: 0
+                    TabButton {
+                        id: tabButton
+                        text: qsTr("Dialer")
+                        onClicked: {
+                            phoneView.push(dialer)
+                            tabBar.currentIndex=0
+                        }
+                    }
+
+                    TabButton {
+                        id: tabButton1
+                        text: qsTr("Contacts")
+                        onClicked: {
+                            phoneView.push(contacts)
+                            tabBar.currentIndex=1
+                        }
+                    }
+                }
+            }
+            Item {
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Loader {
+                    anchors.fill: parent
+                    sourceComponent: mediaPlayer
+                    active: bluezManager.devices.length > 0 &&
+                            bluezManager.devices[__root.deviceIndex].connected &&
+                            bluezManager.devices[__root.deviceIndex].mediaPlayer
+                }
+            }
+
+
+        }
+    }
 
     Connections{
         target: bluezManager
@@ -393,11 +273,20 @@ Item {
         onBtConnectionRequest:{
             for(var i = 0 ; i < bluezManager.devices.length; i++){
                 if(bluezManager.devices[i].address === address){
-                    bluezManager.devices[i].connectToDevice();
+                    if(!bluezManager.devices[i].connected)
+                        bluezManager.devices[i].connectToDevice();
                 } else {
                     bluezManager.devices[i].disconnectFromDevice();
                 }
             }
+        }
+    }
+
+    Connections{
+        target: telephonyManager
+        onPhonebookChanged: {
+            phoneView.push(dialer)
+            tabBar.currentIndex=0
         }
     }
 
