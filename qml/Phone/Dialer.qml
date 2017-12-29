@@ -14,10 +14,11 @@ Item {
     anchors.bottomMargin: 0
     signal dial(string number)
     signal hangup()
+    property alias dialed_num: dialer_num.text
 
     TextField {
         id: dialer_num
-        text: "+"
+        text: ""
         anchors.leftMargin: 2
         font.pointSize: 30
         anchors.left: parent.left

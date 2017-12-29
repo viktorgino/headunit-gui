@@ -100,9 +100,6 @@ Item {
                                 enabled: true
                                 onCheckedChanged: {
                                     if(checked) {
-                                        for(var i = 0 ; i < bluezManager.devices.length; i++){
-                                            bluezManager.devices[i].disconnectFromDevice();
-                                        }
                                         connectToDevice();
                                         __root.deviceIndex = index;
                                     } else {
@@ -115,6 +112,8 @@ Item {
                                 onConnectedChanged:{
                                     if(connected){
                                         telephonyManager.getPhonebooks(bluezManager.devices[deviceIndex].address)
+                                    } else {
+                                        contacts.clear()
                                     }
                                 }
                             }
@@ -175,8 +174,9 @@ Item {
             }
         }
 
-        Component {
+        /*Component {
             id:contacts
+
             Contacts {
                 contactCardHeight:phoneView.height/5
                 onDial: {
@@ -185,15 +185,15 @@ Item {
                     tabBar.currentIndex=0
                 }
             }
-        }
-
+        }*/
+        /*
         Component {
             id:dialer
             Dialer {
                 onDial: vcm.dial(number,"")
                 onHangup: vcm.hangupAll()
             }
-        }
+        }*/
 
         RowLayout {
             id: rowLayout
@@ -203,6 +203,13 @@ Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
 
+                Dialer {
+                    id:dialer
+                    anchors.fill: parent
+                    onDial: vcm.dial(number,"")
+                    onHangup: vcm.hangupAll()
+                }
+                /*
                 StackView{
                     id:phoneView
                     clip: true
@@ -244,18 +251,34 @@ Item {
                             phoneView.push(contacts)
                             tabBar.currentIndex=1
                         }
-                    }
-                }
+                    }*/
             }
             Item {
                 Layout.fillHeight: true
                 Layout.fillWidth: true
-                Loader {
+                /*Loader {
                     anchors.fill: parent
                     sourceComponent: mediaPlayer
                     active: bluezManager.devices.length > 0 &&
                             bluezManager.devices[__root.deviceIndex].connected &&
                             bluezManager.devices[__root.deviceIndex].mediaPlayer
+                }*/
+                StackView{
+                  anchors.fill: parent
+                  initialItem: contactsComponent
+                  id:contacts
+                }
+                Component {
+                    id:contactsComponent
+                    Contacts {
+                        contactCardHeight:contacts.height/5
+                        dialed_num: dialer.dialed_num
+                        onDial: {
+                            vcm.dial(number,"")
+                            //phoneView.push(dialer)
+                            //tabBar.currentIndex=0
+                        }
+                    }
                 }
             }
 
@@ -269,6 +292,12 @@ Item {
         }
     }
     Connections{
+        target: telephonyManager
+        onPhonebookChanged:{
+            contacts.push(contactsComponent)
+        }
+    }
+    Connections{
         target: headunit
         onBtConnectionRequest:{
             for(var i = 0 ; i < bluezManager.devices.length; i++){
@@ -279,14 +308,6 @@ Item {
                     bluezManager.devices[i].disconnectFromDevice();
                 }
             }
-        }
-    }
-
-    Connections{
-        target: telephonyManager
-        onPhonebookChanged: {
-            phoneView.push(dialer)
-            tabBar.currentIndex=0
         }
     }
 
