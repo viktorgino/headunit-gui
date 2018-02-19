@@ -162,7 +162,7 @@ Item {
             }
         }
 
-        Rectangle {
+        /*Rectangle {
             id:mic
             width: height
             color: "#1e88e5"
@@ -187,7 +187,7 @@ Item {
                     hands_free.voiceRecognition = true;
                 }
             }
-        }
+        }*/
 
         Rectangle {
             id:hangup

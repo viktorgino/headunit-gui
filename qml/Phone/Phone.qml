@@ -23,7 +23,13 @@ Item {
         RowLayout {
             anchors.fill: parent
             ToolButton {
-                text: qsTr("⋮")
+                Image {
+                    width: 40
+                    height: 40
+                    source: "qrc:/qml/icons/gear-a.png"
+                    fillMode: Image.PreserveAspectFit
+                    mipmap:true
+                }
                 onClicked: menu.open()
                 Menu {
                     id: menu
@@ -113,7 +119,7 @@ Item {
                                     if(connected){
                                         telephonyManager.getPhonebooks(bluezManager.devices[deviceIndex].address)
                                     } else {
-                                        contacts.clear()
+                                        phoneStack.clear()
                                     }
                                 }
                             }
@@ -121,58 +127,36 @@ Item {
                     }
                 }
             }
+            Text {
+                id: text1
+                text: netreg.name?netreg.name:"No Connection"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: 22
+            }
+
+
+            Text {
+                id: text4
+                text: qsTr("Signal: ")+netreg.strength + "%"
+                anchors.right: parent.right
+                anchors.rightMargin: 8
+                font.pixelSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
-    }
-
-    Item {
-        id: item2
-        height: parent.height*0.1
-        anchors.top: toolBar.bottom
-        anchors.topMargin: 8
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-
-        Text {
-            id: text1
-            text: netreg.name
-            anchors.left: parent.left
-            anchors.leftMargin: 8
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: 22
-        }
-
-        Text {
-            id: text4
-            text: qsTr("Signal: ")+netreg.strength + "%"
-            anchors.right: parent.right
-            anchors.rightMargin: 8
-            font.pixelSize: 22
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
     }
 
     Item {
         id: item1
-        anchors.top: item2.bottom
+        anchors.top: toolBar.bottom
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.rightMargin: 8
         anchors.leftMargin: 8
         anchors.bottomMargin: 8
-        anchors.topMargin: 0
-
-
-        Component {
-            id:mediaPlayer
-            MediaPlayer {
-                bluezManager: __root.bluezManager
-                deviceIndex: __root.deviceIndex
-            }
-        }
+        anchors.topMargin: 8
 
         /*Component {
             id:contacts
@@ -264,14 +248,82 @@ Item {
                             bluezManager.devices[__root.deviceIndex].mediaPlayer
                 }*/
                 StackView{
-                  anchors.fill: parent
-                  initialItem: contactsComponent
-                  id:contacts
+                    id:phoneStack
+                    clip: true
+                    initialItem: contactsComponent
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.bottom: bottomButtons.top
+                    anchors.bottomMargin: 0
                 }
+                Item {
+                    id: bottomButtons
+                    height: width/5
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.rightMargin: 0
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 0
+
+                    Rectangle {
+                        color: "#212121"
+                        anchors.fill: parent
+                    }
+
+                    RowLayout {
+                        spacing: 0
+                        anchors.fill: parent
+                        Item{
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: phoneStack.push(contactsComponent)
+                            }
+                            Image{
+                                height: parent.height * 0.8
+                                width: height
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                source: "qrc:/qml/icons/person-stalker.png"
+                            }
+                        }
+                        /*Item{
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            Image{
+                                height: parent.height * 0.8
+                                width: height
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                source: "qrc:/qml/icons/android-clock.png"
+                            }
+                        }*/
+                        Item{
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: phoneStack.push(mediaPlayerComponent)
+                            }
+
+                            Image{
+                                height: parent.height * 0.8
+                                width: height
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                source: "qrc:/qml/icons/headphone.png"
+                            }
+                        }
+                    }
+                }
+
                 Component {
                     id:contactsComponent
                     Contacts {
-                        contactCardHeight:contacts.height/5
+                        contactCardHeight:phoneStack.height/5
                         dialed_num: dialer.dialed_num
                         onDial: {
                             vcm.dial(number,"")
@@ -280,9 +332,15 @@ Item {
                         }
                     }
                 }
+
+                Component {
+                    id:mediaPlayerComponent
+                    MediaPlayer {
+                        bluezManager: __root.bluezManager
+                        deviceIndex: __root.deviceIndex
+                    }
+                }
             }
-
-
         }
     }
 
@@ -294,7 +352,7 @@ Item {
     Connections{
         target: telephonyManager
         onPhonebookChanged:{
-            contacts.push(contactsComponent)
+            phoneStack.push(contactsComponent)
         }
     }
     Connections{
