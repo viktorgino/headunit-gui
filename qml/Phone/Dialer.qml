@@ -13,6 +13,7 @@ Item {
     anchors.bottom: parent.bottom
     anchors.bottomMargin: 0
     signal dial(string number)
+    signal voice_rec(bool state)
     signal hangup()
     property alias dialed_num: dialer_num.text
 
@@ -162,7 +163,7 @@ Item {
             }
         }
 
-        /*Rectangle {
+        Rectangle {
             id:mic
             width: height
             color: "#1e88e5"
@@ -184,10 +185,10 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    hands_free.voiceRecognition = true;
+                    __root.voice_rec(true);
                 }
             }
-        }*/
+        }
 
         Rectangle {
             id:hangup

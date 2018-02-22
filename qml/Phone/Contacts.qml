@@ -14,14 +14,33 @@ Item {
 
     StackView{
         id:contactView
-        initialItem: browsingArea
+        initialItem: browsingAreaLoader
         anchors.fill: parent
     }
+    Timer {
+        id: contactsTimer
+        interval:2000; running: false; repeat: false
+        onTriggered: browsingAreaLoader.active = true;
+    }
+    Connections{
+        target: telephonyManager
+        onPhonebookChanged:{
+            browsingAreaLoader.active = false;
+            contactsTimer.restart();
+        }
+    }
+    Loader{
+        id:browsingAreaLoader
+        sourceComponent: browsingArea
+        active: true
+    }
+
     Component {
         id:browsingArea
         ListView {
             id: contactsView
             model: ContactModel {
+                id:contactsModel
                 autoUpdate: true
                 manager: "memory"
                 filter:DetailFilter {
@@ -104,7 +123,7 @@ Item {
                             text: contact.name.firstName.charAt(0).toUpperCase()
                             font.pixelSize: parent.height * 1.4
                             anchors.bottomMargin: 0
-                            anchors.top: image.top
+                            anchors.top: parent.top
                             anchors.bottom: parent.bottom
                             anchors.topMargin: 0
                             font.bold: true
@@ -126,12 +145,12 @@ Item {
                             horizontalAlignment: Text.AlignRight
                         }
 
-                        Image {
+                        /*Image {
                             id: image
                             anchors.fill: parent
                             source: contact.avatar.imageUrl
                             fillMode: Image.PreserveAspectCrop
-                        }
+                        }*/
                     }
 
                 }

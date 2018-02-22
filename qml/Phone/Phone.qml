@@ -8,7 +8,6 @@ import org.kde.bluezqt 1.0 as BluezQt
 import "../theme"
 Item {
     id:__root
-    property int deviceIndex: 0
     property QtObject bluezManager : BluezQt.Manager
 
     ToolBar {
@@ -86,40 +85,34 @@ Item {
                             anchors.rightMargin: 8
                             anchors.left: parent.left
                             anchors.leftMargin: 8
-                            text: "Paired Devices"
+                            text: "Devices"
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
                             font.pointSize: 11
                         }
                     }
                     Instantiator {
-                        model:bluezManager.devices
-                        onObjectAdded: menu.addItem(object )
-                        onObjectRemoved: menu.removeItem( 3+index )
+                        model: BluezQt.DevicesModel { }
+                        onObjectAdded: menu.addItem(object)
+                        onObjectRemoved: menu.removeItem(index + 3)
                         delegate: MenuItem {
-                            text: name
+                            text: Name
 
                             Switch {
-                                checked: connected
+                                id:connectionSwitch
+                                checked: Connected
+                                enabled: true
                                 anchors.right: parent.right
                                 anchors.rightMargin: 0
-                                enabled: true
-                                onCheckedChanged: {
-                                    if(checked) {
-                                        connectToDevice();
-                                        __root.deviceIndex = index;
-                                    } else {
-                                        disconnectFromDevice();
-                                    }
-                                }
                             }
-                            Connections{
-                                target:bluezManager.devices[deviceIndex]
-                                onConnectedChanged:{
-                                    if(connected){
-                                        telephonyManager.getPhonebooks(bluezManager.devices[deviceIndex].address)
+
+                            MouseArea{
+                                anchors.fill: parent
+                                onClicked: {
+                                    if(Connected) {
+                                        Device.disconnectFromDevice();
                                     } else {
-                                        phoneStack.clear()
+                                        Device.connectToDevice();
                                     }
                                 }
                             }
@@ -135,7 +128,6 @@ Item {
                 font.pixelSize: 22
             }
 
-
             Text {
                 id: text4
                 text: qsTr("Signal: ")+netreg.strength + "%"
@@ -147,8 +139,7 @@ Item {
         }
     }
 
-    Item {
-        id: item1
+    Loader{
         anchors.top: toolBar.bottom
         anchors.right: parent.right
         anchors.bottom: parent.bottom
@@ -157,192 +148,125 @@ Item {
         anchors.leftMargin: 8
         anchors.bottomMargin: 8
         anchors.topMargin: 8
-
-        /*Component {
-            id:contacts
-
-            Contacts {
-                contactCardHeight:phoneView.height/5
-                onDial: {
-                    vcm.dial(contact.phoneNumber.number,"")
-                    phoneView.push(dialer)
-                    tabBar.currentIndex=0
-                }
-            }
-        }*/
-        /*
-        Component {
-            id:dialer
-            Dialer {
-                onDial: vcm.dial(number,"")
-                onHangup: vcm.hangupAll()
-            }
-        }*/
-
-        RowLayout {
-            id: rowLayout
+        active:telephonyManager.deviceIndex>=0
+        sourceComponent:Item {
+            id: item1
             anchors.fill: parent
-            Item {
-                id: item3
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-
-                Dialer {
-                    id:dialer
-                    anchors.fill: parent
-                    onDial: vcm.dial(number,"")
-                    onHangup: vcm.hangupAll()
-                }
-                /*
-                StackView{
-                    id:phoneView
-                    clip: true
-                    anchors.bottom: tabBar.top
-                    anchors.bottomMargin: 0
-                    anchors.top: parent.top
-                    anchors.topMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
+            RowLayout {
+                id: rowLayout
+                anchors.fill: parent
+                Item {
+                    id: item3
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-                    initialItem:dialer
-                }
 
-                TabBar {
-                    id: tabBar
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    currentIndex: 0
-                    TabButton {
-                        id: tabButton
-                        text: qsTr("Dialer")
-                        onClicked: {
-                            phoneView.push(dialer)
-                            tabBar.currentIndex=0
-                        }
+                    Dialer {
+                        id:dialer
+                        anchors.fill: parent
+                        onDial: vcm.dial(number,"")
+                        onHangup: vcm.hangupAll()
+                        onVoice_rec: hands_free.voiceRecognition = state
                     }
-
-                    TabButton {
-                        id: tabButton1
-                        text: qsTr("Contacts")
-                        onClicked: {
-                            phoneView.push(contacts)
-                            tabBar.currentIndex=1
-                        }
-                    }*/
-            }
-            Item {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                /*Loader {
-                    anchors.fill: parent
-                    sourceComponent: mediaPlayer
-                    active: bluezManager.devices.length > 0 &&
-                            bluezManager.devices[__root.deviceIndex].connected &&
-                            bluezManager.devices[__root.deviceIndex].mediaPlayer
-                }*/
-                StackView{
-                    id:phoneStack
-                    clip: true
-                    initialItem: contactsComponent
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    anchors.right: parent.right
-                    anchors.bottom: bottomButtons.top
-                    anchors.bottomMargin: 0
                 }
                 Item {
-                    id: bottomButtons
-                    height: width/5
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
 
-                    Rectangle {
-                        color: "#212121"
-                        anchors.fill: parent
+                    StackView{
+                        id:phoneStack
+                        clip: true
+                        initialItem: contactsComponent
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        anchors.bottom: bottomButtons.top
+                        anchors.bottomMargin: 0
                     }
+                    Item {
+                        id: bottomButtons
+                        height: parent.height*0.1
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 0
 
-                    RowLayout {
-                        spacing: 0
-                        anchors.fill: parent
-                        Item{
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            MouseArea{
-                                anchors.fill: parent
-                                onClicked: phoneStack.push(contactsComponent)
+                        Rectangle {
+                            color: "#212121"
+                            anchors.fill: parent
+                        }
+
+                        RowLayout {
+                            spacing: 0
+                            anchors.fill: parent
+                            Item{
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                MouseArea{
+                                    anchors.fill: parent
+                                    onClicked: phoneStack.push(contactsComponent)
+                                }
+                                Image{
+                                    height: parent.height * 0.8
+                                    width: height
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    source: "qrc:/qml/icons/person-stalker.png"
+                                }
                             }
-                            Image{
-                                height: parent.height * 0.8
-                                width: height
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                source: "qrc:/qml/icons/person-stalker.png"
+                            /*Item{
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+                                    Image{
+                                        height: parent.height * 0.8
+                                        width: height
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        source: "qrc:/qml/icons/android-clock.png"
+                                    }
+                                }*/
+                            Item{
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                MouseArea{
+                                    anchors.fill: parent
+                                    onClicked: phoneStack.push(mediaPlayerComponent)
+                                }
+
+                                Image{
+                                    height: parent.height * 0.8
+                                    width: height
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    source: "qrc:/qml/icons/headphone.png"
+                                }
                             }
                         }
-                        /*Item{
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            Image{
-                                height: parent.height * 0.8
-                                width: height
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                source: "qrc:/qml/icons/android-clock.png"
-                            }
-                        }*/
-                        Item{
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
-                            MouseArea{
-                                anchors.fill: parent
-                                onClicked: phoneStack.push(mediaPlayerComponent)
-                            }
+                    }
 
-                            Image{
-                                height: parent.height * 0.8
-                                width: height
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                source: "qrc:/qml/icons/headphone.png"
+                    Component {
+                        id:contactsComponent
+                        Contacts {
+                            contactCardHeight:phoneStack.height/5
+                            dialed_num: dialer.dialed_num
+                            onDial: {
+                                vcm.dial(number,"")
                             }
                         }
                     }
-                }
 
-                Component {
-                    id:contactsComponent
-                    Contacts {
-                        contactCardHeight:phoneStack.height/5
-                        dialed_num: dialer.dialed_num
-                        onDial: {
-                            vcm.dial(number,"")
-                            //phoneView.push(dialer)
-                            //tabBar.currentIndex=0
+                    Component {
+                        id:mediaPlayerComponent
+                        MediaPlayer {
+                            bluezManager: __root.bluezManager
                         }
-                    }
-                }
-
-                Component {
-                    id:mediaPlayerComponent
-                    MediaPlayer {
-                        bluezManager: __root.bluezManager
-                        deviceIndex: __root.deviceIndex
                     }
                 }
             }
         }
     }
+
 
     Connections{
         target: bluezManager
@@ -352,7 +276,9 @@ Item {
     Connections{
         target: telephonyManager
         onPhonebookChanged:{
-            phoneStack.push(contactsComponent)
+            /*console.log("Got phonebook");
+            phoneStack.clear();
+            phoneStack.push(contactsComponent);*/
         }
     }
     Connections{
@@ -377,19 +303,17 @@ Item {
     OfonoManager {
         id: manager
         onAvailableChanged: {
-            /*console.log("Ofono is " + available)
-            console.log("modems: " + modems + " | selected modems : " + manager.modems[0]);
-            //netreg.currentOperatorPath*/
             if(available){
-                //textLine2.text = manager.available ? netreg.currentOperatorPath :"Ofono not available"
                 ofonomodem.modemPath = manager.modems[0]
             }
         }
         onModemAdded: {
-            ofonomodem.modemPath = manager.modems[0]
+            ofonomodem.modemPath = path;
         }
         onModemRemoved: {
-            ofonomodem.modemPath = ""
+            if(ofonomodem.modemPath == path){
+                ofonomodem.modemPath = ofonomodem.defaultModem()
+            }
         }
     }
     OfonoModem{

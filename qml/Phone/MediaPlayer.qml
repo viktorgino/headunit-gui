@@ -6,11 +6,10 @@ import "../theme"
 
 Item {
     property QtObject bluezManager
-    property int deviceIndex: 0
     Text {
         id: text6
         text: {
-            return bluezManager.devices[deviceIndex].mediaPlayer.track.artist + " - " + bluezManager.devices[deviceIndex].mediaPlayer.track.title
+            return bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.track.artist + " - " + bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.track.title
         }
         anchors.bottom: buttons.top
         anchors.bottomMargin: 0
@@ -47,9 +46,9 @@ Item {
         changeColorOnPress:false
         onClicked: {
             if(checked)
-                bluezManager.devices[deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.ShuffleAllTracks
+                bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.ShuffleAllTracks
             else
-                bluezManager.devices[deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.ShuffleOff
+                bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.ShuffleOff
         }
     }*/
 
@@ -58,19 +57,19 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
             imageSource: "qrc:/qml/icons/skip-backward.png"
-            onClicked: bluezManager.devices[deviceIndex].mediaPlayer.previous()
+            onClicked: bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.previous()
         }
 
         ImageButton{
             Layout.fillHeight: true
             Layout.fillWidth: true
-            imageSource: bluezManager.devices[deviceIndex].mediaPlayer.status === 0?"qrc:/qml/icons/pause.png":"qrc:/qml/icons/play.png"
+            imageSource: bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.status === 0?"qrc:/qml/icons/pause.png":"qrc:/qml/icons/play.png"
             id:playButton
             onClicked: {
-                if(bluezManager.devices[deviceIndex].mediaPlayer.status === 0)
-                    bluezManager.devices[deviceIndex].mediaPlayer.pause()
+                if(bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.status === 0)
+                    bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.pause()
                 else
-                    bluezManager.devices[deviceIndex].mediaPlayer.play()
+                    bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.play()
             }
         }
 
@@ -79,7 +78,7 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
             imageSource: "qrc:/qml/icons/skip-forward.png"
-            onClicked: bluezManager.devices[deviceIndex].mediaPlayer.next()
+            onClicked: bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.next()
         }
 
         /*
@@ -95,7 +94,7 @@ Item {
         imageSource: "qrc:/qml/icons/refresh.png"
         changeColorOnPress:false
         text: {
-            switch(bluezManager.devices[deviceIndex].mediaPlayer.repeat){
+            switch(bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.repeat){
             case BluezQt.MediaPlayer.RepeatOff:
                 checked = true;
                 return "1";
@@ -108,15 +107,15 @@ Item {
             }
         }
         onClicked: {
-            switch(bluezManager.devices[deviceIndex].mediaPlayer.repeat){
+            switch(bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.repeat){
             case BluezQt.MediaPlayer.RepeatOff:
-                bluezManager.devices[deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.RepeatSingleTrack
+                bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.RepeatSingleTrack
                 break;
             case BluezQt.MediaPlayer.RepeatSingleTrack:
-                bluezManager.devices[deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.RepeatAllTracks
+                bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.RepeatAllTracks
                 break;
             default:
-                bluezManager.devices[deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.RepeatOff
+                bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.shuffle = BluezQt.MediaPlayer.RepeatOff
                 break;
             }
         }
@@ -125,12 +124,11 @@ Item {
 
     Slider {
         id: sliderHorizontal1
-        y: 42
         anchors.bottom: trackInfo.top
         anchors.bottomMargin: 8
-        value: bluezManager.devices[deviceIndex].mediaPlayer.position
+        value: bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.position
         from:0
-        to: bluezManager.devices[deviceIndex].mediaPlayer.track.duration
+        to: bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.track.duration
         stepSize: 1
         anchors.right: parent.right
         anchors.rightMargin: 8
@@ -140,7 +138,7 @@ Item {
     }
 
     Timer {
-        interval: 50; running: bluezManager.devices[deviceIndex].mediaPlayer.status === 0; repeat: true
+        interval: 50; running: bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.status === 0; repeat: true
         property int lastUpdated: 0
         onTriggered: {
             sliderHorizontal1.value = sliderHorizontal1.value + 50
@@ -148,21 +146,20 @@ Item {
     }
 
     Connections{
-        target: bluezManager.devices[deviceIndex].mediaPlayer
+        target: bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer
         onPositionChanged: {
             sliderHorizontal1.value = position
         }
         onTrackChanged:{
-            sliderHorizontal1.value = bluezManager.devices[deviceIndex].mediaPlayer.position
+            sliderHorizontal1.value = bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.position
         }
         onStatusChanged:{
-            sliderHorizontal1.value = bluezManager.devices[deviceIndex].mediaPlayer.position
+            sliderHorizontal1.value = bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.position
         }
     }
 
     Item {
         id: trackInfo
-        y: 152
         height: 16
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
@@ -187,7 +184,7 @@ Item {
 
         Text {
             text: {
-                var duration = bluezManager.devices[deviceIndex].mediaPlayer.track.duration
+                var duration = bluezManager.devices[telephonyManager.deviceIndex].mediaPlayer.track.duration
                 var seconds = parseInt((duration / 1000) % 60);
                 var minutes = parseInt((duration / (60000)) % 60);
                 var hours = parseInt((duration / (3600000)) % 24);
