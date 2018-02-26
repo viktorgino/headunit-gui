@@ -305,6 +305,8 @@ Item {
         onAvailableChanged: {
             if(available){
                 ofonomodem.modemPath = manager.modems[0]
+            } else {
+                console.log("[ofono] ofono manager is not available");
             }
         }
         onModemAdded: {
@@ -319,6 +321,7 @@ Item {
     OfonoModem{
         id:ofonomodem
         onModemPathChanged: {
+            console.log("[ofono] ofono modem set to : " + ofonomodem.modemPath);
             online = true;
             powered = true;
         }

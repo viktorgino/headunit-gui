@@ -161,7 +161,7 @@ Item {
                     property string num : {
                         if(__root.isSearching){
                             for(var i = 0; contact.phoneNumbers.length > i; i++){
-                                if(contact.phoneNumbers[i].number.includes(__root.dialed_num)){
+                                if(String(contact.phoneNumbers[i].number).includes(__root.dialed_num)){
                                     return contact.phoneNumbers[i].number;
                                 }
                             }
