@@ -163,7 +163,7 @@ Item {
             }
         }
 
-        Rectangle {
+        /*Rectangle {
             id:mic
             width: height
             color: "#1e88e5"
@@ -188,7 +188,7 @@ Item {
                     __root.voice_rec(true);
                 }
             }
-        }
+        }*/
 
         Rectangle {
             id:hangup
