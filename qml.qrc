@@ -682,14 +682,6 @@
         <file>qml/icons/svg/mic-a.svg</file>
         <file>qml/CallNotification.qml</file>
         <file>qml/Phone/MediaPlayer.qml</file>
-        <file>qml/SettingsPage/Audio/SettingsPageVolume.qml</file>
-        <file>qml/SettingsPage/Audio/DeviceListItem.qml</file>
-        <file>qml/SettingsPage/Audio/Header.qml</file>
-        <file>qml/SettingsPage/Audio/ListItemBase.qml</file>
-        <file>qml/SettingsPage/Audio/StreamListItem.qml</file>
-        <file>qml/SettingsPage/Audio/icon.js</file>
-        <file>qml/SettingsPage/Audio/SettingsPageVolume2.qml</file>
-        <file>qml/SettingsPage/Audio/SmallToolButton.qml</file>
         <file>qml/Phone/Contacts.qml</file>
         <file>qml/Phone/Dialer.qml</file>
         <file>qml/Phone/Call.qml</file>
