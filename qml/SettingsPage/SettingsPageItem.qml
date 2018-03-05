@@ -9,7 +9,7 @@ Item {
     anchors.leftMargin: 8
     anchors.right: parent.right
     anchors.left: parent.left
-    signal elemClicked(string name)
+    signal elemClicked(string text, string source)
 
     Image {
         id:__icon_image
@@ -21,7 +21,7 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: 30
         fillMode: Image.PreserveAspectFit
-        source: iconImage
+        source: modelData.iconImage
         mipmap:true
         ColorOverlay {
             color:"#424242"
@@ -41,7 +41,7 @@ Item {
         anchors.left: __icon_image.right
         anchors.leftMargin: 30
         Text {
-            text: name
+            text: modelData.text
             anchors.left: parent.left
             anchors.leftMargin: 5
             anchors.right: parent.right
@@ -68,6 +68,6 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        onClicked: parent.elemClicked(name)
+        onClicked: parent.elemClicked(modelData.text, modelData.source)
     }
 }

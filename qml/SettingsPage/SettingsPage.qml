@@ -13,31 +13,6 @@ Item {
         color: "#fafafa"
         anchors.fill: parent
     }
-    Component {
-        id:mediaLocations
-        SettingsPageMediaLocations{
-            anchors.fill: parent
-        }
-    }
-
-    Component {
-        id:androidAuto
-        SettingsPageAA{
-            anchors.fill: parent
-        }
-    }
-    Component {
-        id:bluetooth
-        SettingsPageBluetooth{
-            anchors.fill: parent
-        }
-    }
-    Component {
-        id:volume
-        SettingsPageVolume2{
-            anchors.fill: parent
-        }
-    }
 
     Item {
         id: main
@@ -59,70 +34,15 @@ Item {
             anchors.left: parent.left
             delegate:SettingsPageItem{
                 onElemClicked: {
-                    root.state = "page loaded"
-                    switch(name){
-                    case "Media locations":
-                        pageLoader.sourceComponent = mediaLocations
-                        break;
-                    case "Android Auto":
-                        pageLoader.sourceComponent = androidAuto
-                        break;
-                    case "Quit headunit-desktop":
-                        Qt.quit();
-                        break;
-                    case "Bluetooth":
-                        pageLoader.sourceComponent = bluetooth
-                        break;
-                    case "Audio":
-                        pageLoader.sourceComponent = volume
-                        break;
+                    if(source){
+                        root.state = "page loaded"
+                        pageLoader.source = source
+                        pageText.text = text
                     }
-                    pageText.text = name
                 }
             }
 
-            model: ListModel {
-                ListElement {
-                    name: "Theme"
-                    iconImage: "qrc:/qml/icons/android-color-palette.png"
-                    section:"General"
-                }
-
-                ListElement {
-                    name: "Behaviour"
-                    iconImage: "qrc:/qml/icons/android-settings.png"
-                    section:"General"
-                }
-
-                ListElement {
-                    name: "Media locations"
-                    iconImage: "qrc:/qml/icons/android-folder.png"
-                    section:"Media apps"
-                }
-
-                ListElement {
-                    name: "Android Auto"
-                    iconImage: "qrc:/qml/icons/svg/social-android.svg"
-                    section:"Media apps"
-                }
-
-                ListElement {
-                    name: "Bluetooth"
-                    iconImage: "qrc:/qml/icons/bluetooth.png"
-                    section:"Media apps"
-                }
-
-                ListElement {
-                    name: "Audio"
-                    iconImage: "qrc:/qml/icons/volume-high.png"
-                    section:"Media apps"
-                }
-                ListElement {
-                    name: "Quit headunit-desktop"
-                    iconImage: "qrc:/qml/icons/log-out.png"
-                    section:"Other"
-                }
-            }
+            model: configItems
             section.property: "section"
             section.criteria: ViewSection.FullString
             section.delegate: SettingsPageSectionHeader{
