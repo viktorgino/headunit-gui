@@ -95,7 +95,7 @@ Item {
 
 
     Connections {
-        target: telephonyManager
+        target: PhoneBluetooth
         onIncomingCall:{
             notifications1.addNotification({
                image: "qrc:/qml/icons/svg/android-call.svg",
@@ -111,10 +111,10 @@ Item {
         id: callNotification
         anchors.fill: parent
         onAnswer: {
-            telephonyManager.answerCall(callNotification.callPath)
+            PhoneBluetooth.answerCall(callNotification.callPath)
         }
         onDecline: {
-            telephonyManager.declineCall(callNotification.callPath)
+            PhoneBluetooth.declineCall(callNotification.callPath)
         }
     }
 
