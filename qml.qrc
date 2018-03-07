@@ -675,15 +675,10 @@
         <file>qml/SettingsPage/SettingsPageAA.qml</file>
         <file>qml/SettingsPage/SettingsPageBluetooth.qml</file>
         <file>qml/SettingsPage/Button.qml</file>
-        <file>qml/Phone/Phone.qml</file>
         <file>qml/icons/svg/backspace-outline.svg</file>
         <file>qml/icons/svg/gear-a.svg</file>
         <file>qml/icons/svg/android-call.svg</file>
         <file>qml/icons/svg/mic-a.svg</file>
         <file>qml/CallNotification.qml</file>
-        <file>qml/Phone/MediaPlayer.qml</file>
-        <file>qml/Phone/Contacts.qml</file>
-        <file>qml/Phone/Dialer.qml</file>
-        <file>qml/Phone/Call.qml</file>
     </qresource>
 </RCC>
