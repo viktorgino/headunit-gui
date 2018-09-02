@@ -644,10 +644,7 @@
         <file>qml/Notifications.qml</file>
         <file>qml/images/ubuntu16_10_by_Khoir_Rudin.png</file>
         <file>qml/ClimateControl/TopButtons.qml</file>
-        <file>qml/MediaPlayer/MediaPlayerLayout.qml</file>
         <file>qml/images/music_placeholder.jpg</file>
-        <file>qml/MediaPlayer/MediaDrawer.qml</file>
-        <file>qml/MediaPlayer/MediaDrawerItem.qml</file>
         <file>qml/theme/ModeSwitch.qml</file>
         <file>qml/theme/MenuButton.qml</file>
         <file>qml/theme/Arrow.qml</file>
@@ -656,23 +653,14 @@
         <file>qml/icons/svg/android-list.svg</file>
         <file>qml/icons/svg/android-person.svg</file>
         <file>qml/icons/svg/navicon-round.svg</file>
-        <file>qml/MediaPlayer/MediaListItem.qml</file>
         <file>qml/icons/svg/android-arrow-back.svg</file>
         <file>qml/theme/ImageButton.qml</file>
-        <file>qml/MediaPlayer/NowPlayingList.qml</file>
-        <file>qml/MediaPlayer/NowPlayingListItem.qml</file>
-        <file>qml/MediaPlayer/MediaFolderListItem.qml</file>
-        <file>qml/MediaPlayer/MediaContainerList.qml</file>
-        <file>qml/MediaPlayer/MediaContainerListItem.qml</file>
-        <file>qml/MediaPlayer/MediaList.qml</file>
         <file>qml/theme/AlphabetScrollBar.qml</file>
         <file>qml/icons/android-color-palette.png</file>
         <file>qml/SettingsPage/SettingsPageItem.qml</file>
         <file>qml/SettingsPage/SettingsPage.qml</file>
         <file>qml/SettingsPage/SettingsPageSectionHeader.qml</file>
-        <file>qml/SettingsPage/SettingsPageMediaLocations.qml</file>
         <file>qml/SettingsPage/FileBrowser.qml</file>
-        <file>qml/SettingsPage/SettingsPageAA.qml</file>
         <file>qml/SettingsPage/SettingsPageBluetooth.qml</file>
         <file>qml/SettingsPage/Button.qml</file>
         <file>qml/icons/svg/backspace-outline.svg</file>
