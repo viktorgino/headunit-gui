@@ -81,7 +81,7 @@ Item {
                 }
                 width: parent.width
                 text:scroll_bar.alphabet[index]
-                font.pointSize: fontSize
+                font.pixelSize: fontSize
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 color:{

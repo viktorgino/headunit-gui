@@ -2,6 +2,7 @@ import QtQuick 2.5
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 1.4
 import "ClimateControl"
+import HUDTheme 1.0
 
 Item {
     id: dashLayout
@@ -23,11 +24,8 @@ Item {
         start: Qt.point(0, 0)
     }
 
-    Image {
-        id: image1
-        fillMode: Image.PreserveAspectCrop
+    BackgroundImage{
         anchors.fill: parent
-        source: "qrc:/qml/images/ubuntu16_10_by_Khoir_Rudin.png"
     }
 
     Repeater{
@@ -66,8 +64,6 @@ Item {
             }
         }
     }
-
-
 
     transitions: Transition {
         NumberAnimation { properties: "y,opacity"; duration: 250}

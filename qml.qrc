@@ -657,16 +657,40 @@
         <file>qml/theme/ImageButton.qml</file>
         <file>qml/theme/AlphabetScrollBar.qml</file>
         <file>qml/icons/android-color-palette.png</file>
-        <file>qml/SettingsPage/SettingsPageItem.qml</file>
         <file>qml/SettingsPage/SettingsPage.qml</file>
         <file>qml/SettingsPage/SettingsPageSectionHeader.qml</file>
-        <file>qml/SettingsPage/FileBrowser.qml</file>
         <file>qml/SettingsPage/SettingsPageBluetooth.qml</file>
-        <file>qml/SettingsPage/Button.qml</file>
         <file>qml/icons/svg/backspace-outline.svg</file>
         <file>qml/icons/svg/gear-a.svg</file>
         <file>qml/icons/svg/android-call.svg</file>
         <file>qml/icons/svg/mic-a.svg</file>
         <file>qml/CallNotification.qml</file>
+        <file>qml/SettingsPage/SettingsPageTheme.qml</file>
+        <file>qml/theme/ThemeText.qml</file>
+        <file>qml/theme/qmldir</file>
+        <file>qml/theme/ThemeHeaderText.qml</file>
+        <file>qml/theme/ThemeButton.qml</file>
+        <file>qml/theme/ColorPalette.qml</file>
+        <file>qml/theme/ThemeFormText.qml</file>
+        <file>qml/theme/FileBrowser.qml</file>
+        <file>qml/theme/ThemeFormSwitch.qml</file>
+        <file>qml/theme/ThemeFormTextInput.qml</file>
+        <file>qml/theme/BackgroundImage.qml</file>
+        <file>qml/SettingsPage/SettingsPageItem.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemList.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemLoader.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemSlider.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemColor.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemSwitch.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemCheckbox.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemTextfield.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemCombobox.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemButtons.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemText.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemIcon.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemItems.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemHeader.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemFileBrowser.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemAction.qml</file>
     </qresource>
 </RCC>

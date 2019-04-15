@@ -1,73 +1,115 @@
 import QtQuick 2.6
+import QtQuick.Controls 2.3
 import QtGraphicalEffects 1.0
 
-Item {
-    id: item1
-    width: parent.width
-    height: 60
-    anchors.rightMargin: 8
-    anchors.leftMargin: 8
-    anchors.right: parent.right
-    anchors.left: parent.left
-    signal elemClicked(string text, string source)
+import HUDTheme 1.0
 
-    Image {
-        id:__icon_image
-        width: height
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 15
-        anchors.top: parent.top
-        anchors.topMargin: 15
-        anchors.left: parent.left
-        anchors.leftMargin: 30
-        fillMode: Image.PreserveAspectFit
-        source: modelData.iconImage
-        mipmap:true
-        ColorOverlay {
-            color:"#424242"
-            anchors.fill: parent
-            enabled: true
-            source: parent
+Item {
+    id: __root
+    height: visible?60:0
+    //width: parent.width
+    property alias leftPadding: __wrapper.width
+    property var itemData : {
+                "label":"",
+                "name": "",
+                "description": "",
+                "iconImage":"",
+                "autosave": false,
+                "conditional":false,
+                "conditionTarget": "",
+                "conditionValue":true
+    }
+    property var value : ""
+    property var conditionValue: ""
+    property bool parentVisible: true
+    signal push(var qml, var properties)
+
+    Connections{
+        id:listReadyConnection
+        enabled:false
+        ignoreUnknownSignals: true
+        target : parent.parent.parent
+        onListReady: {
+            var parentCondition = parent.parent.parent.contentItem.children
+            for(var item in parentCondition){
+                if(typeof parentCondition[item].item === "undefined")
+                    continue;
+
+                if(parentCondition[item].item.itemData.name === itemData.conditionTarget){
+                    __root.parentVisible = parentCondition[item].item.visible
+                    __root.conditionValue = parentCondition[item].item.value
+                    conditionalChainConnection.target = parentCondition[item].item
+                    conditionalChainConnection.enabled = true
+                    break;
+                }
+            }
         }
     }
-    Item{
-        id: item2
+
+    Connections{
+        id:conditionalChainConnection
+        enabled:false
+        ignoreUnknownSignals: true
+        onVisibleChanged: {
+            __root.parentVisible = target.visible
+        }
+        onValueChanged: {
+            conditionValue = target.value
+        }
+    }
+
+    onItemDataChanged : {
+        if(itemData.conditional === true){
+            if(typeof parent.parent.parent.listReady === "function"){
+                listReadyConnection.enabled = true;
+            }
+        }
+    }
+
+    visible: {
+        if(!itemData.conditional)
+            return true;
+
+        return (__root.conditionValue === itemData.conditionValue) && parentVisible;
+    }
+
+    Item {
+        id:__wrapper
+        width: subtitle.width>title.width?itemIcon.width+subtitle.width:itemIcon.width+title.width
         anchors.top: parent.top
         anchors.topMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
-        anchors.left: __icon_image.right
-        anchors.leftMargin: 30
-        Text {
-            text: modelData.text
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.right: parent.right
-            anchors.rightMargin: 5
-            anchors.verticalCenter: parent.verticalCenter
-            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            font.bold: false
-            color:"#000000"
-        }
+        anchors.left: parent.left
+        anchors.leftMargin: 0
 
-        Rectangle {
-            y: 39
-            height: 1
-            color: "#dcdcdc"
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-            anchors.left: parent.left
+        ThemeFormText {
+            id: subtitle
+            height: subtitle.text===""?0:30
+            text: typeof(itemData.description)==="undefined"?"":itemData.description
             anchors.leftMargin: 0
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: -1
+            anchors.left: itemIcon.right
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            subtext: true
+        }
+
+        ThemeFormText {
+            id: title
+            height: subtitle.text===""?60:30
+            text: itemData.label
+            anchors.leftMargin: 0
+            verticalAlignment: subtitle.text===""?Text.AlignVCenter:Text.AlignBottom
+            horizontalAlignment: Text.AlignLeft
+            anchors.top: parent.top
+            anchors.left: itemIcon.right
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+        }
+
+        SettingsPageItemIcon {
+            id:itemIcon
+            iconImage: typeof(itemData.iconImage)==="undefined"?"":itemData.iconImage
         }
     }
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        onClicked: parent.elemClicked(modelData.text, modelData.source)
-    }
 }

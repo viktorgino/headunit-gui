@@ -8,10 +8,10 @@ Window {
 
     id: window
     visible: true
-    title: qsTr("viktorgino's HeadUnit GUI")
-    visibility: Window.AutomaticVisibility
-    width: Screen.width
-    height: Screen.height
+    title: qsTr("viktorgino's HeadUnit")
+    visibility: Window.Minimized
+    width: 1200
+    height: 800
 
     FontLoader{id:ralewayRegular; source:"qrc:/qml/fonts/Raleway-Regular.ttf"}
 

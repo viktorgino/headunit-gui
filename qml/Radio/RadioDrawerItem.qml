@@ -54,7 +54,7 @@ Item{
         Text{
             color: "#ffffff"
             text:name
-            font.pointSize: 10
+            font.pixelSize: 10
             anchors.left: favimage.right
             anchors.right: parent.right
             anchors.bottom: parent.bottom

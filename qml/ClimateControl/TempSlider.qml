@@ -55,10 +55,10 @@ Item {
             Repeater{
                 model:__tempslider.stepSize > 0 ? 1 + (__tempslider.maximumValue - __tempslider.minimumValue) / __tempslider.stepSize : 0
                 Item{
-                    anchors.right: parent.right
-                    anchors.rightMargin: 1
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
+//                    anchors.right: __slider_ticks_column.right
+//                    anchors.rightMargin: 1
+//                    anchors.left: __slider_ticks_column.left
+//                    anchors.leftMargin: 0
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     property int dspNum : __tempslider.maximumValue - index

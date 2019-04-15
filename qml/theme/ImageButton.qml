@@ -28,7 +28,7 @@ Item{
 
     ColorOverlay {
         id: __image_button_color
-        color: __image_button.color
+        color: checked?activeColor:baseColor
         anchors.fill: __image_button_image
         enabled: true
         source: __image_button_image
@@ -54,11 +54,11 @@ Item{
                 __image_button_color.color = parent.color;
         }
     }
-    onCheckedChanged: {
-        if(checked){
-            color = activeColor;
-        } else {
-            color = baseColor;
-        }
-    }
+//    onCheckedChanged: {
+//        if(checked){
+//            color = activeColor;
+//        } else {
+//            color = baseColor;
+//        }
+//    }
 }
