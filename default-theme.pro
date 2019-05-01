@@ -3,23 +3,26 @@ CONFIG += c++11 plugin link_pkgconfig
 QT += qml quick
 TARGET = $$qtLibraryTarget(default-theme)
 
+INCLUDEPATH += $${PWD}/quickcross
 include("../../config.pri")
 
 target.path = $${PREFIX}/themes
 
 
 SOURCES += \
-    plugin.cpp
+    plugin.cpp \
+    quickcross/qcstandardpaths.cpp \
+    quickcross/qcdevice.cpp
 
 HEADERS += \
-    plugin.h
+    plugin.h \
+    quickcross/qcstandardpaths.h \
+    quickcross/qcdevice.h
 
 RESOURCES += default-theme.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
-
-include("quickcross/quickcross.pri")
 
 THEMEFILES += \
     $${PWD}/theme.json \
