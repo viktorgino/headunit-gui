@@ -70,27 +70,6 @@ Item {
     }
 
     Connections {
-        target: AndroidAuto
-        onDeviceConnected: {
-            notifications1.addNotification({
-               image: notification.image,
-               title: notification.title,
-               text: notification.text})
-        }
-    }
-
-
-    Connections {
-        target: MediaPlayerPlugin
-        onMediaScanningFinished:
-            notifications1.addNotification({
-               image: "qrc:/qml/icons/android-search.png",
-               title: "Media Scanning finished",
-               text: ""})
-    }
-
-
-    Connections {
         target: PhoneBluetooth
         onIncomingCall:{
             notifications1.addNotification({
@@ -100,6 +79,14 @@ Item {
             callNotification.caller = caller_number
             callNotification.callPath = call_path
             callNotification.show();
+        }
+    }
+
+    Connections {
+        target: GUIEvents
+        ignoreUnknownSignals: true
+        onNotificationReceived:{
+            notifications1.addNotification(notification)
         }
     }
 
@@ -113,6 +100,7 @@ Item {
             PhoneBluetooth.declineCall(callNotification.callPath)
         }
     }
+
 
     Notifications {
         id: notifications1

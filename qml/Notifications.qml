@@ -37,7 +37,7 @@ Item {
         notifications.append({
                                  notificationImage:notification.image,
                                  notificationTitle:notification.title,
-                                 notificationText:notification.text
+                                 notificationText:notification.description
                              });
         for(var i=0; i<notificationsList.count;i++){
             notificationsList.itemAt(i).resources[0].start();
