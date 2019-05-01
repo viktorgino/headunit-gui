@@ -690,6 +690,5 @@
         <file>qml/SettingsPage/SettingsPageItemHeader.qml</file>
         <file>qml/SettingsPage/SettingsPageItemFileBrowser.qml</file>
         <file>qml/SettingsPage/SettingsPageItemAction.qml</file>
-        <file>theme.json</file>
     </qresource>
 </RCC>
