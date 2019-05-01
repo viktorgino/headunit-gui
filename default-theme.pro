@@ -10,14 +10,14 @@ target.path = $${PREFIX}/themes
 
 
 SOURCES += \
-    plugin.cpp \
     quickcross/qcstandardpaths.cpp \
-    quickcross/qcdevice.cpp
+    quickcross/qcdevice.cpp \
+    defaulttheme.cpp
 
 HEADERS += \
-    plugin.h \
     quickcross/qcstandardpaths.h \
-    quickcross/qcdevice.h
+    quickcross/qcdevice.h \
+    defaulttheme.h
 
 RESOURCES += default-theme.qrc
 
