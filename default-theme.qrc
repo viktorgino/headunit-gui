@@ -615,8 +615,6 @@
         <file>qml/icons/xbox.png</file>
         <file>qml/images/path5163.png</file>
         <file>qml/MainForm.ui.qml</file>
-        <file>headunit-gui.pro</file>
-        <file>qml.qrc</file>
         <file>qml/icons/svg/air-conditioning.svg</file>
         <file>qml/icons/svg/rear-window-defrost.svg</file>
         <file>qml/icons/svg/recirculation.svg</file>
