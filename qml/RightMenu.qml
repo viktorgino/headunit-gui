@@ -58,8 +58,8 @@ Item {
 
                 Image {
                     id: ac_image
-                    width: 30
-                    height: 30
+                    width: HUDStyle.Sizes.menuIcon
+                    height: HUDStyle.Sizes.menuIcon
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 0
@@ -87,7 +87,7 @@ Item {
                     wrapMode: Text.WordWrap
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 16
+                    font.pixelSize: HUDStyle.Sizes.menuText
                 }
 
                 MouseArea {

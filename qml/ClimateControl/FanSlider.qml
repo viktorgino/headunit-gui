@@ -89,7 +89,7 @@ Item{
 
                     Text {
                         text: qsTr(fanslider.value.toString())
-                        font.pointSize: height * 0.4
+                        font.pixelSize: height * 0.4
                         font.family: "Arial"
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
