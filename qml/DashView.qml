@@ -70,41 +70,25 @@ Item {
     }
 
     Connections {
-        target: PhoneBluetooth
-        onIncomingCall:{
-            notifications1.addNotification({
-               image: "qrc:/qml/icons/svg/android-call.svg",
-               title: "Incoming Call",
-               text: "caller : " + caller + " | caller_number: " + caller_number})
-            callNotification.caller = caller_number
-            callNotification.callPath = call_path
-            callNotification.show();
-        }
-    }
-
-    Connections {
         target: GUIEvents
         ignoreUnknownSignals: true
         onNotificationReceived:{
-            notifications1.addNotification(notification)
+            notificationsItem.addNotification(notification)
         }
     }
-
-    CallNotification {
-        id: callNotification
-        anchors.fill: parent
-        onAnswer: {
-            PhoneBluetooth.answerCall(callNotification.callPath)
-        }
-        onDecline: {
-            PhoneBluetooth.declineCall(callNotification.callPath)
-        }
-    }
-
 
     Notifications {
-        id: notifications1
+        id: notificationsItem
         anchors.fill: parent
+    }
+
+    Repeater{
+        id:overlays
+        model:HUDOverlays
+        Loader {
+            anchors.fill: parent
+            source: HUDOverlays[index]
+        }
     }
 
 }
