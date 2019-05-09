@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Dialogs 1.0
 import QtGraphicalEffects 1.0
@@ -290,7 +290,8 @@ Item {
                 }
             }
 
-            ScrollView {
+
+            ListView {
                 anchors.right: parent.right
                 anchors.rightMargin: 0
                 anchors.left: parent.left
@@ -300,14 +301,11 @@ Item {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 0
                 clip:true
-                ListView {
-                    anchors.fill: parent
-                    model: 20
-                    delegate: SettingsPageItem{
-                        itemData:{
-                            "label":"Item " + index + " title",
-                                    "description":"Item " + index + " subtitle"
-                        }
+                model: 20
+                delegate: SettingsPageItem{
+                    itemData:{
+                        "label":"Item " + index + " title",
+                                "description":"Item " + index + " subtitle"
                     }
                 }
             }
