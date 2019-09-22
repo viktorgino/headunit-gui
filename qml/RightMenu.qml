@@ -1,12 +1,24 @@
 import QtQuick 2.6
 import QtQuick.Layouts 1.0
+import Qt.labs.settings 1.0
 
 Item {
-    id: rightMenu
+    property int menuItemIndex: 0
+    id: __root
     signal itemChanged(int index);
+
     function menuItemClicked (index){
+        menuItemIndex = index
         active_button_bg.y = menuItemsRepeater.itemAt(index).y;
-        rightMenu.itemChanged(index);
+        __root.itemChanged(index);
+    }
+
+    Component.onCompleted: {
+        itemChanged(menuItemIndex);
+    }
+
+    Settings {
+        property alias menuItemIndex: __root.menuItemIndex
     }
 
     Rectangle {
@@ -26,6 +38,7 @@ Item {
         Layout.columnSpan: 0
         Layout.rowSpan: 0
         border.width: 0
+        y:menuItemsRepeater.itemAt(menuItemIndex).y
 
         Behavior on y {
 
@@ -71,11 +84,7 @@ Item {
                 Text {
                     id: text1
                     color: "#ffffff"
-                    text: {
-                        if(defaultMenuItem == index)
-                            rightMenu.menuItemClicked(index);
-                        menuItems[index].text;
-                    }
+                    text: menuItems[index].text;
                     anchors.top: parent.top
                     anchors.topMargin: 0
                     anchors.bottom: parent.bottom
