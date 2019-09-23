@@ -6,8 +6,7 @@ TARGET = $$qtLibraryTarget(default-theme)
 INCLUDEPATH += $${PWD}/quickcross
 include("../../config.pri")
 
-target.path = $${PREFIX}/themes
-
+target.path = $${PREFIX}/themes/default-theme
 
 SOURCES += \
     quickcross/qcstandardpaths.cpp \
@@ -28,8 +27,7 @@ THEMEFILES += \
     $${PWD}/theme.json \
     $${PWD}/qml/theme/qmldir \
     $${PWD}/qml/theme/designer/hudtheme.metainfo \
-    $${PWD}/qml/theme/backgrounds/* \
-    $${PWD}/theme.json
+    $${PWD}/qml/theme/backgrounds/*
 
 #copy needed files to build dir
 
@@ -44,9 +42,10 @@ QMAKE_EXTRA_TARGETS += first theme_files_copy
 
 DISTFILES += THEMEFILES
 
-theme_files.files = $$THEMEFILES
-theme_files.path = $${OUT_PWD}/HUDTheme
-INSTALLS += target theme_files
+theme.files = $${PWD}/qml/theme/*
+theme.path = $$PREFIX/themes/default-theme/HUDTheme
+
+INSTALLS += target theme
 
 
 
