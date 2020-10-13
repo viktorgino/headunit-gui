@@ -1,22 +1,12 @@
 #include "defaulttheme.h"
 
-QObject * DefaultTheme::standardPathsProvider(QQmlEngine *engine, QJSEngine *scriptEngine) {
-    Q_UNUSED(engine);
-    Q_UNUSED(scriptEngine);
-
-    QCStandardPaths* object = new QCStandardPaths();
-
-    return object;
-}
-
 DefaultTheme::~DefaultTheme(){
 
 }
 
 void DefaultTheme::registerTypes(const char* /*uri*/)
 {
-    qmlRegisterSingletonType<QCDevice>("QuickCross", 1, 0,
-                                       "StandardPaths", standardPathsProvider);
+
     return;
 }
 

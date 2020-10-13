@@ -3,19 +3,14 @@ CONFIG += c++11 plugin link_pkgconfig
 QT += qml quick
 TARGET = $$qtLibraryTarget(default-theme)
 
-INCLUDEPATH += $${PWD}/quickcross
 include("../../config.pri")
 
 target.path = $${PREFIX}/themes/default-theme
 
 SOURCES += \
-    quickcross/qcstandardpaths.cpp \
-    quickcross/qcdevice.cpp \
     defaulttheme.cpp
 
 HEADERS += \
-    quickcross/qcstandardpaths.h \
-    quickcross/qcdevice.h \
     defaulttheme.h
 
 RESOURCES += default-theme.qrc

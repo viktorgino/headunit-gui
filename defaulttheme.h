@@ -4,8 +4,6 @@
 #include <QObject>
 #include <QtQml/QQmlExtensionPlugin>
 #include <QtQml>
-#include "qcdevice.h"
-#include "qcstandardpaths.h"
 
 class GUIEvents : public QObject {
     Q_OBJECT
@@ -25,7 +23,6 @@ public slots:
     void onEvent(QString event, QString eventData);
 private:
     GUIEvents *guiEvents;
-    static QObject *standardPathsProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
 };
 
 #endif // DEFAULTTHEME_H
