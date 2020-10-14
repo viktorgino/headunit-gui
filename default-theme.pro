@@ -35,7 +35,8 @@ export(first.depends)
 export(theme_files_copy.commands)
 QMAKE_EXTRA_TARGETS += first theme_files_copy
 
-DISTFILES += THEMEFILES
+DISTFILES += THEMEFILES \
+    theme.json
 
 theme.files = $${PWD}/qml/theme/*
 theme.path = $$PREFIX/themes/default-theme/HUDTheme

@@ -1,6 +1,6 @@
 {
     "name": "base",
-    "label": "Base Thems",
+    "label": "Base Theme",
     "colors": [
         {
             "name": "text",
@@ -161,7 +161,8 @@
                     "name": "image",
                     "type": "switch",
                     "textOff": "Color",
-                    "textOn": "Image"
+                    "textOn": "Image",
+                    "defaultValue" : true
                 },
                 {
                     "label": "Background Color",
@@ -180,7 +181,8 @@
                     "textOn": "Slideshow",
                     "conditional":true,
                     "conditionTarget": "image",
-                    "conditionValue":true
+                    "conditionValue":true,
+                    "defaultValue" : false
                 },
                 {
                     "label": "Slide show time",
@@ -212,7 +214,8 @@
                     "nameFilters" : [ "*.png", "*.jpg" ],
                     "conditional":true,
                     "conditionTarget": "slideshow",
-                    "conditionValue":false
+                    "conditionValue":false,
+                    "defaultValue" : "backgrounds/micah-hallahan-14075-unsplash.jpg"
                 }
             ]
         },
