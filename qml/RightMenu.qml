@@ -38,7 +38,7 @@ Item {
         Layout.columnSpan: 0
         Layout.rowSpan: 0
         border.width: 0
-        y:menuItemsRepeater.itemAt(menuItemIndex).y
+        y:menuItemsRepeater.count > 0 ?menuItemsRepeater.itemAt(menuItemIndex).y:0
 
         Behavior on y {
 
