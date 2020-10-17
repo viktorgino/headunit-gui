@@ -1,8 +1,6 @@
 import QtQuick 2.5
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
-import QtQuick.Window 2.2
-import "ClimateControl"
 import "Radio"
 Window {
 

@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>qml/DashView.qml</file>
         <file>qml/main.qml</file>
-        <file>qml/ClimateControl/FanDirection.qml</file>
         <file>qml/fonts/Raleway-Black.ttf</file>
         <file>qml/fonts/Raleway-Bold.ttf</file>
         <file>qml/fonts/Raleway-Light.ttf</file>
@@ -613,23 +612,10 @@
         <file>qml/icons/woman.png</file>
         <file>qml/icons/wrench.png</file>
         <file>qml/icons/xbox.png</file>
-        <file>qml/images/path5163.png</file>
         <file>qml/MainForm.ui.qml</file>
-        <file>qml/icons/svg/air-conditioning.svg</file>
-        <file>qml/icons/svg/rear-window-defrost.svg</file>
-        <file>qml/icons/svg/recirculation.svg</file>
-        <file>qml/icons/svg/windshield-defrost.svg</file>
-        <file>qml/icons/svg/seat.svg</file>
-        <file>qml/ClimateControl/TopButton.qml</file>
-        <file>qml/ClimateControl/CCLayout.qml</file>
-        <file>qml/ClimateControl/FanSlider.qml</file>
-        <file>qml/icons/svg/ac.svg</file>
-        <file>qml/ClimateControl/TempSlider.qml</file>
-        <file>qml/icons/svg/seat-heat.svg</file>
         <file>qml/Radio/RadioLayout.qml</file>
         <file>qml/Radio/Tuner.qml</file>
         <file>qml/RightMenu.qml</file>
-        <file>qml/images/2.png</file>
         <file>qml/icons/svg/chevron-left.svg</file>
         <file>qml/icons/svg/chevron-right.svg</file>
         <file>qml/icons/svg/android-star.svg</file>
@@ -638,11 +624,7 @@
         <file>qml/icons/svg/music-note.svg</file>
         <file>qml/icons/svg/radio-waves.svg</file>
         <file>qml/icons/svg/social-android.svg</file>
-        <file>qml/icons/svg/thermometer.svg</file>
         <file>qml/Notifications.qml</file>
-        <file>qml/images/ubuntu16_10_by_Khoir_Rudin.png</file>
-        <file>qml/ClimateControl/TopButtons.qml</file>
-        <file>qml/images/music_placeholder.jpg</file>
         <file>qml/theme/ModeSwitch.qml</file>
         <file>qml/theme/MenuButton.qml</file>
         <file>qml/theme/Arrow.qml</file>

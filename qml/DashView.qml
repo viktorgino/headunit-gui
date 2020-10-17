@@ -1,7 +1,6 @@
 import QtQuick 2.5
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 1.4
-import "ClimateControl"
 import HUDTheme 1.0
 
 Item {
