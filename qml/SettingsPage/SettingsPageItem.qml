@@ -1,6 +1,7 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.3
 import QtGraphicalEffects 1.0
+import QtQml 2.11
 
 import HUDTheme 1.0
 
@@ -24,21 +25,24 @@ Item {
     property bool parentVisible: true
     signal push(var qml, var properties)
 
-    Connections{
+    //Waits for the parent ListView to finish loading
+    Connections {
         id:listReadyConnection
         enabled:false
         ignoreUnknownSignals: true
-        target : parent.parent.parent
+        target : parent.parent.parent //Loader -> Item (Delegate) -> ListView
         onListReady: {
-            var parentCondition = parent.parent.parent.contentItem.children
-            for(var item in parentCondition){
-                if(typeof parentCondition[item].item === "undefined")
+            //Iterate through all the siblings in the parent ListView and find our target for conditional display
+            //If we find it we enable conditionalChainConnection and set the found sibling as target
+            for(var item in target.contentItem.children){
+                var targetItem = target.contentItem.children[item].item
+                if(typeof targetItem === "undefined")
                     continue;
 
-                if(parentCondition[item].item.itemData.name === itemData.conditionTarget){
-                    __root.parentVisible = parentCondition[item].item.visible
-                    __root.conditionValue = parentCondition[item].item.value
-                    conditionalChainConnection.target = parentCondition[item].item
+                if(targetItem.itemData.name === itemData.conditionTarget){
+                    __root.parentVisible = targetItem.visible
+                    __root.conditionValue = targetItem.value
+                    conditionalChainConnection.target = targetItem
                     conditionalChainConnection.enabled = true
                     break;
                 }
@@ -50,14 +54,17 @@ Item {
         id:conditionalChainConnection
         enabled:false
         ignoreUnknownSignals: true
-        onVisibleChanged: {
+        onVisibleChanged : {
             __root.parentVisible = target.visible
+
         }
         onValueChanged: {
             conditionValue = target.value
         }
     }
 
+    //Enable the list listReadyConnection if we are a delegate of a ListView with a listReady signal
+    //listReady is called on the parent ListView each time the delegate loader finished loading a SettingPageItem QML file
     onItemDataChanged : {
         if(itemData.conditional === true){
             if(typeof parent.parent.parent.listReady === "function"){

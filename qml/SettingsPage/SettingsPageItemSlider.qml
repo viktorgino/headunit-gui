@@ -12,24 +12,18 @@ SettingsPageItem {
     itemData : {
         "label":"Slider",
         "name": "slider",
-        "iconImage":"",
-        "default":18,
-        "minimum": 5,
-        "maximum": 30,
+        "default":1,
+        "minimum": 0,
+        "maximum": 100,
         "stepSize":1,
-        "unit": "pixels"
-    }
-
-    SettingsPageItemIcon {
-        id:itemIcon
-        iconImage: itemData.iconImage
+        "unit": ""
     }
 
     ThemeFormText {
         id:text2
         width: 60
         height: parent.height/2
-        text: (typeof(itemData.prefix)!=="undefined"?itemData.prefix:"") + " " + slider.value + " " + (typeof(itemData.suffix)!=="undefined"?itemData.suffix:"")
+        text: itemData.prefix + " " + slider.value + " " + itemData.suffix
         anchors.verticalCenter: parent.verticalCenter
         verticalAlignment: Text.AlignVCenter
         anchors.right: parent.right
@@ -48,6 +42,7 @@ SettingsPageItem {
         stepSize: itemData.stepSize
         anchors.left: parent.left
         anchors.right: text2.left
+        wheelEnabled: true
     }
 }
 

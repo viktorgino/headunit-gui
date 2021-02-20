@@ -26,7 +26,7 @@ SettingsPageItem {
         font.pixelSize: 12
     }
 
-    TextField {
+    ThemeFormTextInput {
         id: textField
         anchors.right: suffix.left
         anchors.rightMargin: 8

@@ -17,9 +17,9 @@ SettingsPageItem {
         "initColor": "#000000"
     }
 
-    Component.onCompleted: {
-        colorInput.text = itemData.initColor
-    }
+//    Component.onCompleted: {
+//        colorInput.text = itemData.initColor
+//    }
     onItemDataChanged: {
         colorInput.text = itemData.initColor
     }
@@ -27,7 +27,6 @@ SettingsPageItem {
     ThemeFormTextInput {
         id: colorInput
         width: 80
-        height: 20
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: colorRect.left
         anchors.rightMargin: 8
