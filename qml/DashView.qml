@@ -1,6 +1,7 @@
-import QtQuick 2.5
+import QtQuick 2.11
 import QtGraphicalEffects 1.0
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.4
+import QtQml 2.11
 import HUDTheme 1.0
 
 Item {
@@ -27,23 +28,27 @@ Item {
         anchors.fill: parent
     }
 
-    Repeater{
+    Item {
         id: contents
-        model:menuItems
-        Loader {
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 0
-            anchors.top: parent.top
-            anchors.topMargin: 0
-            anchors.right: rightMenu.left
-            anchors.rightMargin: 0
-            visible: false
-            source: menuItems[index].source
-            asynchronous: false
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.bottom: bottomBar.top
+        anchors.top: parent.top
+        anchors.topMargin: 0
+        anchors.right: rightMenu.left
+        anchors.rightMargin: 0
+        Repeater{
+            id: contentsRepeater
+            model:menuItems
+            Loader {
+                anchors.fill: parent
+                visible: false
+                source: menuItems[index].source
+                asynchronous: false
+            }
         }
     }
+
 
     RightMenu {
         id: rightMenu
@@ -55,11 +60,11 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         onItemChanged:{
-            if(contents.count > 0){
-                for(var i=0; i<contents.count;i++){
-                    contents.itemAt(i).visible = false
+            if(contentsRepeater.count > 0){
+                for(var i=0; i<contentsRepeater.count;i++){
+                    contentsRepeater.itemAt(i).visible = false
                 }
-                contents.itemAt(index).visible = true
+                contentsRepeater.itemAt(index).visible = true
             }
         }
     }
@@ -74,6 +79,13 @@ Item {
         onNotificationReceived:{
             notificationsItem.addNotification(notification)
         }
+        onOpenOverlay : {
+            overlayLoader.setSource(HUDOverlays[overlay], properties);
+            overlays.open()
+        }
+        onCloseOverlay : {
+            overlays.close()
+        }
     }
 
     Notifications {
@@ -81,13 +93,52 @@ Item {
         anchors.fill: parent
     }
 
-    Repeater{
-        id:overlays
-        model:HUDOverlays
+    Item {
+        id: bottomBar
+        height: 100
+        anchors.left: parent.left
+        anchors.right: rightMenu.left
+        anchors.bottom: parent.bottom
         Loader {
             anchors.fill: parent
-            source: HUDOverlays[index]
+            source: "qrc:/HVAC/ClimateControl/HVACBottomBar.qml"
+            asynchronous: false
+        }
+    }
+
+    Timer {
+        id:overlayCloseTimer
+        interval: 5000; running: false; repeat: false
+        onTriggered: overlays.close()
+    }
+
+    Item {
+        id:overlays
+        anchors.left: parent.left
+        anchors.right: rightMenu.left
+        anchors.top: parent.top
+        anchors.bottom: bottomBar.top
+        opacity: 0
+        property var currentOverlay : ""
+        function open () {
+            overlayCloseTimer.restart()
+            opacity = 1;
+        }
+        function close () {
+            opacity = 0;
+            overlayLoader.sourceComponent = undefined;
+        }
+
+        Loader {
+            id:overlayLoader
+            anchors.fill: parent
         }
     }
 
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

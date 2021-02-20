@@ -1,6 +1,7 @@
 import QtQuick 2.6
 import QtQuick.Layouts 1.0
 import Qt.labs.settings 1.0
+import QtGraphicalEffects 1.0
 
 Item {
     property int menuItemIndex: 0
@@ -70,7 +71,7 @@ Item {
                 Layout.fillWidth: true
 
                 Image {
-                    id: ac_image
+                    id: button_image
                     width: HUDStyle.Sizes.menuIcon
                     height: HUDStyle.Sizes.menuIcon
                     anchors.verticalCenter: parent.verticalCenter
@@ -79,11 +80,19 @@ Item {
                     fillMode: Image.PreserveAspectFit
                     source: menuItems[index].image
                     mipmap:true
+                    visible: false
+                }
+                ColorOverlay {
+                    id: button_image_color
+                    color: HUDStyle.Colors.text
+                    anchors.fill: button_image
+                    enabled: true
+                    source: button_image
                 }
 
                 Text {
                     id: text1
-                    color: "#ffffff"
+                    color: HUDStyle.Colors.text
                     text: menuItems[index].text;
                     anchors.top: parent.top
                     anchors.topMargin: 0
@@ -91,7 +100,7 @@ Item {
                     anchors.bottomMargin: 0
                     anchors.right: parent.right
                     anchors.rightMargin: 0
-                    anchors.left: ac_image.right
+                    anchors.left: button_image.right
                     anchors.leftMargin: 0
                     wrapMode: Text.WordWrap
                     verticalAlignment: Text.AlignVCenter

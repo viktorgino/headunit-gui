@@ -9,6 +9,8 @@ class GUIEvents : public QObject {
     Q_OBJECT
 signals:
     void notificationReceived(QVariantMap notification);
+    void openOverlay(QString overlay, QVariantMap properties);
+    void closeOverlay(QString overlay);
 };
 
 class DefaultTheme : public QQmlExtensionPlugin
@@ -20,7 +22,7 @@ public:
     void registerTypes(const char * uri) override;
     void initializeEngine(QQmlEngine *engine, const char *uri) override;
 public slots:
-    void onEvent(QString event, QString eventData);
+    void onEvent(QString sender, QString event, QVariant eventData);
 private:
     GUIEvents *guiEvents;
 };

@@ -16,7 +16,8 @@ HEADERS += \
 RESOURCES += default-theme.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH = $$OUT_PWD
+QML_IMPORT_PATH += $${PWD}/qml/theme
+QML_IMPORT_PATH += $$OUT_PWD
 
 THEMEFILES += \
     $${PWD}/theme.json \

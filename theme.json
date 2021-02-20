@@ -5,7 +5,7 @@
         {
             "name": "text",
             "label": "UI text color",
-            "defaultValue": "#ffffff"
+            "defaultValue": "#eeeeee"
         },
         {
             "name": "subText",
@@ -77,9 +77,10 @@
         {
             "name": "text",
             "label": "UI text size",
-            "defaultValue": 16,
+            "defaultValue": 14,
             "minimum": 5,
-            "maximum": 100
+            "maximum": 100,
+            "suffix" : "Point"
         },
         {
             "name": "subText",
@@ -140,7 +141,7 @@
         {
             "name": "menuText",
             "label": "Side menu text size",
-            "defaultValue": 18
+            "defaultValue": 14
         },
         {
             "name": "menuIcon",
@@ -187,8 +188,8 @@
                 {
                     "label": "Slide show time",
                     "name": "slideshowTime",
-                    "type": "slider",
-                    "defaultValue": 60,
+                    "type": "tumbler",
+                    "defaultVtruealue": 60,
                     "minimum": 10,
                     "maximum": 120,
                     "stepSize": 1,

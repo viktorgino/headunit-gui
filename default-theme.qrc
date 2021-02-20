@@ -613,14 +613,11 @@
         <file>qml/icons/wrench.png</file>
         <file>qml/icons/xbox.png</file>
         <file>qml/MainForm.ui.qml</file>
-        <file>qml/Radio/RadioLayout.qml</file>
-        <file>qml/Radio/Tuner.qml</file>
         <file>qml/RightMenu.qml</file>
         <file>qml/icons/svg/chevron-left.svg</file>
         <file>qml/icons/svg/chevron-right.svg</file>
         <file>qml/icons/svg/android-star.svg</file>
         <file>qml/icons/svg/android-star-outline.svg</file>
-        <file>qml/Radio/RadioDrawer.qml</file>
         <file>qml/icons/svg/music-note.svg</file>
         <file>qml/icons/svg/radio-waves.svg</file>
         <file>qml/icons/svg/social-android.svg</file>
@@ -629,7 +626,6 @@
         <file>qml/theme/MenuButton.qml</file>
         <file>qml/theme/Arrow.qml</file>
         <file>qml/theme/TopMenu.qml</file>
-        <file>qml/Radio/RadioDrawerItem.qml</file>
         <file>qml/icons/svg/android-list.svg</file>
         <file>qml/icons/svg/android-person.svg</file>
         <file>qml/icons/svg/navicon-round.svg</file>
@@ -672,5 +668,6 @@
         <file>qml/SettingsPage/SettingsPageItemHeader.qml</file>
         <file>qml/SettingsPage/SettingsPageItemFileBrowser.qml</file>
         <file>qml/SettingsPage/SettingsPageItemAction.qml</file>
+        <file>qml/SettingsPage/SettingsPageItemTumbler.qml</file>
     </qresource>
 </RCC>
