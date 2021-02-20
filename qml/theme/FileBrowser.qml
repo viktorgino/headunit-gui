@@ -291,7 +291,6 @@ Item {
                             anchors.rightMargin: 8
                             anchors.left: parent.left
                             anchors.leftMargin: 6
-                            sourceSize.width: gridRoot.imageSize
                             source: {
                                 if(fileIsDir){
                                     return "qrc:/qml/icons/folder.png";
@@ -302,6 +301,8 @@ Item {
                                 }
                                 return "qrc:/qml/icons/document.png";
                             }
+                            sourceSize.height: 256
+                            sourceSize.width: 256
                         }
 
                         Text {
