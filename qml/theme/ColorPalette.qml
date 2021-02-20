@@ -238,7 +238,7 @@ Item{
 
         RowLayout {
             Layout.fillWidth: true
-            Layout.fillHeight: true
+            Layout.fillHeight: false
 
             ThemeFormText {
                 text: qsTr("Color")
@@ -261,7 +261,6 @@ Item{
 
         Item {
             id: rowLayout
-            Layout.minimumHeight: parent.height * 0.6
             Layout.fillHeight: true
             Layout.fillWidth: true
 
@@ -331,6 +330,8 @@ Item{
                     horizontalAlignment: Text.AlignLeft
                 }
 
+
+
             }
             GridLayout {
                 width: parent.width/2
@@ -391,23 +392,33 @@ Item{
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
                 }
-
-                ThemeFormText {
-                    text: qsTr("#")
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignRight
-                }
-
-                ThemeFormText{
-                    text: String(__root.color).slice(1,7)
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignLeft
-                }
             }
+
+        }
+
+        Item {
+            id: item2
+            height: 30
+            Layout.fillHeight: false
+            Layout.fillWidth: true
+
+
+            ThemeFormText {
+                text: qsTr("#")
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: colorString.left
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignRight
+            }
+            ThemeFormText{
+                id: colorString
+                text: String(__root.color).slice(1,7)
+                anchors.verticalCenter: parent.verticalCenter
+                verticalAlignment: Text.AlignVCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.AlignLeft
+            }
+
         }
 
         Button {
@@ -416,6 +427,7 @@ Item{
             Layout.columnSpan: 2
             onClicked: __root.accepted(__root.color)
         }
+
 
         Button {
             text: qsTr("Cancel")
@@ -428,10 +440,13 @@ Item{
 
 
 
+
+
     }
 }
 
-/*##^## Designer {
-    D{i:0;autoSize:true;height:400;width:800}D{i:2;anchors_height:0;anchors_width:0}
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:400;width:800}D{i:2}
 }
- ##^##*/
+##^##*/
