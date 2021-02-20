@@ -1,5 +1,5 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.0
+import QtQuick 2.11
+import QtQuick.Controls 2.11
 import QtQuick.Layouts 1.0
 import QtGraphicalEffects 1.0
 
@@ -69,7 +69,8 @@ Item {
                         "file":"SettingsPageItemFileBrowser.qml",
                         "color":"SettingsPageItemColor.qml",
                         "header":"SettingsPageItemHeader.qml",
-                        "action":"SettingsPageItemAction.qml"
+                        "action":"SettingsPageItemAction.qml",
+                        "tumbler":"SettingsPageItemTumbler.qml"
             }
 
             Component.onCompleted: {
@@ -98,9 +99,7 @@ Item {
 
                     item.value = __root.settings[item.itemData.name]
                 }
-                if(index === listView.count - 1){
-                    listView.listReady()
-                }
+                listView.listReady()
             }
         }
     }
