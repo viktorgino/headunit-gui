@@ -12,11 +12,12 @@ SettingsPageItem {
     itemData : {
         "label":"Slider",
         "name": "slider",
-        "default":1,
+        "defaultValue":1,
         "minimum": 0,
         "maximum": 100,
         "stepSize":1,
-        "unit": ""
+        "prefix": "",
+        "suffix": ""
     }
 
     ThemeFormText {
