@@ -8,8 +8,8 @@ Window {
     visible: true
     title: qsTr("viktorgino's HeadUnit")
     visibility: Window.Minimized
-    width: 1200
-    height: 800
+    width: 800
+    height: 480
 
     FontLoader{id:ralewayRegular; source:"qrc:/qml/fonts/Raleway-Regular.ttf"}
 

@@ -83,22 +83,25 @@ Item {
                     modelData.initColor = HUDStyle.Colors[modelData.name]
                 }
 
-                setSource(settingPageMapping[modelData.type])
+                var props = {
+                    "value" : __root.settings[modelData.name]
+                }
+                setSource(settingPageMapping[modelData.type], props)
 
                 if(item){
-//                    item.itemData = Object.assign(item.itemData, modelData); //Not supported in Qt 5.7
+                    item.itemData = Object.assign(item.itemData, modelData); //Not supported in Qt 5.7
 
-                    //A bit inefficient, but cant change values of maps stored in a QML property
-                    var tempData = modelData
-                    Object.keys(item.itemData).forEach(function (key){
-                        if(!(key in modelData)){
-                            tempData[key] = item.itemData[key]
-                        }
-                    });
+//                    //A bit inefficient, but cant change values of maps stored in a QML property
+//                    var tempData = modelData
+//                    Object.keys(item.itemData).forEach(function (key){
+//                        if(!(key in modelData)){
+//                            tempData[key] = item.itemData[key]
+//                        }
+//                    });
 
-                    item.itemData = tempData
+//                    item.itemData = tempData
 
-                    item.value = __root.settings[item.itemData.name]
+//                    item.value = __root.settings[item.itemData.name]
                 }
                 listView.listReady()
             }

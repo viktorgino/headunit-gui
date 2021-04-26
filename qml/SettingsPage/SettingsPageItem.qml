@@ -116,6 +116,7 @@ Item {
         SettingsPageItemIcon {
             id:itemIcon
             iconImage: typeof(itemData.iconImage)==="undefined"?"":itemData.iconImage
+//            width: iconImage?60:0
         }
     }
 

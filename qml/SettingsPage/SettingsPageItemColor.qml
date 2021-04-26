@@ -40,7 +40,7 @@ SettingsPageItem {
                 __root.value = text
             }
         }
-        validator: RegExpValidator { regExp: /[#?]{0,2}[0-9A-Fa-f]{6}/ }
+        validator: RegExpValidator { regExp: /[#?]{0,2}([0-9A-Fa-f]{8}|[0-9A-Fa-f]{6})/ }
     }
 
     Rectangle {

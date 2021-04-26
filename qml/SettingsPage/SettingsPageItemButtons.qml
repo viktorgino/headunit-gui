@@ -29,7 +29,7 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked: {
-                        eval(modelData.action)
+//                        eval(modelData.action)
                     }
                 }
             }

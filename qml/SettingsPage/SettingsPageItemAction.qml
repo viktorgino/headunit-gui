@@ -17,7 +17,7 @@ SettingsPageItem {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            eval(itemData.action)
+//            eval(itemData.action)
         }
     }
 

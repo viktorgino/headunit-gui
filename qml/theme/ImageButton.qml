@@ -10,7 +10,7 @@ Item{
     property bool changeColorOnPress: !checkable
     property string text: ""
     property url imageSource
-    property color baseColor: "#ffffff"
+    property color baseColor: HUDStyle.Colors.formText
     property color activeColor: "#ff5722"
     property color pressedColor: Qt.darker(color,1.5);
     property color color:baseColor

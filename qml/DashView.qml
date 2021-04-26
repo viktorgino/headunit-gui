@@ -95,7 +95,7 @@ Item {
 
     Item {
         id: bottomBar
-        height: 100
+        height: HUDStyle.Sizes.bottomBarHeight
         anchors.left: parent.left
         anchors.right: rightMenu.left
         anchors.bottom: parent.bottom

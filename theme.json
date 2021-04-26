@@ -35,7 +35,7 @@
         {
             "name": "headingText5",
             "label": "Heading Level 5 text color",
-            "defaultValue": "#ffffff"
+            "defaultValue": "#555555"
         },
         {
             "name": "icon",
@@ -60,17 +60,17 @@
         {
             "name": "formText",
             "label": "Form text color",
-            "defaultValue": "#000000"
+            "defaultValue": "#ffffff"
         },
         {
             "name": "formSubText",
             "label": "Form sub text color",
-            "defaultValue": "#0D0D0D"
+            "defaultValue": "#aaaaaa"
         },
         {
             "name": "formBackground",
             "label": "Form background color",
-            "defaultValue": "#fafafa"
+            "defaultValue": "#80000000"
         }
     ],
     "sizes": [
@@ -92,35 +92,35 @@
         {
             "name": "headingText1",
             "label": "Heading Level 1 text size",
-            "defaultValue": 50,
+            "defaultValue": 20,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "headingText2",
             "label": "Heading Level 2 text size",
-            "defaultValue": 45,
+            "defaultValue": 20,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "headingText3",
             "label": "Heading Level 3 text size",
-            "defaultValue": 40,
+            "defaultValue": 20,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "headingText4",
             "label": "Heading Level 4 text size",
-            "defaultValue": 35,
+            "defaultValue": 20,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "headingText5",
             "label": "Heading Level 5 text size",
-            "defaultValue": 16,
+            "defaultValue": 20,
             "minimum": 5,
             "maximum": 100
         },
@@ -149,7 +149,15 @@
             "defaultValue": 30,
             "minimum": 5,
             "maximum": 100
+        },
+        {
+            "name": "bottomBarHeight",
+            "label": "Bottom Bar height",
+            "defaultValue": 100,
+            "minimum": 5,
+            "maximum": 200
         }
+
     ],
     "settings": [
         {
