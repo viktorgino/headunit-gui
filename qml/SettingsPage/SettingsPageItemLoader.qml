@@ -7,12 +7,13 @@ import HUDTheme 1.0
 SettingsPageItem {
     id:__root
     signal elemClicked()
-    itemData : {
-        "label":"Loader",
-        "name": "loader",
-        "type":"loader",
-        "iconImage":""
-    }
+//    itemData : {
+//        "label":"Loader",
+//        "name": "loader",
+//        "type":"loader",
+//        "iconImage":""
+//    }
+    property string source: ""
 
     ThemeFormText {
         id:text2
@@ -27,7 +28,7 @@ SettingsPageItem {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            __root.push(itemData.source, {});
+            __root.push(__root.source, {});
         }
     }
 

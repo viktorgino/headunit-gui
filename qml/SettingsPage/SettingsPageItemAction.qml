@@ -7,17 +7,17 @@ import HUDTheme 1.0
 SettingsPageItem {
     id:__root
     signal elemClicked()
-    itemData : {
-        "label":"Action",
-        "name": "action",
-        "type":"action",
-        "action": ""
-    }
-
+//    itemData : {
+//        "label":"Action",
+//        "name": "action",
+//        "type":"action",
+//        "action": ""
+//    }
+    property string action: ""
     MouseArea {
         anchors.fill: parent
         onClicked: {
-//            eval(itemData.action)
+//            eval(__root.action)
         }
     }
 

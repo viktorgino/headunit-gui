@@ -9,6 +9,8 @@ TextField {
     background: Rectangle {
         implicitWidth: 200
         implicitHeight: 40
-        color: control.enabled ? "transparent" : HUDStyle.Colors.formBox
+        color: HUDStyle.Colors.formBackground
+        border.color: HUDStyle.Colors.formText
+        border.width: 1
     }
 }

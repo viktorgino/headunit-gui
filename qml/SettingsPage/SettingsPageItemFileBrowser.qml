@@ -8,16 +8,19 @@ SettingsPageItem {
     id:__root
 
     property string value : ""
-    itemData: {
-        "label":"Color",
-        "name": "color",
-        "description":"",
-        "initPath":"",
-        "browserType" : "file",
-        "nameFilters" : "*"
-    }
+//    itemData: {
+//        "label":"Color",
+//        "name": "color",
+//        "description":"",
+//        "initPath":"",
+//        "browserType" : "file",
+//        "nameFilters" : "*"
+//    }
+    property string initPath : ""
+    property string browserType : "file"
+    property string nameFilters : "*"
 
-    Text {
+    ThemeText {
         width: parent.width / 2
         text: __root.value
         elide: Text.ElideMiddle
@@ -54,9 +57,9 @@ SettingsPageItem {
             height: popup.height
             anchors.fill: parent
             folder : __root.value
-            nameFilters : itemData.nameFilters
-            showFiles : (itemData.browserType === "file")
-            folderSelectable : (itemData.browserType === "folder")
+            nameFilters : __root.nameFilters
+            showFiles : (__root.browserType === "file")
+            folderSelectable : (__root.browserType === "folder")
             onRejected: popup.close()
             onAccepted: {
                 onRejected: popup.close()

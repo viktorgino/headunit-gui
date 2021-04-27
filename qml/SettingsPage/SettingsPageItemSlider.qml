@@ -9,22 +9,18 @@ SettingsPageItem {
     id: __root
     property alias value : slider.value
 
-    itemData : {
-        "label":"Slider",
-        "name": "slider",
-        "defaultValue":1,
-        "minimum": 0,
-        "maximum": 100,
-        "stepSize":1,
-        "prefix": "",
-        "suffix": ""
-    }
+    //Properties
+    property alias minimum : slider.from
+    property alias maximum : slider.to
+    property alias stepSize : slider.stepSize
+    property string prefix : ""
+    property string suffix : ""
 
     ThemeFormText {
         id:text2
         width: 60
         height: parent.height/2
-        text: itemData.prefix + " " + slider.value + " " + itemData.suffix
+        text: __root.prefix + " " + slider.value + " " + __root.suffix
         anchors.verticalCenter: parent.verticalCenter
         verticalAlignment: Text.AlignVCenter
         anchors.right: parent.right
@@ -35,12 +31,9 @@ SettingsPageItem {
         id:slider
         width: parent.width/2
         anchors.rightMargin: 8
-        anchors.leftMargin: parent.leftPadding
+        anchors.leftMargin: parent.width / 2
         anchors.verticalCenter: parent.verticalCenter
         padding: 7
-        from: itemData.minimum
-        to: itemData.maximum
-        stepSize: itemData.stepSize
         anchors.left: parent.left
         anchors.right: text2.left
         wheelEnabled: true

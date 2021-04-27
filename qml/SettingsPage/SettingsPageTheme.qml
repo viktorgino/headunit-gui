@@ -38,6 +38,7 @@ Item {
         SettingsPageItemList{
             settings: HUDStyle
             model: HUDStyleSettings
+            enableIcons : false
             onPush: {
                 properties.settings = settings[properties.name]
                 settingStack.push(settingsPageList, properties)
@@ -302,11 +303,9 @@ Item {
                 anchors.bottomMargin: 0
                 clip:true
                 model: 20
-                delegate: SettingsPageItem{
-                    itemData:{
-                        "label":"Item " + index + " title",
-                                "description":"Item " + index + " subtitle"
-                    }
+                delegate: SettingsPageItem {
+                    label : "Item " + index + " title"
+                    description : "Item " + index + " subtitle"
                 }
             }
         }

@@ -5,14 +5,17 @@ import HUDTheme 1.0
 
 SettingsPageItem {
     id: __root
-    itemData : 	{
-        "label":"Items",
-        "name": "items",
-        "iconImage":"",
-        "description":"",
-        "items":[],
-        "confirmChange" : false
-    }
+//    itemData : 	{
+//        "label":"Items",
+//        "name": "items",
+//        "iconImage":"",
+//        "description":"",
+//        "items":[],
+//        "confirmChange" : false
+//    }
+    property var items: []
+    property bool autoSave : false
+    property bool enableIcons : true
 
     ThemeFormText {
         id:text2
@@ -28,7 +31,7 @@ SettingsPageItem {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
-            __root.push("SettingsPageItemList", {model:itemData.items, name: itemData.name, confirmChange: itemData.confirmChange});
+            __root.push("SettingsPageItemList", {model:__root.items, name: __root.name, autoSave : __root.autoSave, enableIcons : __root.enableIcons});
         }
     }
 }

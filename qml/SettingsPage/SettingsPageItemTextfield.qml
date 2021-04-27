@@ -4,22 +4,28 @@ import QtGraphicalEffects 1.0
 
 import HUDTheme 1.0
 SettingsPageItem {
-    property alias value : textField.text
     id:__root
-    itemData : {
-        "label":"Textfield",
-        "name": "textfield",
-        "iconImage": "",
-        "textType" : "string",
-        "defaultValue" : "",
-        "inputMask": "",
-        "prefix" : "",
-        "suffix" : ""
-    }
+
+    property alias value : textField.text
+
+//    itemData : {
+//        "label":"Textfield",
+//        "name": "textfield",
+//        "iconImage": "",
+//        "textType" : "string",
+//        "defaultValue" : "",
+//        "inputMask": "",
+//        "prefix" : "",
+//        "suffix" : ""
+//    }
+    property string textType : "string"
+    property string regexp : ""
+    property alias inputMask : textField.inputMask
+    property alias prefix : prefix.text
+    property alias suffix : suffix.text
 
     ThemeFormText {
         id: prefix
-        text: itemData.prefix
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: textField.left
         anchors.rightMargin: 6
@@ -31,7 +37,7 @@ SettingsPageItem {
         anchors.right: suffix.left
         anchors.rightMargin: 8
         anchors.verticalCenter: parent.verticalCenter
-        validator: switch(itemData.textType){
+        validator: switch(__root.textType){
                    case "int":
                        return intValidator;
                    case "string":
@@ -39,10 +45,9 @@ SettingsPageItem {
                    case "double":
                        return doubleValidator;
                    case "regexp":
-                       regexpValidator.regExp = new RegExp(itemData.regexp);
+                       regexpValidator.regExp = new RegExp(__root.regexp);
                        return regexpValidator;
                    }
-        inputMask:itemData.inputMask
     }
 
     IntValidator {
@@ -62,7 +67,6 @@ SettingsPageItem {
         width: parent.width * 0.05
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        text: itemData.suffix
         elide: Text.ElideLeft
         font.pixelSize: 12
     }

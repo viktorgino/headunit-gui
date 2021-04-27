@@ -4,23 +4,16 @@ import HUDTheme 1.0
 
 Item {
     id: __root
-    height: 60
-    //width: parent.width
-    property int leftPadding: 0
-    property var itemData : {
-        "label":"",
-        "name": "",
-        "description": "",
-        "iconImage":"",
-        "autosave": false
-    }
-    property var value
+    height: 40
+
+    property var value : ""
+    property bool enableIcon: true
+
+    property alias label: headerLabel.text
     signal push(var qml, var properties)
 
     ThemeHeaderText {
-        id: themeHeaderText
-        color: "#1100aa"
-        text: __root.itemData.label
+        id: headerLabel
         anchors.verticalCenter: parent.verticalCenter
         level: 5
         anchors.left: parent.left
@@ -32,11 +25,10 @@ Item {
         width: 200
         height: 1
         color: "#969696"
-        anchors.top: parent.top
-        anchors.topMargin: 0
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.right: parent.right
+        anchors.bottom: parent.bottom
         anchors.rightMargin: 0
     }
 

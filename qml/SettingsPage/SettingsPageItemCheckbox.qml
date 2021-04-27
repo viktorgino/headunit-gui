@@ -6,11 +6,11 @@ import HUDTheme 1.0
 SettingsPageItem {
     id:__root
     property alias value : checkBox.checked
-    itemData : {
-            "label":"Checkbox",
-            "name": "checkbox",
-            "iconImage":""
-        }
+//    itemData : {
+//            "label":"Checkbox",
+//            "name": "checkbox",
+//            "iconImage":""
+//        }
 
     CheckBox {
         id: checkBox

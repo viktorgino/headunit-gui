@@ -9,23 +9,28 @@ SettingsPageItem {
     id: __root
     property alias value : spinBox.value
 
-    itemData : {
-        "label":"Slider",
-        "name": "slider",
-        "default":18,
-        "minimum": 5,
-        "maximum": 30,
-        "stepSize":1,
-        "unit": "pixels",
-        "prefix" : "",
-        "suffix" : ""
-    }
+//    itemData : {
+//        "label":"Slider",
+//        "name": "slider",
+//        "default":18,
+//        "minimum": 5,
+//        "maximum": 30,
+//        "stepSize":1,
+//        "unit": "pixels",
+//        "prefix" : "",
+//        "suffix" : ""
+//    }
+
+    property alias minimum : spinBox.from
+    property alias maximum : spinBox.to
+    property alias stepSize : spinBox.stepSize
+    property alias prefix : prefixText.text
+    property alias suffix : suffixText.text
 
     ThemeFormText {
         id:prefixText
         width: 60
         height: parent.height/2
-        text: itemData.prefix
         anchors.verticalCenter: parent.verticalCenter
         verticalAlignment: Text.AlignVCenter
         anchors.right: spinBox.left
@@ -40,15 +45,11 @@ SettingsPageItem {
         anchors.right: suffixText.left
         wheelEnabled: true
         editable: true
-        to: itemData.maximum
-        from: itemData.minimum
-        stepSize: itemData.stepSize
     }
     ThemeFormText {
         id:suffixText
         width: 60
         height: parent.height/2
-        text: itemData.suffix
         anchors.verticalCenter: parent.verticalCenter
         verticalAlignment: Text.AlignVCenter
         anchors.right: parent.right

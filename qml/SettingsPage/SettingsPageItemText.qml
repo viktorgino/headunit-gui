@@ -4,12 +4,15 @@ import QtGraphicalEffects 1.0
 
 import HUDTheme 1.0
 SettingsPageItem {
+    id: __root
     height: 60
-    property var itemData : {
-            "label":"Text",
-            "name": "text",
-            "iconImage": "",
-        }
+
+    property alias label : title.text
+//    property var itemData : {
+//            "label":"Text",
+//            "name": "text",
+//            "iconImage": "",
+//        }
 
     SettingsPageItemIcon {
         id:itemIcon
@@ -17,7 +20,7 @@ SettingsPageItem {
     }
 
     ThemeFormText {
-        text: itemData.label
+        id: title
         anchors.left: itemIcon.right
         anchors.verticalCenter: parent.verticalCenter
     }

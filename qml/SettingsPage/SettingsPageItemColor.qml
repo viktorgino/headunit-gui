@@ -9,20 +9,20 @@ SettingsPageItem {
     id:__root
     property alias color: colorRect.color
     property alias value : colorInput.text
-    itemData: {
-        "label":"Color",
-        "name": "color",
-        "description":"",
-        "defaultValue":"",
-        "initColor": "#000000"
-    }
+//    itemData: {
+//        "label":"Color",
+//        "name": "color",
+//        "description":"",
+//        "defaultValue":"",
+//        "initColor": "#000000"
+//    }
 
 //    Component.onCompleted: {
 //        colorInput.text = itemData.initColor
 //    }
-    onItemDataChanged: {
-        colorInput.text = itemData.initColor
-    }
+//    onItemDataChanged: {
+//        colorInput.text = itemData.initColor
+//    }
 
     ThemeFormTextInput {
         id: colorInput
@@ -71,6 +71,9 @@ SettingsPageItem {
             focus: true
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
+            background: Rectangle {
+                color: HUDStyle.Colors.formBackground
+            }
             ColorPalette{
                 width: popup.width
                 height: popup.height

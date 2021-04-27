@@ -8,17 +8,20 @@ import HUDTheme 1.0
 
 Item {
     id: __root
-    property int depth: 1
+
+    property bool autoSave: true
+    property bool enableIcons : true
+
     property alias model: listView.model
     property var settings : ({})
-    property string name
-    property bool confirmChange: false
+    signal push(var qml, var properties)
+    signal pop()
+
     property var settingsShadow : ({})
+    property var conditions : ({})
 
     Component.onDestruction: {
-        if(!confirmChange){
-            save();
-        }
+        save();
     }
 
     function save() {
@@ -28,31 +31,39 @@ Item {
         }
     }
 
-    signal push(var qml, var properties)
-    signal pop()
     function back() {
         pop()
     }
     ListView {
         id: listView
         anchors.fill: parent
-        model:({})
-        signal listReady();
+
+        function updateConditionals() {
+            for(var currentItem in listView.contentItem.children){
+                var targetItem = listView.contentItem.children[currentItem]
+                if(targetItem.item){
+                    targetItem.visible = targetItem.checkTarget(targetItem.item.name)
+                }
+            }
+        }
 
         delegate: Loader {
             id:loader
             height: 60
             width: __root.width
+
             Connections {
                 ignoreUnknownSignals: true
                 target: loader.item
                 onValueChanged: {
-                    if(target.itemData.autosave && !__root.confirmChange){
-                        __root.settings[target.itemData.name] = target.value
+                    if(__root.autoSave){
+                        __root.settings[target.name] = target.value
                     } else {
-                        __root.settingsShadow[target.itemData.name] = target.value
+                        __root.settingsShadow[target.name] = target.value
                     }
+                    listView.updateConditionals()
                 }
+
                 onPush: {
                     __root.push(qml,properties)
                 }
@@ -73,79 +84,54 @@ Item {
                         "action":"SettingsPageItemAction.qml",
                         "tumbler":"SettingsPageItemTumbler.qml"
             }
+            Connections{
+                target: __root
+                onSettingsShadowChanged : {
+                    parent.parentSettings = __root.settingsShadow
+                }
+            }
+
+            function isConditionTrue(name, target){
+                if(target in __root.settingsShadow){
+                    return __root.settingsShadow[target] === __root.conditions[name].value
+                } else {
+                    return __root.settings[target] === __root.conditions[name].value
+                }
+            }
+
+            function checkTarget(name){
+                if(__root.conditions[name]){
+                    var target = __root.conditions[name].target
+
+                    if(target in __root.conditions){
+                        return checkTarget(target) & isConditionTrue(name, target);
+                    } else {
+                        return isConditionTrue(name, target);
+                    }
+                }
+                return true;
+            }
 
             Component.onCompleted: {
                 if(!(modelData.type in settingPageMapping)){
                     return;
                 }
 
-                if(modelData.type === "color"){
-                    modelData.initColor = HUDStyle.Colors[modelData.name]
-                }
-
-                var props = {
-                    "value" : __root.settings[modelData.name]
-                }
-                setSource(settingPageMapping[modelData.type], props)
+                setSource(settingPageMapping[modelData.type], modelData)
 
                 if(item){
-                    item.itemData = Object.assign(item.itemData, modelData); //Not supported in Qt 5.7
-
-//                    //A bit inefficient, but cant change values of maps stored in a QML property
-//                    var tempData = modelData
-//                    Object.keys(item.itemData).forEach(function (key){
-//                        if(!(key in modelData)){
-//                            tempData[key] = item.itemData[key]
-//                        }
-//                    });
-
-//                    item.itemData = tempData
-
-//                    item.value = __root.settings[item.itemData.name]
-                }
-                listView.listReady()
-            }
-        }
-    }
-
-    RowLayout {
-        id: saveButton
-        height: __root.confirmChange?60:0
-        clip:true
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        visible: __root.confirmChange
-
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            Button {
-                id: button
-                text: qsTr("Cancel")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked: {
-                    __root.back();
+                    item.value = __root.settings[modelData.name]
+                    item.enableIcon = __root.enableIcons
                 }
             }
         }
-
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            Button {
-                text: qsTr("Save")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-                onClicked: {
-                    __root.save();
-                    __root.back();
+        onModelChanged : {
+            for(var i = 0; i < model.length; i++){
+                if(model[i].conditional){
+                    __root.conditions[model[i].name] = {
+                        "target": model[i].conditionTarget,
+                        "value": model[i].conditionValue
+                    }
                 }
             }
         }

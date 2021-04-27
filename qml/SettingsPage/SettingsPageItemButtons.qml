@@ -5,22 +5,27 @@ import QtGraphicalEffects 1.0
 
 import HUDTheme 1.0
 Item {
+    id:__root
     property var value
-    property var itemData : {
-            "label":"Button",
-            "name": "button",
-            "iconImage":"",
-            "values": [
-                {"label":"Save","action":"console.log(\"Save!\")"},
-                {"label":"Close","action":"console.log(\"Close!\")"}
-            ]
-        }
+//    property var itemData : {
+//            "label":"Button",
+//            "name": "button",
+//            "iconImage":"",
+//            "values": [
+//                {"label":"Save","action":"console.log(\"Save!\")"},
+//                {"label":"Close","action":"console.log(\"Close!\")"}
+//            ]
+//        }
+    property var values : [
+        {"label":"Save","action":"console.log(\"Save!\")"},
+        {"label":"Close","action":"console.log(\"Close!\")"}
+    ]
 
     RowLayout {
         id: rowLayout
         anchors.fill: parent
         Repeater{
-            model:itemData.values
+            model:__root.values
             Item{
                 Layout.fillHeight: true
                 Layout.fillWidth: true

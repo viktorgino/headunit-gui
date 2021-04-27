@@ -7,7 +7,7 @@ Window {
     id: window
     visible: true
     title: qsTr("viktorgino's HeadUnit")
-    visibility: Window.Minimized
+    visibility: Window.Maximized
     width: 800
     height: 480
 
