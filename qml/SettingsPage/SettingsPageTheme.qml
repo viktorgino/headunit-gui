@@ -39,14 +39,19 @@ Item {
             settings: HUDStyle
             model: HUDStyleSettings
             enableIcons : false
+            autoSave: true
             onPush: {
                 properties.settings = settings[properties.name]
-                settingStack.push(settingsPageList, properties)
+                properties.enableIcons = false
+                properties.autoSave = true
+
+                settingStack.push(itemList, properties)
             }
             onPop: {
             }
         }
     }
+
     Item {
         id: item3
         anchors.top: parent.top

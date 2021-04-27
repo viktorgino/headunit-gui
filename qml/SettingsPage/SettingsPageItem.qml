@@ -7,7 +7,7 @@ import HUDTheme 1.0
 
 Item {
     id: __root
-    height: 40
+    height: 60
     property var value : ""
 
     property string name : ""
@@ -31,7 +31,7 @@ Item {
 
         ThemeFormText {
             id: title
-            height: subtitle.text === ""?40:20
+            height: subtitle.text === ""?60:30
             text: "Title"
             anchors.leftMargin: 0
             horizontalAlignment: Text.AlignLeft

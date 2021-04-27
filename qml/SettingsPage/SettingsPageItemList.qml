@@ -9,7 +9,7 @@ import HUDTheme 1.0
 Item {
     id: __root
 
-    property bool autoSave: true
+    property bool autoSave: false
     property bool enableIcons : true
 
     property alias model: listView.model
@@ -49,7 +49,6 @@ Item {
 
         delegate: Loader {
             id:loader
-            height: 60
             width: __root.width
 
             Connections {
