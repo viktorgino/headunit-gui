@@ -20,6 +20,7 @@ void DefaultTheme::initializeEngine(QQmlEngine *engine, const char* /*uri*/)
         guiEvents = new GUIEvents();
         appEngine->addImportPath("themes/default-theme");
         appEngine->rootContext()->setContextProperty("GUIEvents", guiEvents);
+        appEngine->rootContext()->setContextObject(this);
         appEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 }
 
@@ -42,4 +43,19 @@ void DefaultTheme::onEvent(QString sender, QString event, QVariant eventData) {
     } else if (event == "CloseOverlay") {
         emit guiEvents->closeOverlay(sender);
     }
+}
+
+QVariantList DefaultTheme::getMountedVolumes(){
+    QVariantList ret;
+    for (QStorageInfo storage : QStorageInfo::mountedVolumes()) {
+        if (storage.isValid() && storage.isReady()) {
+            if (!storage.isReadOnly() && storage.fileSystemType() != "tmpfs" && storage.fileSystemType() != "squashfs") {
+                QVariantMap volume;
+                volume.insert("name", storage.displayName());
+                volume.insert("path",storage.rootPath());
+                ret.append(volume);
+            }
+        }
+    }
+    return ret;
 }

@@ -28,13 +28,13 @@ THEMEFILES += \
 #copy needed files to build dir
 
 ##recursively copy the theme folder
+theme_files_remove.commands = rm -rf $$OUT_PWD/HUDTheme
 theme_files_copy.commands = $(COPY_DIR) $$PWD/qml/theme $$OUT_PWD/HUDTheme
+theme_files_copy.depends = theme_files_remove
 ##attach the copy command to make target
 first.depends = $(first) theme_files_copy
-##export variables to global scope
-export(first.depends)
-export(theme_files_copy.commands)
-QMAKE_EXTRA_TARGETS += first theme_files_copy
+
+QMAKE_EXTRA_TARGETS += first theme_files_remove theme_files_copy
 
 DISTFILES += THEMEFILES \
     theme.json

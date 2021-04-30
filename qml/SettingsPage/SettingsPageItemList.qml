@@ -115,7 +115,6 @@ Item {
                 if(!(modelData.type in settingPageMapping)){
                     return;
                 }
-
                 setSource(settingPageMapping[modelData.type], modelData)
 
                 if(item){

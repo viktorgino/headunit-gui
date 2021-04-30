@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtQml/QQmlExtensionPlugin>
 #include <QtQml>
+#include <QStorageInfo>
 
 class GUIEvents : public QObject {
     Q_OBJECT
@@ -21,6 +22,8 @@ class DefaultTheme : public QQmlExtensionPlugin
 public:
     void registerTypes(const char * uri) override;
     void initializeEngine(QQmlEngine *engine, const char *uri) override;
+
+    Q_INVOKABLE QVariantList getMountedVolumes();
 public slots:
     void onEvent(QString sender, QString event, QVariant eventData);
 private:

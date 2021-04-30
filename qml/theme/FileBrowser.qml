@@ -30,11 +30,16 @@ Item {
 
         ListView {
             id: listView1
+
+            anchors.bottom: divider.top
+            anchors.topMargin: 8
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+
             anchors.rightMargin: 8
             anchors.leftMargin: 8
-            anchors.bottomMargin: 8
-            anchors.topMargin: 8
-            anchors.fill: parent
+            anchors.bottomMargin: 20
             clip: true
             delegate: Item {
                 width: parent.width
@@ -95,6 +100,49 @@ Item {
             ScrollBar.vertical: ScrollBar {
             }
         }
+        Rectangle {
+            id: divider
+            height: 1
+            color: "#424242"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+        }
+
+        ListView {
+            id: listView2
+            clip: true
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 8
+            anchors.top: divider.bottom
+            anchors.topMargin: 20
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            delegate:Item {
+                height:40
+                anchors.left: parent.left
+                anchors.right: parent.right
+                Text {
+                    text: modelData.name
+                    elide: Text.ElideLeft
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.bold: true
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: folderModel.folder = "file://"+modelData.path
+                }
+            }
+            model: getMountedVolumes()
+
+            ScrollBar.vertical: ScrollBar {
+            }
+        }
+
 
 
         Rectangle {
