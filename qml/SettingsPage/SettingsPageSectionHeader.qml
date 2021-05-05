@@ -1,14 +1,14 @@
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
 
-
+import HUDTheme 1.0
 Item{
     id: item1
     height: 40
     clip: true
     width: parent.width
 
-    Text {
+    ThemeHeaderText {
         anchors.rightMargin: 8
         anchors.leftMargin: 8
         anchors.right: parent.right
@@ -20,14 +20,11 @@ Item{
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         font.bold: true
-        font.pixelSize: 20
-        color:"#304ffe"
+        level : 3
         text: qsTr(section)
     }
 
     Rectangle {
-        x: 0
-        y: 0
         width: parent.width
         height: 1
         color: "#dcdcdc"

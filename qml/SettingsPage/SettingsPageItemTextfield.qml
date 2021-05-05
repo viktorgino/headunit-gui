@@ -29,7 +29,6 @@ SettingsPageItem {
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: textField.left
         anchors.rightMargin: 6
-        font.pixelSize: 12
     }
 
     ThemeFormTextInput {
@@ -68,6 +67,5 @@ SettingsPageItem {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         elide: Text.ElideLeft
-        font.pixelSize: 12
     }
 }

@@ -105,7 +105,7 @@ Item {
                     wrapMode: Text.WordWrap
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: HUDStyle.Sizes.menuText
+                    font.pointSize: HUDStyle.Sizes.menuText
                 }
 
                 MouseArea {

@@ -57,7 +57,7 @@ Item {
                             source: parent
                         }
                     }
-                    Text {
+                    ThemeFormText {
                         text: StandardPaths.displayName(path_key)
                         anchors.verticalCenter: parent.verticalCenter
                         font.bold: true
@@ -124,7 +124,7 @@ Item {
                 height:40
                 anchors.left: parent.left
                 anchors.right: parent.right
-                Text {
+                ThemeFormText {
                     text: modelData.name
                     elide: Text.ElideLeft
                     anchors.left: parent.left
@@ -181,7 +181,7 @@ Item {
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
-                Text {
+                ThemeFormText {
                     text: folderModel.folder.toString().replace(/^(file:\/{2})|(qrc:\/{1})/, "")
                     elide: Text.ElideLeft
                     anchors.left: parent.left
@@ -211,7 +211,7 @@ Item {
                         source: parent
                     }
                 }
-                Text {
+                ThemeFormText {
                     x:35
                     text: "Up"
                     anchors.verticalCenter: parent.verticalCenter
@@ -328,13 +328,12 @@ Item {
                         width: gridView.cellWidth
                         height: gridView.cellHeight
 
-                        Image {
+                        ImageIcon {
                             id: image
                             anchors.bottom: text1.top
                             anchors.bottomMargin: 8
                             anchors.top: parent.top
                             anchors.topMargin: 8
-                            fillMode: Image.PreserveAspectFit
                             anchors.right: parent.right
                             anchors.rightMargin: 8
                             anchors.left: parent.left
@@ -349,11 +348,9 @@ Item {
                                 }
                                 return "qrc:/qml/icons/document.png";
                             }
-                            sourceSize.height: 256
-                            sourceSize.width: 256
                         }
 
-                        Text {
+                        ThemeText {
                             id: text1
                             text: fileName
                             anchors.bottom: parent.bottom
@@ -365,7 +362,6 @@ Item {
                             anchors.rightMargin: 8
                             anchors.left: parent.left
                             anchors.leftMargin: 8
-                            font.pixelSize: 12
                         }
                         MouseArea {
                             id: mouseArea
@@ -399,7 +395,6 @@ Item {
                     anchors.leftMargin: 0
                     anchors.bottom: sizeSlider.top
                     anchors.bottomMargin: 0
-                    font.pixelSize: 12
                 }
 
                 Slider{
@@ -450,7 +445,7 @@ Item {
                             source: parent
                         }
                     }
-                    Text {
+                    ThemeFormText {
                         text: fileName
                         anchors.left: folder_image.right
                         anchors.leftMargin: 8

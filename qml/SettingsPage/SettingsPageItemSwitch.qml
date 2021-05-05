@@ -29,7 +29,6 @@ SettingsPageItem {
         text: switchButton.checked?__root.textOn:__root.textOff
         anchors.rightMargin: 0
         elide: Text.ElideLeft
-        font.pixelSize: 12
     }
 }
 

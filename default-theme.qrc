@@ -645,7 +645,6 @@
         <file>qml/theme/ThemeText.qml</file>
         <file>qml/theme/qmldir</file>
         <file>qml/theme/ThemeHeaderText.qml</file>
-        <file>qml/theme/ThemeButton.qml</file>
         <file>qml/theme/ColorPalette.qml</file>
         <file>qml/theme/ThemeFormText.qml</file>
         <file>qml/theme/FileBrowser.qml</file>
@@ -669,5 +668,6 @@
         <file>qml/SettingsPage/SettingsPageItemFileBrowser.qml</file>
         <file>qml/SettingsPage/SettingsPageItemAction.qml</file>
         <file>qml/SettingsPage/SettingsPageItemTumbler.qml</file>
+        <file>qml/theme/ImageIcon.qml</file>
     </qresource>
 </RCC>

@@ -5,7 +5,7 @@
         {
             "name": "text",
             "label": "UI text color",
-            "defaultValue": "#eeeeee"
+            "defaultValue": "#ffffff"
         },
         {
             "name": "subText",
@@ -20,22 +20,22 @@
         {
             "name": "headingText2",
             "label": "Heading Level 2 text color",
-            "defaultValue": "#bbbbbb"
+            "defaultValue": "#ffffff"
         },
         {
             "name": "headingText3",
             "label": "Heading Level 3 text color",
-            "defaultValue": "#999999"
+            "defaultValue": "#ffffff"
         },
         {
             "name": "headingText4",
             "label": "Heading Level 4 text color",
-            "defaultValue": "#777777"
+            "defaultValue": "#ffffff"
         },
         {
             "name": "headingText5",
             "label": "Heading Level 5 text color",
-            "defaultValue": "#555555"
+            "defaultValue": "#ffffff"
         },
         {
             "name": "icon",
@@ -71,13 +71,18 @@
             "name": "formBackground",
             "label": "Form background color",
             "defaultValue": "#80000000"
+        },
+        {
+            "name": "formPopupBackground",
+            "label": "Form Popup background color",
+            "defaultValue": "#646464"
         }
     ],
     "sizes": [
         {
             "name": "text",
             "label": "UI text size",
-            "defaultValue": 14,
+            "defaultValue": 11,
             "minimum": 5,
             "maximum": 100,
             "suffix" : "Point"
@@ -85,35 +90,35 @@
         {
             "name": "subText",
             "label": "UI sub text size",
-            "defaultValue": 14,
+            "defaultValue": 10,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "headingText1",
             "label": "Heading Level 1 text size",
-            "defaultValue": 20,
+            "defaultValue": 12,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "headingText2",
             "label": "Heading Level 2 text size",
-            "defaultValue": 20,
+            "defaultValue": 14,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "headingText3",
             "label": "Heading Level 3 text size",
-            "defaultValue": 20,
+            "defaultValue": 16,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "headingText4",
             "label": "Heading Level 4 text size",
-            "defaultValue": 20,
+            "defaultValue": 18,
             "minimum": 5,
             "maximum": 100
         },
@@ -127,21 +132,21 @@
         {
             "name": "formText",
             "label": "Form text size",
-            "defaultValue": 16,
+            "defaultValue": 11,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "formSubText",
             "label": "Form sub text size",
-            "defaultValue": 14,
+            "defaultValue": 10,
             "minimum": 5,
             "maximum": 100
         },
         {
             "name": "menuText",
             "label": "Side menu text size",
-            "defaultValue": 14
+            "defaultValue": 10
         },
         {
             "name": "menuIcon",

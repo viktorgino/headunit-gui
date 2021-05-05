@@ -6,9 +6,9 @@ BackgroundImage 1.0 BackgroundImage.qml
 ColorPalette 1.0 ColorPalette.qml
 FileBrowser 1.0 FileBrowser.qml
 ImageButton 1.0 ImageButton.qml
+ImageIcon 1.0 ImageIcon.qml
 MenuButton 1.0 MenuButton.qml
 ModeSwitch 1.0 ModeSwitch.qml
-ThemeButton 1.0 ThemeButton.qml
 ThemeFormSwitch 1.0 ThemeFormSwitch.qml
 ThemeHeaderText 1.0 ThemeHeaderText.qml
 ThemeFormText 1.0 ThemeFormText.qml

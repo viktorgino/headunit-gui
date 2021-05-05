@@ -40,6 +40,16 @@ MetaInfo {
         }
     }
     Type {
+        name: "HUDTheme.ImageIcon"
+
+        ItemLibraryEntry {
+            name: "Image Icon"
+            category: "Headunit Desktop Theme"
+            version: "1.0"
+            requiredImport: "HUDTheme"
+        }
+    }
+    Type {
         name: "HUDTheme.MenuButton"
 
         ItemLibraryEntry {
@@ -54,16 +64,6 @@ MetaInfo {
 
         ItemLibraryEntry {
             name: "Mode Switch"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.ThemeButton"
-
-        ItemLibraryEntry {
-            name: "Theme Button"
             category: "Headunit Desktop Theme"
             version: "1.0"
             requiredImport: "HUDTheme"

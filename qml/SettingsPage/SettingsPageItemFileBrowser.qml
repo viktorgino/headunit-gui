@@ -7,27 +7,17 @@ import HUDTheme 1.0
 SettingsPageItem {
     id:__root
 
-    property string value : ""
-//    itemData: {
-//        "label":"Color",
-//        "name": "color",
-//        "description":"",
-//        "initPath":"",
-//        "browserType" : "file",
-//        "nameFilters" : "*"
-//    }
     property string initPath : ""
     property string browserType : "file"
     property string nameFilters : "*"
 
-    ThemeText {
+    ThemeFormText {
         width: parent.width / 2
         text: __root.value
         elide: Text.ElideMiddle
         anchors.right: parent.right
         anchors.rightMargin: 40
         anchors.verticalCenter: parent.verticalCenter
-        font.pixelSize: 12
     }
 
     MouseArea {
@@ -49,6 +39,9 @@ SettingsPageItem {
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
         onOpened: {
+        }
+        background: Rectangle {
+            color: HUDStyle.Colors.formPopupBackground
         }
 
         FileBrowser {

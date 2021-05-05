@@ -7,15 +7,8 @@ import HUDTheme 1.0
 Item {
     id:__root
     property var value
-//    property var itemData : {
-//            "label":"Button",
-//            "name": "button",
-//            "iconImage":"",
-//            "values": [
-//                {"label":"Save","action":"console.log(\"Save!\")"},
-//                {"label":"Close","action":"console.log(\"Close!\")"}
-//            ]
-//        }
+    property bool enableIcon: false
+
     property var values : [
         {"label":"Save","action":"console.log(\"Save!\")"},
         {"label":"Close","action":"console.log(\"Close!\")"}
