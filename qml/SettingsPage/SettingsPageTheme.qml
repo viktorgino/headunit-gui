@@ -107,7 +107,7 @@ Item {
                         Layout.fillWidth: true
                         imageSource:"qrc:/qml/icons/heart.png"
                         text:""
-                        baseColor: HUDStyle.Colors.icon
+                        color: HUDStyle.Colors.icon
                     }
 
 
@@ -126,7 +126,7 @@ Item {
                         Layout.fillWidth: true
                         imageSource:"qrc:/qml/icons/heart.png"
                         text:""
-                        baseColor: HUDStyle.Colors.iconActive
+                        color: HUDStyle.Colors.iconActive
                     }
 
 

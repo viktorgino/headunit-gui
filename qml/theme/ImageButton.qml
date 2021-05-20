@@ -3,39 +3,39 @@ import QtGraphicalEffects 1.0
 
 
 Item{
-    id: __image_button
+    id: __root
 
     property bool checked: false
     property bool checkable: false
-    property bool changeColorOnPress: !checkable
     property string text: ""
     property url imageSource
-    property color baseColor: HUDStyle.Colors.formText
+    property url activeImageSource
+
     property color activeColor: "#ff5722"
     property color pressedColor: Qt.darker(color,1.5);
-    property color color:baseColor
+    property color color:HUDStyle.Colors.formText
     signal clicked()
 
-
     Image {
-        id:__image_button_image
+        id:__image
         anchors.fill: parent
-        source: parent.imageSource
+        source: __root.imageSource
         fillMode: Image.PreserveAspectFit
         mipmap:true
         visible: true
     }
 
     ColorOverlay {
-        id: __image_button_color
-        color: checked?activeColor:baseColor
-        anchors.fill: __image_button_image
+        id: __color
+        color: __root.checked ? __root.activeColor : __root.color
+        anchors.fill: __image
         enabled: true
-        source: __image_button_image
+        source: __image
     }
+
     Text {
         text: parent.text
-        color: __image_button.baseColor
+        color: __root.color
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
     }
@@ -43,22 +43,35 @@ Item{
     MouseArea{
         anchors.fill: parent
         onPressed: {
-            if(changeColorOnPress)
-                __image_button_color.color = parent.pressedColor;
+            __color.color = __root.pressedColor;
         }
         onReleased: {
-            if(checkable)
-                parent.checked = !parent.checked;
-            parent.clicked()
-            if(changeColorOnPress)
-                __image_button_color.color = parent.color;
+            if(__root.checkable) {
+                __root.checked = !__root.checked;
+            }
+
+            __root.update()
+            __root.clicked()
         }
     }
-//    onCheckedChanged: {
-//        if(checked){
-//            color = activeColor;
-//        } else {
-//            color = baseColor;
-//        }
-//    }
+
+    onCheckedChanged : {
+        __root.update()
+    }
+
+    function update(){
+        if(__root.checked){
+            __color.color = __root.activeColor;
+        } else {
+            __color.color = __root.color;
+        }
+
+        if(__root.activeImageSource != "") {
+            if(__root.checked){
+                __image.source = __root.activeImageSource
+            } else {
+                __image.source = __root.imageSource
+            }
+        }
+    }
 }
