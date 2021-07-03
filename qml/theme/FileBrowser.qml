@@ -4,6 +4,7 @@ import QtGraphicalEffects 1.0
 import Qt.labs.folderlistmodel 2.1
 import Qt.labs.platform 1.0
 
+import HUDTheme 1.0
 Item {
     id: root
     property alias folder: folderModel.folder
@@ -97,8 +98,8 @@ Item {
                 }
             }
 
-            ScrollBar.vertical: ScrollBar {
-            }
+
+            ScrollBar.vertical: ThemeScrollBar { }
         }
         Rectangle {
             id: divider
@@ -139,8 +140,8 @@ Item {
             }
             model: getMountedVolumes()
 
-            ScrollBar.vertical: ScrollBar {
-            }
+
+            ScrollBar.vertical: ThemeScrollBar { }
         }
 
 
@@ -471,8 +472,8 @@ Item {
                         }
                     }
                 }
-                ScrollBar.vertical: ScrollBar {
-                }
+
+                ScrollBar.vertical: ThemeScrollBar { }
                 model: folderModel
             }
         }

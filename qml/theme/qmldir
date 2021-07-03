@@ -14,4 +14,5 @@ ThemeHeaderText 1.0 ThemeHeaderText.qml
 ThemeFormText 1.0 ThemeFormText.qml
 ThemeFormTextInput 1.0 ThemeFormTextInput.qml
 ThemeText 1.0 ThemeText.qml
+ThemeScrollBar 1.0 ThemeScrollBar.qml
 TopMenu 1.0 TopMenu.qml

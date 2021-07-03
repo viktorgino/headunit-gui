@@ -308,6 +308,7 @@ Item {
                 anchors.bottomMargin: 0
                 clip:true
                 model: 20
+                ScrollBar.vertical: ThemeScrollBar { }
                 delegate: SettingsPageItem {
                     label : "Item " + index + " title"
                     description : "Item " + index + " subtitle"

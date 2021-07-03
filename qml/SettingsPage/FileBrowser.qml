@@ -4,6 +4,7 @@ import QtGraphicalEffects 1.0
 import Qt.labs.folderlistmodel 2.1
 import Qt.labs.platform 1.0
 
+import HUDTheme 1.0
 Item {
     id: root
     property alias folder: folderModel.folder
@@ -32,6 +33,7 @@ Item {
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
+            ScrollBar.vertical: ThemeScrollBar { }
             delegate: Item {
                 width: parent.width
                 height: 40
@@ -87,9 +89,6 @@ Item {
                     iconImage: "qrc:/qml/icons/videocamera.png"
                 }
             }
-
-            ScrollBar.vertical: ScrollBar {
-            }
         }
         Rectangle {
             id: divider
@@ -111,6 +110,7 @@ Item {
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
+            ScrollBar.vertical: ThemeScrollBar { }
             delegate:Item {
                 height:40
                 anchors.left: parent.left
@@ -129,9 +129,6 @@ Item {
                 }
             }
             model: mediaLibrary.getMountedVolumes()
-
-            ScrollBar.vertical: ScrollBar {
-            }
         }
 
 
@@ -221,6 +218,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.topMargin: 0
+            ScrollBar.vertical: ThemeScrollBar { }
             delegate: Item {
                 height: 40
                 width:parent.width
@@ -258,8 +256,6 @@ Item {
                 showDotAndDotDot: false
                 showOnlyReadable: true
                 folder:"file://"+StandardPaths.standardLocations(StandardPaths.HomeLocation)
-            }
-            ScrollBar.vertical: ScrollBar {
             }
             model: folderModel
         }

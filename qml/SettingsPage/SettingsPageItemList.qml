@@ -38,6 +38,7 @@ Item {
         id: listView
         anchors.fill: parent
 
+        ScrollBar.vertical: ThemeScrollBar { }
         function updateConditionals() {
             for(var currentItem in listView.contentItem.children){
                 var targetItem = listView.contentItem.children[currentItem]

@@ -100,6 +100,16 @@ MetaInfo {
         }
     }
     Type {
+        name: "HUDTheme.ThemeScrollBar"
+
+        ItemLibraryEntry {
+            name: "Theme Scroll Bar"
+            category: "Headunit Desktop Theme"
+            version: "1.0"
+            requiredImport: "HUDTheme"
+        }
+    }
+    Type {
         name: "HUDTheme.TopMenu"
 
         ItemLibraryEntry {

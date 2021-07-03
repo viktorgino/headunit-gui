@@ -669,5 +669,6 @@
         <file>qml/SettingsPage/SettingsPageItemAction.qml</file>
         <file>qml/SettingsPage/SettingsPageItemTumbler.qml</file>
         <file>qml/theme/ImageIcon.qml</file>
+        <file>qml/theme/ThemeScrollBar.qml</file>
     </qresource>
 </RCC>
