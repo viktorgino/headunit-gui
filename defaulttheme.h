@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtQml/QQmlExtensionPlugin>
 #include <QtQml>
+#include <QQuickStyle>
 #include <QStorageInfo>
 
 class GUIEvents : public QObject {

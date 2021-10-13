@@ -12,6 +12,7 @@ void DefaultTheme::registerTypes(const char* /*uri*/)
 
 void DefaultTheme::initializeEngine(QQmlEngine *engine, const char* /*uri*/)
 {
+        QQuickStyle::setStyle("Default");
         QQmlApplicationEngine * appEngine = static_cast<QQmlApplicationEngine* >(engine);
         if(!appEngine){
             qDebug() << "Engine is not a valid instance of QQmlApplicationEngine";

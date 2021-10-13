@@ -1,6 +1,6 @@
 TEMPLATE = lib
 CONFIG += c++11 plugin link_pkgconfig
-QT += qml quick
+QT += qml quick quickcontrols2
 TARGET = $$qtLibraryTarget(default-theme)
 
 include("../../config.pri")
@@ -25,24 +25,30 @@ THEMEFILES += \
     $${PWD}/qml/theme/designer/hudtheme.metainfo \
     $${PWD}/qml/theme/backgrounds/*
 
-#copy needed files to build dir
+#remove previous files
+theme_files_remove.commands = rm -rf $$OUT_PWD/HUDTheme
 
 ##recursively copy the theme folder
-theme_files_remove.commands = rm -rf $$OUT_PWD/HUDTheme
 theme_files_copy.commands = $(COPY_DIR) $$PWD/qml/theme $$OUT_PWD/HUDTheme
 theme_files_copy.depends = theme_files_remove
+##recursively copy the setting page folder
+settingpage_files_copy.commands = $(COPY_DIR) $$PWD/qml/SettingsPage $$OUT_PWD/HUDTheme
+settingpage_files_copy.depends = theme_files_remove
+
 ##attach the copy command to make target
-first.depends = $(first) theme_files_copy
+first.depends = $(first) theme_files_copy settingpage_files_copy
 
-QMAKE_EXTRA_TARGETS += first theme_files_remove theme_files_copy
-
+QMAKE_EXTRA_TARGETS += first theme_files_remove theme_files_copy settingpage_files_copy
 DISTFILES += THEMEFILES \
     theme.json
 
 theme.files = $${PWD}/qml/theme/*
 theme.path = $$PREFIX/themes/default-theme/HUDTheme
 
-INSTALLS += target theme
+settingpage.files = $${PWD}/qml/SettingsPage/*
+settingpage.path = $$PREFIX/themes/default-theme/HUDTheme/SettingsPage
+
+INSTALLS += target theme settingpage
 
 
 

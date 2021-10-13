@@ -50,7 +50,10 @@ Item {
 
         delegate: Loader {
             id:loader
-            width: __root.width
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.rightMargin: listView.ScrollBar.vertical.width
+            clip: true
 
             Connections {
                 ignoreUnknownSignals: true
@@ -137,7 +140,8 @@ Item {
     }
 }
 
-/*##^## Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:5;anchors_width:100;anchors_x:570}
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
 }
- ##^##*/
+##^##*/

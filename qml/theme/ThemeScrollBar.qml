@@ -3,7 +3,8 @@ import QtQuick.Controls 2.4
 
 ScrollBar {
     id: __root
-    width: 10
+    width: 15
+    visible: __root.size < 1.0 && __root.policy !== ScrollBar.AlwaysOff
     contentItem: Item {
         Rectangle {
             width: parent.width > parent.height ? parent.height : parent.width
@@ -33,9 +34,12 @@ ScrollBar {
 
     }
     background : Rectangle {
+        id:background
         width: 1
         height : __root.height
         x : (__root.width / 2 ) - width
         color: Qt.lighter(HUDStyle.Colors.formText, 0.4)
+    }
+    onPositionChanged : {
     }
 }
