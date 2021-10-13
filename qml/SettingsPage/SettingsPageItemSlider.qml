@@ -27,7 +27,7 @@ SettingsPageItem {
         anchors.top: parent.top
     }
 
-    Slider{
+    ThemeSlider{
         id:slider
         width: parent.width/2
         anchors.rightMargin: 8
