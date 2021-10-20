@@ -2,7 +2,35 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 
 Switch {
-    //font.color: !subtext?HUDStyle.Colors.formText:HUDStyle.Colors.formSubText
-    font.family: HUDStyle.themeSettings.font
-    font.pointSize: HUDStyle.Sizes.formText
+    id: control
+    checked: true
+
+    indicator: Rectangle {
+        id: rectangle
+        implicitWidth: 48
+        implicitHeight: 24
+        x: control.leftPadding
+        y: parent.height / 2 - height / 2
+        radius: 13
+        color: control.checked ? "#17a81a" : HUDStyle.Colors.formBackground
+        border.color: control.checked ? "#17a81a" : HUDStyle.Colors.formText
+
+        Rectangle {
+            x: control.checked ? parent.width - width - 2 : 2
+            width: 20
+            height: 20
+            radius: height/2
+            color: control.down ? "#cccccc" : "#ffffff"
+            anchors.verticalCenter: parent.verticalCenter
+            border.color: HUDStyle.Colors.formText
+            border.width: 1
+        }
+    }
+    contentItem: ThemeText {
+        text: control.text
+        opacity: enabled ? 1.0 : 0.3
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        leftPadding: control.indicator.width + control.spacing
+    }
 }
