@@ -7,7 +7,7 @@ import HUDTheme 1.0
 
 Item {
     id: __root
-    height: 60
+    height: visible? 60 : 0
     property var value : ""
 
     property string name : ""

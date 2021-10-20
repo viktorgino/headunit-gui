@@ -68,7 +68,7 @@ SettingsPageItem {
             anchors.verticalCenter: parent.verticalCenter
             ThemeText {
                 text: "+"
-                font.pixelSize: spinBox.font.pixelSize * 2
+                font.pointSize: spinBox.font.pointSize * 2
                 anchors.fill: parent
                 fontSizeMode: Text.Fit
                 horizontalAlignment: Text.AlignHCenter
@@ -91,7 +91,7 @@ SettingsPageItem {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                font.pixelSize: spinBox.font.pixelSize * 2
+                font.pointSize: spinBox.font.pointSize * 2
                 fontSizeMode: Text.Fit
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter

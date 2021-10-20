@@ -9,6 +9,7 @@ import HUDTheme 1.0
 Item {
     id: root
     clip: true
+    property string currentMenuItem: ""
 
     Rectangle {
         color: HUDStyle.Colors.formBackground
@@ -26,6 +27,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 16
         initialItem: settingsPageList
+
     }
 
     Component {
@@ -42,15 +44,28 @@ Item {
                     settingsPageStack.pop()
                 }
             }
+            Component.onDestruction: {
+                if(settingsPageStack.depth === 1 && currentMenuItem != ""){
+                    HUDPlugins.callPluginSlot(currentMenuItem);
+                    currentMenuItem = "";
+                }
+            }
         }
     }
 
     Component{
         id:settingsPageList
-        SettingsPageItemList{
+        SettingsPageItemList {
             settings: HUDSettings
             model: HUDSettingsMenu
             onPush: {
+                if(settingsPageStack.depth === 1){
+                    if(typeof properties.name !== "undefined"){
+                        currentMenuItem = properties.name
+                    } else {
+                        currentMenuItem = "";
+                    }
+                }
                 if(qml === "SettingsPageItemList"){
                     properties.settings = settings[properties.name]
                     settingsPageStack.push(settingsPageList, properties)
@@ -62,6 +77,12 @@ Item {
             }
             onPop: {
                 settingsPageStack.pop()
+            }
+            Component.onDestruction: {
+                if(settingsPageStack.depth === 1 && currentMenuItem != ""){
+                    HUDPlugins.callPluginSlot(currentMenuItem, "settingsPageDestroyed");
+                    currentMenuItem = "";
+                }
             }
         }
     }
