@@ -95,7 +95,7 @@ Item {
 
     Item {
         id: bottomBar
-        height: parent.height * 0.1//HUDStyle.Sizes.bottomBarHeight
+        height: typeof source === "undefined"?parent.height * 0.1:0//HUDStyle.Sizes.bottomBarHeight
         anchors.left: parent.left
         anchors.right: rightMenu.left
         anchors.bottom: parent.bottom
@@ -121,7 +121,7 @@ Item {
         opacity: 0
         property var currentOverlay : ""
         function open () {
-            overlayCloseTimer.restart()
+//            overlayCloseTimer.restart()
             opacity = 1;
         }
         function close () {

@@ -612,7 +612,6 @@
         <file>qml/icons/woman.png</file>
         <file>qml/icons/wrench.png</file>
         <file>qml/icons/xbox.png</file>
-        <file>qml/MainForm.ui.qml</file>
         <file>qml/RightMenu.qml</file>
         <file>qml/icons/svg/chevron-left.svg</file>
         <file>qml/icons/svg/chevron-right.svg</file>
