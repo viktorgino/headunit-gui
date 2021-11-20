@@ -19,7 +19,6 @@ void DefaultTheme::initializeEngine(QQmlEngine *engine, const char* /*uri*/)
             return;
         }
         guiEvents = new GUIEvents();
-        appEngine->addImportPath("themes/default-theme");
         appEngine->rootContext()->setContextProperty("GUIEvents", guiEvents);
         appEngine->rootContext()->setContextObject(this);
         appEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
