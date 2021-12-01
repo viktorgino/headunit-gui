@@ -20,9 +20,10 @@ SettingsPageItem {
 //    }
     property var values: []
     property bool saveByValue: false
-    property string provider: "" // plugin, theme
-    property string providerName: ""
-    property string providerProperty: ""
+    //    property string provider: "" // plugin, theme
+    //    property string providerName: ""
+    //    property string providerProperty: ""
+    // TODO: Get providers working
 
     onValueChanged: {
         if(Array.isArray(__root.values)){
@@ -43,9 +44,9 @@ SettingsPageItem {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         model : {
-            if(__root.provider === "plugin"){
-                __root.values = HUDPlugins.getPluginProperty(__root.providerName, __root.providerProperty);
-            }
+//            if(__root.provider === "plugin"){
+//                __root.values = HUDPlugins.getPluginProperty(__root.providerName, __root.providerProperty);
+//            }
             return Object.keys(__root.values).map(
                         function(key){
                             return __root.values[key]

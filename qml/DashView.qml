@@ -39,12 +39,13 @@ Item {
         anchors.rightMargin: 0
         Repeater{
             id: contentsRepeater
-            model:menuItems
+            model:HUDPlugins
+
             Loader {
-                anchors.fill: parent
-                visible: false
-                source: menuItems[index].source
+                id:loader
                 asynchronous: false
+                anchors.fill: parent
+                source: menu.source
             }
         }
     }

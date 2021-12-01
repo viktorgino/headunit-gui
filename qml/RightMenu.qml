@@ -11,6 +11,7 @@ Item {
     function menuItemClicked (index){
         menuItemIndex = index
         active_button_bg.y = menuItemsRepeater.itemAt(index).y;
+        console.log(menuItemsRepeater.itemAt(index).y)
         __root.itemChanged(index);
     }
 
@@ -30,7 +31,7 @@ Item {
 
     Rectangle {
         id: active_button_bg
-        height: (parent.height/menuItems.length)+5
+        height: (parent.height/HUDPlugins.rowCount())+5
         color: "#80ffffff"
         anchors.right: parent.right
         anchors.rightMargin: 0
@@ -54,64 +55,68 @@ Item {
     }
 
     ColumnLayout {
-        anchors.rightMargin: 5
-        anchors.leftMargin: 5
-        anchors.bottomMargin: 5
         anchors.topMargin: 5
-        spacing: 5
+        spacing: 0
         anchors.fill: parent
 
         Repeater{
             id:menuItemsRepeater
-            model:menuItems.length
-            Rectangle {
-                color:menuItems[index].color
+            model:HUDPlugins
+
+            Item {
                 Layout.fillHeight: true
                 Layout.columnSpan: 1
                 Layout.fillWidth: true
-
-                Image {
-                    id: button_image
-                    width: HUDStyle.Sizes.menuIcon
-                    height: HUDStyle.Sizes.menuIcon
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    fillMode: Image.PreserveAspectFit
-                    source: menuItems[index].image
-                    mipmap:true
-                    visible: false
-                }
-                ColorOverlay {
-                    id: button_image_color
-                    color: HUDStyle.Colors.text
-                    anchors.fill: button_image
-                    enabled: true
-                    source: button_image
-                }
-
-                Text {
-                    id: text1
-                    color: HUDStyle.Colors.text
-                    text: menuItems[index].text;
-                    anchors.top: parent.top
-                    anchors.topMargin: 0
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: button_image.right
-                    anchors.leftMargin: 0
-                    wrapMode: Text.WordWrap
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pointSize: HUDStyle.Sizes.menuText
-                }
-
-                MouseArea {
-                    id: mouseArea1
+                Rectangle {
+                    anchors.leftMargin: 5
+                    anchors.rightMargin: 5
+                    anchors.bottomMargin: 5
                     anchors.fill: parent
-                    onClicked: menuItemClicked(index)
+                    color:menu.color
+
+                    Image {
+                        id: button_image
+                        width: HUDStyle.Sizes.menuIcon
+                        height: HUDStyle.Sizes.menuIcon
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.left
+                        anchors.leftMargin: 0
+                        fillMode: Image.PreserveAspectFit
+                        source: menu.image
+                        mipmap:true
+                        visible: false
+                    }
+                    ColorOverlay {
+                        id: button_image_color
+                        color: HUDStyle.Colors.text
+                        anchors.fill: button_image
+                        enabled: true
+                        source: button_image
+                    }
+
+                    Text {
+                        id: text1
+                        color: HUDStyle.Colors.text
+                        text: menu.text;
+                        anchors.top: parent.top
+                        anchors.topMargin: 0
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 0
+                        anchors.right: parent.right
+                        anchors.rightMargin: 0
+                        anchors.left: button_image.right
+                        anchors.leftMargin: 0
+                        wrapMode: Text.WordWrap
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pointSize: HUDStyle.Sizes.menuText
+                    }
+
+                    MouseArea {
+                        id: mouseArea1
+                        anchors.fill: parent
+                        onClicked: menuItemClicked(index)
+                    }
                 }
             }
         }
