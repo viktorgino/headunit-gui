@@ -5,9 +5,10 @@ import QtGraphicalEffects 1.0
 import QtQml 2.11
 
 import HUDTheme 1.0
+import HUDPlugins 1.0
 
 Item {
-    id: root
+    id: __root
     clip: true
     property string currentMenuItem: ""
 
@@ -26,7 +27,7 @@ Item {
         anchors.leftMargin: 16
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 16
-        initialItem: settingsPageList
+        initialItem: settingsPluginList
 
     }
 
@@ -46,7 +47,7 @@ Item {
             }
             Component.onDestruction: {
                 if(settingsPageStack.depth === 1 && currentMenuItem != ""){
-                    HUDPlugins.callPluginSlot(currentMenuItem);
+                    HUDPlugins.callSlot(currentMenuItem, "onSettingsPageDestroyed")
                     currentMenuItem = "";
                 }
             }
@@ -56,16 +57,7 @@ Item {
     Component{
         id:settingsPageList
         SettingsPageItemList {
-            settings: HUDSettings
-            model: HUDSettingsMenu
             onPush: {
-                if(settingsPageStack.depth === 1){
-                    if(typeof properties.name !== "undefined"){
-                        currentMenuItem = properties.name
-                    } else {
-                        currentMenuItem = "";
-                    }
-                }
                 if(qml === "SettingsPageItemList"){
                     properties.settings = settings[properties.name]
                     settingsPageStack.push(settingsPageList, properties)
@@ -80,8 +72,41 @@ Item {
             }
             Component.onDestruction: {
                 if(settingsPageStack.depth === 1 && currentMenuItem != ""){
-                    HUDPlugins.callPluginSlot(currentMenuItem, "settingsPageDestroyed");
+                    HUDPlugins.callSlot(currentMenuItem, "onSettingsPageDestroyed")
                     currentMenuItem = "";
+                }
+            }
+        }
+    }
+
+    Component {
+        id:settingsPluginList
+        ListView {
+            width: __root.width
+            model:PluginListModel {
+                plugins : HUDPlugins
+                listType: "SettingsMenu"
+            }
+            delegate: SettingsPageItemItems {
+                width: __root.width
+                items: settingsItems.items
+                label: settingsItems.label
+                iconImage: settingsItems.iconImage
+
+                name: settingsItems.name
+
+                onPush: {
+                    currentMenuItem = name;
+                    if(settingsItems.type === "items"){
+                        settingsPageStack.push(settingsPageList, {
+                                                   model:settingsItems.items,
+                                                   name: settingsItems.name,
+                                                   settings : HUDSettings[settingsItems.name]
+                                               })
+                    } else if(settingsItems.type === "loader"){
+                        settingsPageStack.push(stackComponent)
+                        settingsPageStack.currentItem.setSource(settingsItems.source)
+                    }
                 }
             }
         }

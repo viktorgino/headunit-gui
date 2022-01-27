@@ -39,9 +39,9 @@ void DefaultTheme::onEvent(QString sender, QString event, QVariant eventData) {
     } else if (event == "OpenOverlay") {
         QVariantMap map = eventData.toMap();
 
-        emit guiEvents->openOverlay(sender,map);
+        emit guiEvents->openOverlay(map["source"].toString(), map["properties"].toMap());
     } else if (event == "CloseOverlay") {
-        emit guiEvents->closeOverlay(sender);
+        emit guiEvents->closeOverlay();
     }
 }
 

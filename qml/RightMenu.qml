@@ -3,15 +3,17 @@ import QtQuick.Layouts 1.0
 import Qt.labs.settings 1.0
 import QtGraphicalEffects 1.0
 
+import HUDPlugins 1.0
+
 Item {
     property int menuItemIndex: 0
     id: __root
     signal itemChanged(int index);
+    signal showSettings();
 
     function menuItemClicked (index){
         menuItemIndex = index
         active_button_bg.y = menuItemsRepeater.itemAt(index).y;
-        console.log(menuItemsRepeater.itemAt(index).y)
         __root.itemChanged(index);
     }
 
@@ -31,7 +33,7 @@ Item {
 
     Rectangle {
         id: active_button_bg
-        height: (parent.height/HUDPlugins.rowCount())+5
+        height: (parent.height/menuItemsRepeater.count)+5
         color: "#80ffffff"
         anchors.right: parent.right
         anchors.rightMargin: 0
@@ -55,13 +57,17 @@ Item {
     }
 
     ColumnLayout {
+        id:menuColumn
         anchors.topMargin: 5
         spacing: 0
         anchors.fill: parent
 
-        Repeater{
+        Repeater {
             id:menuItemsRepeater
-            model:HUDPlugins
+            model:PluginListModel {
+                plugins : HUDPlugins
+                listType: "MainMenu"
+            }
 
             Item {
                 Layout.fillHeight: true
@@ -72,7 +78,7 @@ Item {
                     anchors.rightMargin: 5
                     anchors.bottomMargin: 5
                     anchors.fill: parent
-                    color:menu.color
+                    color: menu.color
 
                     Image {
                         id: button_image
@@ -87,7 +93,6 @@ Item {
                         visible: false
                     }
                     ColorOverlay {
-                        id: button_image_color
                         color: HUDStyle.Colors.text
                         anchors.fill: button_image
                         enabled: true
@@ -95,9 +100,8 @@ Item {
                     }
 
                     Text {
-                        id: text1
                         color: HUDStyle.Colors.text
-                        text: menu.text;
+                        text: menu.text
                         anchors.top: parent.top
                         anchors.topMargin: 0
                         anchors.bottom: parent.bottom
@@ -120,5 +124,12 @@ Item {
                 }
             }
         }
-    }
+     }
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:100}D{i:1}D{i:2}D{i:3}D{i:9}D{i:10}D{i:11}D{i:12}
+D{i:8}D{i:7}D{i:5}D{i:4}
+}
+##^##*/

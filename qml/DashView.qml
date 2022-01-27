@@ -1,8 +1,10 @@
 import QtQuick 2.11
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.4
-import QtQml 2.11
+import QtQml 2.0
+
 import HUDTheme 1.0
+import HUDPlugins 1.0
 
 Item {
     id: dashLayout
@@ -37,19 +39,51 @@ Item {
         anchors.topMargin: 0
         anchors.right: rightMenu.left
         anchors.rightMargin: 0
-        Repeater{
+        Repeater {
             id: contentsRepeater
-            model:HUDPlugins
-
-            Loader {
-                id:loader
-                asynchronous: false
-                anchors.fill: parent
-                source: menu.source
+            model:PluginListModel {
+                plugins : HUDPlugins
+                listType: "MainMenu"
             }
+
+            Item {
+                anchors.fill: parent
+                Loader {
+                    id:loader
+                    asynchronous: false
+                    anchors.fill: parent
+                    source: plugin.qmlSource
+                    active: plugin.loaded
+                }
+                Loader {
+                    asynchronous: false
+                    anchors.fill: parent
+                    sourceComponent: loadingScreen
+                    active: !plugin.loaded
+                }
+            }
+
+        }
+
+        Loader {
+            id:settingsLoader
+            asynchronous: false
+            anchors.fill: parent
+            source: "qrc:/qml/SettingsPage/SettingsPage.qml"
         }
     }
 
+    Component {
+        id:loadingScreen
+        Item {
+            anchors.fill: parent
+            ThemeText {
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Loading plugin...")
+            }
+        }
+    }
 
     RightMenu {
         id: rightMenu
@@ -65,8 +99,15 @@ Item {
                 for(var i=0; i<contentsRepeater.count;i++){
                     contentsRepeater.itemAt(i).visible = false
                 }
+                settingsLoader.visible = false;
                 contentsRepeater.itemAt(index).visible = true
             }
+        }
+        onShowSettings: {
+            for(var i=0; i<contentsRepeater.count;i++){
+                contentsRepeater.itemAt(i).visible = false
+            }
+            settingsLoader.visible = true;
         }
     }
 
@@ -81,7 +122,7 @@ Item {
             notificationsItem.addNotification(notification)
         }
         onOpenOverlay : {
-            overlayLoader.setSource(HUDOverlays[overlay], properties);
+            overlayLoader.setSource(source, properties);
             overlays.open()
         }
         onCloseOverlay : {

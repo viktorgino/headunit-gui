@@ -11,8 +11,8 @@ class GUIEvents : public QObject {
     Q_OBJECT
 signals:
     void notificationReceived(QVariantMap notification);
-    void openOverlay(QString overlay, QVariantMap properties);
-    void closeOverlay(QString overlay);
+    void openOverlay(QString source, QVariantMap properties);
+    void closeOverlay();
 };
 
 class DefaultTheme : public QQmlExtensionPlugin
