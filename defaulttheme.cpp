@@ -21,7 +21,7 @@ void DefaultTheme::initializeEngine(QQmlEngine *engine, const char* /*uri*/)
         guiEvents = new GUIEvents();
         appEngine->rootContext()->setContextProperty("GUIEvents", guiEvents);
         appEngine->rootContext()->setContextObject(this);
-        appEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+//        appEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 }
 
 void DefaultTheme::onEvent(QString sender, QString event, QVariant eventData) {

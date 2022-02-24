@@ -1,6 +1,7 @@
 {
     "name": "base",
     "label": "Base Theme",
+    "source": "qrc:/qml/DashView.qml",
     "colors": [
         {
             "name": "text",

@@ -1,13 +1,13 @@
 import QtQuick 2.11
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.4
-import QtQml 2.0
 
 import HUDTheme 1.0
 import HUDPlugins 1.0
 
 Item {
     id: dashLayout
+    anchors.fill: parent
 
     LinearGradient {
         anchors.fill: parent
@@ -137,11 +137,12 @@ Item {
 
     Item {
         id: bottomBar
-        height: typeof source === "undefined"?parent.height * 0.1:0//HUDStyle.Sizes.bottomBarHeight
+        height: parent.height * 0.1//HUDStyle.Sizes.bottomBarHeight
         anchors.left: parent.left
         anchors.right: rightMenu.left
         anchors.bottom: parent.bottom
         Loader {
+            id:bottomBarLoader
             anchors.fill: parent
             source: "qrc:/HVAC/ClimateControl/HVACBottomBar.qml"
             asynchronous: false

@@ -1,13 +1,12 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.3
 import QtGraphicalEffects 1.0
-import QtQml 2.11
 
 import HUDTheme 1.0
 
 Item {
     id: __root
-    height: visible? 60 : 0
+    height: visible? 50 : 0
     property var value : ""
 
     property string name : ""
@@ -31,7 +30,7 @@ Item {
 
         ThemeFormText {
             id: title
-            height: subtitle.text === ""?60:30
+            height: subtitle.text === ""?50:25
             text: "Title"
             anchors.leftMargin: 0
             horizontalAlignment: Text.AlignLeft

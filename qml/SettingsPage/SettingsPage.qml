@@ -91,7 +91,7 @@ Item {
                 width: __root.width
                 items: settingsItems.items
                 label: settingsItems.label
-                iconImage: settingsItems.iconImage
+                iconImage: settingsItems.iconImage ? settingsItems.iconImage : ""
 
                 name: settingsItems.name
 
