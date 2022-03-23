@@ -29,7 +29,7 @@ THEMEFILES += \
 theme_files_remove.commands = rm -rf $$OUT_PWD/HUDTheme
 
 ##recursively copy the theme folder
-theme_files_copy.commands = $(COPY_DIR) $$PWD/qml/theme $$OUT_PWD/HUDTheme
+theme_files_copy.commands = $(COPY_DIR) $$PWD/qml/HUDTheme $$OUT_PWD/HUDTheme
 theme_files_copy.depends = theme_files_remove
 ##recursively copy the setting page folder
 settingpage_files_copy.commands = $(COPY_DIR) $$PWD/qml/SettingsPage $$OUT_PWD/HUDTheme
@@ -42,7 +42,7 @@ QMAKE_EXTRA_TARGETS += first theme_files_remove theme_files_copy settingpage_fil
 DISTFILES += THEMEFILES \
     theme.json
 
-theme.files = $${PWD}/qml/theme/*
+theme.files = $${PWD}/qml/HUDTheme/*
 theme.path = $$PREFIX/themes/default-theme/HUDTheme
 
 settingpage.files = $${PWD}/qml/SettingsPage/*

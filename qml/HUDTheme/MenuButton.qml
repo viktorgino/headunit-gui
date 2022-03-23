@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
     id:__root
     property bool isActive: false
-    property var color : HUDStyle.Colors.icon
+    property var color : HUDStyle.colors.icon
     Item {
         id: item1
         width: __root.width

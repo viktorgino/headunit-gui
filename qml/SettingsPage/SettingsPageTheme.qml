@@ -80,7 +80,7 @@ Item {
             Rectangle {
                 id: rectangle
                 height: parent.height * 0.2
-                color: HUDStyle.Colors.box
+                color: HUDStyle.colors.box
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 0
                 anchors.left: parent.left
@@ -107,7 +107,7 @@ Item {
                         Layout.fillWidth: true
                         imageSource:"qrc:/qml/icons/heart.png"
                         text:""
-                        color: HUDStyle.Colors.icon
+                        color: HUDStyle.colors.icon
                     }
 
 
@@ -126,7 +126,7 @@ Item {
                         Layout.fillWidth: true
                         imageSource:"qrc:/qml/icons/heart.png"
                         text:""
-                        color: HUDStyle.Colors.iconActive
+                        color: HUDStyle.colors.iconActive
                     }
 
 
@@ -250,7 +250,7 @@ Item {
             Rectangle {
                 id: rectangle1
                 height: parent.height * 0.3
-                color: HUDStyle.Colors.formBox
+                color: HUDStyle.colors.formBox
                 anchors.top: parent.top
                 anchors.topMargin: 0
                 anchors.left: parent.left
@@ -269,7 +269,7 @@ Item {
                     mipmap:true
 
                     ColorOverlay {
-                        color: HUDStyle.Colors.icon
+                        color: HUDStyle.colors.icon
                         anchors.fill: parent
                         enabled: true
                         source: parent

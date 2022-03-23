@@ -13,7 +13,7 @@ Item{
 
     property color activeColor: "#ff5722"
     property color pressedColor: Qt.darker(color,1.5);
-    property color color:HUDStyle.Colors.formText
+    property color color:HUDStyle.colors.formText
     signal clicked()
 
     Image {

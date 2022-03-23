@@ -12,8 +12,8 @@ Switch {
         x: control.leftPadding
         y: parent.height / 2 - height / 2
         radius: 13
-        color: control.checked ? "#17a81a" : HUDStyle.Colors.formBackground
-        border.color: control.checked ? "#17a81a" : HUDStyle.Colors.formText
+        color: control.checked ? "#17a81a" : HUDStyle.colors.formBackground
+        border.color: control.checked ? "#17a81a" : HUDStyle.colors.formText
 
         Rectangle {
             x: control.checked ? parent.width - width - 2 : 2
@@ -22,7 +22,7 @@ Switch {
             radius: height/2
             color: control.down ? "#cccccc" : "#ffffff"
             anchors.verticalCenter: parent.verticalCenter
-            border.color: HUDStyle.Colors.formText
+            border.color: HUDStyle.colors.formText
             border.width: 1
         }
     }

@@ -41,7 +41,7 @@ SettingsPageItem {
         onOpened: {
         }
         background: Rectangle {
-            color: HUDStyle.Colors.formPopupBackground
+            color: HUDStyle.colors.formPopupBackground
         }
 
         FileBrowser {

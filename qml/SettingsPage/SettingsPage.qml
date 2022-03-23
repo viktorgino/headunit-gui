@@ -13,7 +13,7 @@ Item {
     property string currentMenuItem: ""
 
     Rectangle {
-        color: HUDStyle.Colors.formBackground
+        color: HUDStyle.colors.formBackground
         anchors.fill: parent
     }
 
@@ -136,7 +136,7 @@ Item {
 
             Rectangle {
                 id: rect
-                color: HUDStyle.Colors.formBox
+                color: HUDStyle.colors.formBox
                 clip: true
                 anchors.bottomMargin: 20
                 anchors.fill: parent

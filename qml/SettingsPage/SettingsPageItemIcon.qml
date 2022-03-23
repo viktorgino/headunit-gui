@@ -17,7 +17,7 @@ Item {
         source: iconImage
         mipmap:true
         ColorOverlay {
-            color:HUDStyle.Colors.formText
+            color:HUDStyle.colors.formText
             anchors.fill: parent
             enabled: true
             source: parent

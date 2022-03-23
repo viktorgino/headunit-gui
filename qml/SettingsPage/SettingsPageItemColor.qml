@@ -72,7 +72,7 @@ SettingsPageItem {
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
             background: Rectangle {
-                color: HUDStyle.Colors.formBackground
+                color: HUDStyle.colors.formBackground
             }
             ColorPalette{
                 width: popup.width

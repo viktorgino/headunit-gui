@@ -137,7 +137,7 @@ Item {
 
     Item {
         id: bottomBar
-        height: parent.height * 0.1//HUDStyle.Sizes.bottomBarHeight
+        height: parent.height * 0.1//HUDStyle.sizes.bottomBarHeight
         anchors.left: parent.left
         anchors.right: rightMenu.left
         anchors.bottom: parent.bottom

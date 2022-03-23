@@ -621,16 +621,16 @@
         <file>qml/icons/svg/radio-waves.svg</file>
         <file>qml/icons/svg/social-android.svg</file>
         <file>qml/Notifications.qml</file>
-        <file>qml/theme/ModeSwitch.qml</file>
-        <file>qml/theme/MenuButton.qml</file>
-        <file>qml/theme/Arrow.qml</file>
-        <file>qml/theme/TopMenu.qml</file>
+        <file>qml/HUDTheme/ModeSwitch.qml</file>
+        <file>qml/HUDTheme/MenuButton.qml</file>
+        <file>qml/HUDTheme/Arrow.qml</file>
+        <file>qml/HUDTheme/TopMenu.qml</file>
         <file>qml/icons/svg/android-list.svg</file>
         <file>qml/icons/svg/android-person.svg</file>
         <file>qml/icons/svg/navicon-round.svg</file>
         <file>qml/icons/svg/android-arrow-back.svg</file>
-        <file>qml/theme/ImageButton.qml</file>
-        <file>qml/theme/AlphabetScrollBar.qml</file>
+        <file>qml/HUDTheme/ImageButton.qml</file>
+        <file>qml/HUDTheme/AlphabetScrollBar.qml</file>
         <file>qml/icons/android-color-palette.png</file>
         <file>qml/SettingsPage/SettingsPage.qml</file>
         <file>qml/SettingsPage/SettingsPageSectionHeader.qml</file>
@@ -641,15 +641,15 @@
         <file>qml/icons/svg/mic-a.svg</file>
         <file>qml/CallNotification.qml</file>
         <file>qml/SettingsPage/SettingsPageTheme.qml</file>
-        <file>qml/theme/ThemeText.qml</file>
-        <file>qml/theme/qmldir</file>
-        <file>qml/theme/ThemeHeaderText.qml</file>
-        <file>qml/theme/ColorPalette.qml</file>
-        <file>qml/theme/ThemeFormText.qml</file>
-        <file>qml/theme/FileBrowser.qml</file>
-        <file>qml/theme/ThemeFormSwitch.qml</file>
-        <file>qml/theme/ThemeFormTextInput.qml</file>
-        <file>qml/theme/BackgroundImage.qml</file>
+        <file>qml/HUDTheme/ThemeText.qml</file>
+        <file>qml/HUDTheme/qmldir</file>
+        <file>qml/HUDTheme/ThemeHeaderText.qml</file>
+        <file>qml/HUDTheme/ColorPalette.qml</file>
+        <file>qml/HUDTheme/ThemeFormText.qml</file>
+        <file>qml/HUDTheme/FileBrowser.qml</file>
+        <file>qml/HUDTheme/ThemeFormSwitch.qml</file>
+        <file>qml/HUDTheme/ThemeFormTextInput.qml</file>
+        <file>qml/HUDTheme/BackgroundImage.qml</file>
         <file>qml/SettingsPage/SettingsPageItem.qml</file>
         <file>qml/SettingsPage/SettingsPageItemList.qml</file>
         <file>qml/SettingsPage/SettingsPageItemLoader.qml</file>
@@ -667,8 +667,8 @@
         <file>qml/SettingsPage/SettingsPageItemFileBrowser.qml</file>
         <file>qml/SettingsPage/SettingsPageItemAction.qml</file>
         <file>qml/SettingsPage/SettingsPageItemTumbler.qml</file>
-        <file>qml/theme/ImageIcon.qml</file>
-        <file>qml/theme/ThemeScrollBar.qml</file>
-        <file>qml/theme/ThemeSlider.qml</file>
+        <file>qml/HUDTheme/ImageIcon.qml</file>
+        <file>qml/HUDTheme/ThemeScrollBar.qml</file>
+        <file>qml/HUDTheme/ThemeSlider.qml</file>
     </qresource>
 </RCC>

@@ -24,6 +24,6 @@ Item{
         anchors.fill: __image
         enabled: true
         source: __image
-        color:HUDStyle.Colors.icon
+        color:HUDStyle.colors.icon
     }
 }

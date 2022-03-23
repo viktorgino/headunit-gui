@@ -62,8 +62,8 @@ SettingsPageItem {
             x: spinBox.mirrored ? 0 : parent.width - width
             implicitWidth: 40
             implicitHeight: 40
-            color: spinBox.up.pressed ? "#00000000" : HUDStyle.Colors.formBackground
-            border.color: HUDStyle.Colors.formText
+            color: spinBox.up.pressed ? "#00000000" : HUDStyle.colors.formBackground
+            border.color: HUDStyle.colors.formText
             border.width: 1
             anchors.verticalCenter: parent.verticalCenter
             ThemeText {
@@ -81,8 +81,8 @@ SettingsPageItem {
             x: spinBox.mirrored ? parent.width - width : 0
             implicitWidth: 40
             implicitHeight: 40
-            color: spinBox.down.pressed ? "#00000000" : HUDStyle.Colors.formBackground
-            border.color: HUDStyle.Colors.formText
+            color: spinBox.down.pressed ? "#00000000" : HUDStyle.colors.formBackground
+            border.color: HUDStyle.colors.formText
             border.width: 1
             anchors.verticalCenter: parent.verticalCenter
             ThemeText {

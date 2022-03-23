@@ -1,0 +1,69 @@
+import QmlProject 1.1
+
+Project {
+    mainFile: "designer/content/App.qml"
+
+    /* Include .qml, .js, and image files from current directory and subdirectories */
+    QmlFiles {
+        directory: "."
+    }
+
+    QmlFiles {
+        directory: "designer/content"
+    }
+
+    JavaScriptFiles {
+        directory: "."
+    }
+
+    ImageFiles {
+        directory: "."
+    }
+
+    Files {
+        filter: "*.conf"
+        files: ["designer/qtquickcontrols2.conf"]
+    }
+
+    Files {
+        filter: "qmldir"
+        directory: "."
+    }
+
+    Files {
+        filter: "*.ttf;*.otf"
+    }
+
+    Files {
+        filter: "*.wav;*.mp3"
+    }
+
+    Files {
+        filter: "*.mp4"
+    }
+
+    Environment {
+        QT_QUICK_CONTROLS_CONF: "designer/qtquickcontrols2.conf"
+        QT_AUTO_SCREEN_SCALE_FACTOR: "1"
+        QMLSCENE_CORE_PROFILE: "true" // Required for macOS, but can create issues on embedded Linux
+        QT_LOGGING_RULES: "qt.qml.connections=false"
+        QT_ENABLE_HIGHDPI_SCALING: "0"
+        /* Useful for debugging
+       QSG_VISUALIZE=batches
+       QSG_VISUALIZE=clip
+       QSG_VISUALIZE=changes
+       QSG_VISUALIZE=overdraw
+       */
+    }
+
+    /* List of plugin directories passed to QML runtime */
+    importPaths: [ "imports", "asset_imports", "qml", "designer/backend" ]
+
+    qdsVersion: "3.0"
+
+
+    multilanguageSupport: true
+    supportedLanguages: ["en"]
+    primaryLanguage: "en"
+
+}

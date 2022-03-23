@@ -6,7 +6,7 @@ Slider {
     value: 0
     height: 20
 
-    property color handleBackgroundColor: HUDStyle.Colors.formBox
+    property color handleBackgroundColor: HUDStyle.colors.formBox
     background: Item {
         x: control.leftPadding
         y: control.topPadding + control.availableHeight / 2 - height / 2
@@ -15,10 +15,10 @@ Slider {
         width: control.availableWidth
         height: implicitHeight
         Rectangle {
-            color: HUDStyle.Colors.formBackground
+            color: HUDStyle.colors.formBackground
             anchors.fill: parent
             radius: height/2
-            border.color: HUDStyle.Colors.formText
+            border.color: HUDStyle.colors.formText
             border.width: 1
         }
         Item {
@@ -46,7 +46,7 @@ Slider {
         implicitHeight: implicitWidth
         radius: height / 2
         color: control.pressed ? "#f0f0f0" : "#f6f6f6"
-        border.color: HUDStyle.Colors.formText
+        border.color: HUDStyle.colors.formText
         border.width: 1
     }
 }

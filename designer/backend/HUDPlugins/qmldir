@@ -1,0 +1,4 @@
+module HUDPlugins
+
+PluginListModel 1.0 PluginListModel.qml
+PluginMenu 1.0 PluginMenu.qml

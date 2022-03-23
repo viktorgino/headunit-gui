@@ -82,26 +82,26 @@ Item {
 
                     Image {
                         id: button_image
-                        width: HUDStyle.Sizes.menuIcon
-                        height: HUDStyle.Sizes.menuIcon
+                        width: HUDStyle.sizes.menuIcon
+                        height: HUDStyle.sizes.menuIcon
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
                         anchors.leftMargin: 0
                         fillMode: Image.PreserveAspectFit
-                        source: menu.image
+                        source: icon
                         mipmap:true
                         visible: false
                     }
                     ColorOverlay {
-                        color: HUDStyle.Colors.text
+                        color: HUDStyle.colors.text
                         anchors.fill: button_image
                         enabled: true
                         source: button_image
                     }
 
                     Text {
-                        color: HUDStyle.Colors.text
-                        text: menu.text
+                        color: HUDStyle.colors.text
+                        text: label
                         anchors.top: parent.top
                         anchors.topMargin: 0
                         anchors.bottom: parent.bottom
@@ -113,7 +113,7 @@ Item {
                         wrapMode: Text.WordWrap
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
-                        font.pointSize: HUDStyle.Sizes.menuText
+                        font.pointSize: HUDStyle.sizes.menuText
                     }
 
                     MouseArea {
