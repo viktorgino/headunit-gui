@@ -34,3 +34,4 @@ Makefile*
 *.qmlproject.user
 *.qmlproject.user.*
 /designer/plugins/build-HUDHelper-*/
+*.qtds
