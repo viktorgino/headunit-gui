@@ -130,180 +130,20 @@ MetaInfo {
         }
     }
     Type {
-        name: "HUDTheme.SettingsPage"
+        name: "HUDTheme.ThemeIcon"
+
         ItemLibraryEntry {
-            name: "SettingsPage"
+            name: "Theme Icon"
             category: "Headunit Desktop Theme"
             version: "1.0"
             requiredImport: "HUDTheme"
         }
     }
     Type {
-        name: "HUDTheme.SettingsPageItem"
+        name: "HUDTheme.ThemeRoot"
+
         ItemLibraryEntry {
-        name: "SettingsPageItem"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemAction"
-        ItemLibraryEntry {
-        name: "SettingsPageItemAction"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemButtons"
-        ItemLibraryEntry {
-        name: "SettingsPageItemButtons"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemCheckbox"
-        ItemLibraryEntry {
-        name: "SettingsPageItemCheckbox"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemColor"
-        ItemLibraryEntry {
-        name: "SettingsPageItemColor"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemCombobox"
-        ItemLibraryEntry {
-        name: "SettingsPageItemCombobox"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemFileBrowser."
-        ItemLibraryEntry {
-        name: "SettingsPageItemFileBrowser"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemHeader"
-        ItemLibraryEntry {
-        name: "SettingsPageItemHeader"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemIcon"
-        ItemLibraryEntry {
-        name: "SettingsPageItemIcon"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemItems"
-        ItemLibraryEntry {
-        name: "SettingsPageItemItems"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemList"
-        ItemLibraryEntry {
-        name: "SettingsPageItemList"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemLoader"
-        ItemLibraryEntry {
-        name: "SettingsPageItemLoader"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemSlider"
-        ItemLibraryEntry {
-        name: "SettingsPageItemSlider"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemSwitch"
-        ItemLibraryEntry {
-        name: "SettingsPageItemSwitch"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemText"
-        ItemLibraryEntry {
-        name: "SettingsPageItemText"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemTextfield"
-        ItemLibraryEntry {
-        name: "SettingsPageItemTextfield"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageItemTumbler"
-        ItemLibraryEntry {
-        name: "SettingsPageItemTumbler"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageSectionHeader"
-        ItemLibraryEntry {
-        name: "SettingsPageSectionHeader"
-            category: "Headunit Desktop Theme"
-            version: "1.0"
-            requiredImport: "HUDTheme"
-        }
-    }
-    Type {
-        name: "HUDTheme.SettingsPageTheme"
-        ItemLibraryEntry {
-        name: "SettingsPageTheme"
+            name: "Theme Root"
             category: "Headunit Desktop Theme"
             version: "1.0"
             requiredImport: "HUDTheme"

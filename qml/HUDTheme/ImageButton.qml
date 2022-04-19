@@ -1,8 +1,7 @@
 import QtQuick 2.5
 import QtGraphicalEffects 1.0
 
-
-Item{
+Item {
     id: __root
 
     property bool checked: false
@@ -12,16 +11,16 @@ Item{
     property url activeImageSource
 
     property color activeColor: "#ff5722"
-    property color pressedColor: Qt.darker(color,1.5);
-    property color color:HUDStyle.colors.formText
-    signal clicked()
+    property color pressedColor: Qt.darker(color, 1.5)
+    property color color: HUDStyle.colors.formText
+    signal clicked
 
     Image {
-        id:__image
+        id: __image
         anchors.fill: parent
         source: __root.imageSource
         fillMode: Image.PreserveAspectFit
-        mipmap:true
+        mipmap: true
         visible: true
     }
 
@@ -40,14 +39,14 @@ Item{
         anchors.verticalCenter: parent.verticalCenter
     }
 
-    MouseArea{
+    MouseArea {
         anchors.fill: parent
         onPressed: {
-            __color.color = __root.pressedColor;
+            __color.color = __root.pressedColor
         }
         onReleased: {
-            if(__root.checkable) {
-                __root.checked = !__root.checked;
+            if (__root.checkable) {
+                __root.checked = !__root.checked
             }
 
             __root.update()
@@ -55,19 +54,19 @@ Item{
         }
     }
 
-    onCheckedChanged : {
+    onCheckedChanged: {
         __root.update()
     }
 
-    function update(){
-        if(__root.checked){
-            __color.color = __root.activeColor;
+    function update() {
+        if (__root.checked) {
+            __color.color = __root.activeColor
         } else {
-            __color.color = __root.color;
+            __color.color = __root.color
         }
 
-        if(__root.activeImageSource != "") {
-            if(__root.checked){
+        if (__root.activeImageSource != "") {
+            if (__root.checked) {
                 __image.source = __root.activeImageSource
             } else {
                 __image.source = __root.imageSource

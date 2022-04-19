@@ -8,16 +8,16 @@ import HUDTheme 1.0
 
 Item {
     id: __root
-    function backAction(){
-        if(settingStack.depth > 1){
-            settingStack.pop();
-            return true;
+    function backAction() {
+        if (settingStack.depth > 1) {
+            settingStack.pop()
+            return true
         }
-        return false;
+        return false
     }
-    signal pop()
+    signal pop
     function back() {
-        if(settingStack.depth > 1){
+        if (settingStack.depth > 1) {
             settingStack.pop()
         } else {
             pop()
@@ -26,19 +26,19 @@ Item {
 
     StackView {
         id: settingStack
-        width: parent.width/2
+        width: parent.width / 2
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.top: parent.top
         initialItem: itemList
-        clip:true
+        clip: true
     }
-    Component{
-        id:itemList
-        SettingsPageItemList{
+    Component {
+        id: itemList
+        SettingsPageItemList {
             settings: HUDStyle
-            model: HUDStyleSettings
-            enableIcons : false
+            model: HUDStyle.settings
+            enableIcons: false
             autoSave: true
             onPush: {
                 properties.settings = settings[properties.name]
@@ -48,6 +48,7 @@ Item {
                 settingStack.push(itemList, properties)
             }
             onPop: {
+
             }
         }
     }
@@ -73,7 +74,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 0
 
-            BackgroundImage{
+            BackgroundImage {
                 anchors.fill: parent
             }
 
@@ -100,16 +101,15 @@ Item {
                         Layout.fillWidth: true
                     }
 
-                    ImageButton{
+                    ImageButton {
                         width: 40
                         height: 40
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        imageSource:"qrc:/qml/icons/heart.png"
-                        text:""
+                        imageSource: "image://icons/heart"
+                        text: ""
                         color: HUDStyle.colors.icon
                     }
-
 
                     ThemeText {
                         text: qsTr("Active")
@@ -119,17 +119,15 @@ Item {
                         Layout.fillWidth: true
                     }
 
-                    ImageButton{
+                    ImageButton {
                         width: 40
                         height: 40
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        imageSource:"qrc:/qml/icons/heart.png"
-                        text:""
+                        imageSource: "image://icons/heart"
+                        text: ""
                         color: HUDStyle.colors.iconActive
                     }
-
-
                 }
             }
 
@@ -151,7 +149,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        level:5
+                        level: 5
                     }
 
                     ThemeHeaderText {
@@ -161,7 +159,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        level:4
+                        level: 4
                     }
 
                     ThemeHeaderText {
@@ -171,7 +169,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        level:3
+                        level: 3
                     }
 
                     ThemeHeaderText {
@@ -181,7 +179,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        level:2
+                        level: 2
                     }
 
                     ThemeHeaderText {
@@ -191,19 +189,14 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        level:1
+                        level: 1
                     }
-
-
-
-
                 }
 
                 ColumnLayout {
                     id: columnLayout
                     Layout.fillHeight: true
                     Layout.fillWidth: true
-
 
                     ThemeText {
                         id: text3
@@ -229,14 +222,14 @@ Item {
 
         Item {
             id: item4
-            height: parent.height /2
+            height: parent.height / 2
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 0
             anchors.leftMargin: 0
             anchors.right: parent.right
             anchors.rightMargin: 0
             anchors.left: parent.left
-            clip:true
+            clip: true
 
             RectangularGlow {
                 id: effect
@@ -260,13 +253,13 @@ Item {
                 Image {
                     id: settingsIcon
                     width: height
-                    height: parent.height/2
-                    anchors.leftMargin: width/2
+                    height: parent.height / 2
+                    anchors.leftMargin: width / 2
                     anchors.verticalCenter: parent.verticalCenter
                     fillMode: Image.PreserveAspectFit
                     anchors.left: parent.left
-                    source: "qrc:/qml/icons/android-settings.png"
-                    mipmap:true
+                    source: "image://icons/android-settings"
+                    mipmap: true
 
                     ColorOverlay {
                         color: HUDStyle.colors.icon
@@ -279,7 +272,7 @@ Item {
                 ThemeHeaderText {
                     id: text5
                     text: qsTr("Header Text")
-                    anchors.verticalCenterOffset: height/-2
+                    anchors.verticalCenterOffset: height / -2
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: settingsIcon.right
                     anchors.leftMargin: 16
@@ -288,14 +281,13 @@ Item {
                 ThemeHeaderText {
                     id: text6
                     text: qsTr("Header Sub Text")
-                    anchors.verticalCenterOffset: height/2
+                    anchors.verticalCenterOffset: height / 2
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: text5.left
                     anchors.leftMargin: 0
                     level: 2
                 }
             }
-
 
             ListView {
                 anchors.right: parent.right
@@ -306,16 +298,15 @@ Item {
                 anchors.topMargin: 0
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 0
-                clip:true
+                clip: true
                 model: 20
-                ScrollBar.vertical: ThemeScrollBar { }
+                ScrollBar.vertical: ThemeScrollBar {}
                 delegate: SettingsPageItem {
-                    label : "Item " + index + " title"
-                    description : "Item " + index + " subtitle"
+                    label: "Item " + index + " title"
+                    description: "Item " + index + " subtitle"
                 }
             }
         }
-
     }
 }
 
@@ -324,3 +315,4 @@ Item {
 D{i:62;anchors_height:100;anchors_width:100}
 }
  ##^##*/
+

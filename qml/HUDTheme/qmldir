@@ -17,25 +17,5 @@ ThemeText 1.0 ThemeText.qml
 ThemeSlider 1.0 ThemeSlider.qml
 ThemeScrollBar 1.0 ThemeScrollBar.qml
 TopMenu 1.0 TopMenu.qml
-
-SettingsPage 1.0                SettingsPage/SettingsPage.qml
-SettingsPageBluetooth 1.0       SettingsPage/SettingsPageBluetooth.qml
-SettingsPageItem 1.0            SettingsPage/SettingsPageItem.qml
-SettingsPageItemAction 1.0      SettingsPage/SettingsPageItemAction.qml
-SettingsPageItemButtons 1.0     SettingsPage/SettingsPageItemButtons.qml
-SettingsPageItemCheckbox 1.0    SettingsPage/SettingsPageItemCheckbox.qml
-SettingsPageItemColor 1.0       SettingsPage/SettingsPageItemColor.qml
-SettingsPageItemCombobox 1.0    SettingsPage/SettingsPageItemCombobox.qml
-SettingsPageItemFileBrowser.1.0 SettingsPage/SettingsPageItemFileBrowser.qml
-SettingsPageItemHeader 1.0      SettingsPage/SettingsPageItemHeader.qml
-SettingsPageItemIcon 1.0        SettingsPage/SettingsPageItemIcon.qml
-SettingsPageItemItems 1.0       SettingsPage/SettingsPageItemItems.qml
-SettingsPageItemList 1.0        SettingsPage/SettingsPageItemList.qml
-SettingsPageItemLoader 1.0      SettingsPage/SettingsPageItemLoader.qml
-SettingsPageItemSlider 1.0      SettingsPage/SettingsPageItemSlider.qml
-SettingsPageItemSwitch 1.0      SettingsPage/SettingsPageItemSwitch.qml
-SettingsPageItemText 1.0        SettingsPage/SettingsPageItemText.qml
-SettingsPageItemTextfield 1.0   SettingsPage/SettingsPageItemTextfield.qml
-SettingsPageItemTumbler 1.0     SettingsPage/SettingsPageItemTumbler.qml
-SettingsPageSectionHeader 1.0   SettingsPage/SettingsPageSectionHeader.qml
-SettingsPageTheme 1.0           SettingsPage/SettingsPageTheme.qml
+ThemeIcon 1.0 ThemeIcon.qml
+ThemeRoot 1.0 ThemeRoot.qml

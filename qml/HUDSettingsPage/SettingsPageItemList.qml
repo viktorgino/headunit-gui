@@ -8,22 +8,22 @@ import HUDTheme 1.0
 ListView {
     id: __root
     property bool autoSave: false
-    property bool enableIcons : true
+    property bool enableIcons: true
 
-    property var settings : ({})
+    property var settings: ({})
     signal push(var qml, var properties)
-    signal pop()
+    signal pop
 
-    property var settingsShadow : ({})
-    property var conditions : ({})
+    property var settingsShadow: ({})
+    property var conditions: ({})
 
     Component.onDestruction: {
-        save();
+        save()
     }
 
     function save() {
-        for(var key in settingsShadow){
-            if(settingsShadow[key] !== settings[key])
+        for (var key in settingsShadow) {
+            if (settingsShadow[key] !== settings[key])
                 settings[key] = settingsShadow[key]
         }
     }
@@ -32,18 +32,19 @@ ListView {
         pop()
     }
 
-    ScrollBar.vertical: ThemeScrollBar { }
+    ScrollBar.vertical: ThemeScrollBar {}
     function updateConditionals() {
-        for(var currentItem in __root.contentItem.children){
+        for (var currentItem in __root.contentItem.children) {
             var targetItem = __root.contentItem.children[currentItem]
-            if(targetItem.item){
-                targetItem.visible = targetItem.checkTarget(targetItem.item.name)
+            if (targetItem.item) {
+                targetItem.visible = targetItem.checkTarget(
+                            targetItem.item.name)
             }
         }
     }
 
     delegate: Loader {
-        id:loader
+        id: loader
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.rightMargin: __root.ScrollBar.vertical.width
@@ -53,7 +54,7 @@ ListView {
             ignoreUnknownSignals: true
             target: loader.item
             onValueChanged: {
-                if(__root.autoSave){
+                if (__root.autoSave) {
                     __root.settings[target.name] = target.value
                 } else {
                     __root.settingsShadow[target.name] = target.value
@@ -62,68 +63,68 @@ ListView {
             }
 
             onPush: {
-                __root.push(qml,properties)
+                __root.push(qml, properties)
             }
         }
         property var settingPageMapping: {
-            "items":"SettingsPageItemItems.qml",
-            "loader":"SettingsPageItemLoader.qml",
-            "slider":"SettingsPageItemSlider.qml",
-            "switch":"SettingsPageItemSwitch.qml",
-            "checkbox":"SettingsPageItemCheckbox.qml",
-            "textfield":"SettingsPageItemTextfield.qml",
-            "combobox":"SettingsPageItemCombobox.qml",
-            "button":"SettingsPageItemButtons.qml",
-            "text":"SettingsPageItem.qml",
-            "file":"SettingsPageItemFileBrowser.qml",
-            "color":"SettingsPageItemColor.qml",
-            "header":"SettingsPageItemHeader.qml",
-            "action":"SettingsPageItemAction.qml",
-            "tumbler":"SettingsPageItemTumbler.qml"
+            "items": "SettingsPageItemItems.qml",
+            "loader": "SettingsPageItemLoader.qml",
+            "slider": "SettingsPageItemSlider.qml",
+            "switch": "SettingsPageItemSwitch.qml",
+            "checkbox": "SettingsPageItemCheckbox.qml",
+            "textfield": "SettingsPageItemTextfield.qml",
+            "combobox": "SettingsPageItemCombobox.qml",
+            "button": "SettingsPageItemButtons.qml",
+            "text": "SettingsPageItem.qml",
+            "file": "SettingsPageItemFileBrowser.qml",
+            "color": "SettingsPageItemColor.qml",
+            "header": "SettingsPageItemHeader.qml",
+            "action": "SettingsPageItemAction.qml",
+            "tumbler": "SettingsPageItemTumbler.qml"
         }
-        Connections{
+        Connections {
             target: __root
-            onSettingsShadowChanged : {
+            onSettingsShadowChanged: {
                 parent.parentSettings = __root.settingsShadow
             }
         }
 
-        function isConditionTrue(name, target){
-            if(target in __root.settingsShadow){
+        function isConditionTrue(name, target) {
+            if (target in __root.settingsShadow) {
                 return __root.settingsShadow[target] == __root.conditions[name].value
             } else {
                 return __root.settings[target] == __root.conditions[name].value
             }
         }
 
-        function checkTarget(name){
-            if(__root.conditions[name]){
+        function checkTarget(name) {
+            if (__root.conditions[name]) {
                 var target = __root.conditions[name].target
 
-                if(target in __root.conditions){
-                    return checkTarget(target) & isConditionTrue(name, target);
+                if (target in __root.conditions) {
+                    return checkTarget(target) & isConditionTrue(name, target)
                 } else {
-                    return isConditionTrue(name, target);
+                    return isConditionTrue(name, target)
                 }
             }
-            return true;
+            return true
         }
 
         Component.onCompleted: {
-            if(!(modelData.type in settingPageMapping)){
-                return;
+            if (!(modelData.type in settingPageMapping)) {
+                return
             }
             setSource(settingPageMapping[modelData.type], modelData)
 
-            if(item){
+            if (item) {
                 item.value = __root.settings[modelData.name]
                 item.enableIcon = __root.enableIcons
             }
         }
     }
-    onModelChanged : {
-        for(var i = 0; i < model.length; i++){
-            if(model[i].conditional){
+    onModelChanged: {
+        for (var i = 0; i < model.length; i++) {
+            if (model[i].conditional) {
                 __root.conditions[model[i].name] = {
                     "target": model[i].conditionTarget,
                     "value": model[i].conditionValue
@@ -138,3 +139,4 @@ Designer {
     D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/
+

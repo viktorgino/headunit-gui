@@ -8,17 +8,17 @@ import HUDPlugins 1.0
 Item {
     property int menuItemIndex: 0
     id: __root
-    signal itemChanged(int index);
-    signal showSettings();
+    signal itemChanged(int index)
+    signal showSettings
 
-    function menuItemClicked (index){
+    function menuItemClicked(index) {
         menuItemIndex = index
-        active_button_bg.y = menuItemsRepeater.itemAt(index).y;
-        __root.itemChanged(index);
+        active_button_bg.y = menuItemsRepeater.itemAt(index).y
+        __root.itemChanged(index)
     }
 
     Component.onCompleted: {
-        itemChanged(menuItemIndex);
+        itemChanged(menuItemIndex)
     }
 
     Settings {
@@ -33,7 +33,7 @@ Item {
 
     Rectangle {
         id: active_button_bg
-        height: (parent.height/menuItemsRepeater.count)+5
+        height: (parent.height / menuItemsRepeater.count) + 5
         color: "#80ffffff"
         anchors.right: parent.right
         anchors.rightMargin: 0
@@ -42,7 +42,8 @@ Item {
         Layout.columnSpan: 0
         Layout.rowSpan: 0
         border.width: 0
-        y:menuItemsRepeater.count > 0 ?menuItemsRepeater.itemAt(menuItemIndex).y:0
+        y: menuItemsRepeater.count > 0 ? menuItemsRepeater.itemAt(
+                                             menuItemIndex).y : 0
 
         Behavior on y {
 
@@ -53,19 +54,18 @@ Item {
                 easing.type: Easing.OutBounce
             }
         }
-
     }
 
     ColumnLayout {
-        id:menuColumn
+        id: menuColumn
         anchors.topMargin: 5
         spacing: 0
         anchors.fill: parent
 
         Repeater {
-            id:menuItemsRepeater
-            model:PluginListModel {
-                plugins : HUDPlugins
+            id: menuItemsRepeater
+            model: PluginListModel {
+                plugins: HUDPlugins
                 listType: "MainMenu"
             }
 
@@ -78,7 +78,7 @@ Item {
                     anchors.rightMargin: 5
                     anchors.bottomMargin: 5
                     anchors.fill: parent
-                    color: menu.color
+                    color: Qt.darker("#673AB7", 1 + (index+1) * 0.1)
 
                     Image {
                         id: button_image
@@ -89,7 +89,7 @@ Item {
                         anchors.leftMargin: 0
                         fillMode: Image.PreserveAspectFit
                         source: icon
-                        mipmap:true
+                        mipmap: true
                         visible: false
                     }
                     ColorOverlay {
@@ -124,7 +124,7 @@ Item {
                 }
             }
         }
-     }
+    }
 }
 
 /*##^##
@@ -133,3 +133,4 @@ Designer {
 D{i:8}D{i:7}D{i:5}D{i:4}
 }
 ##^##*/
+

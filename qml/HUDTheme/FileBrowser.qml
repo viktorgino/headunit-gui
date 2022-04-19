@@ -5,23 +5,25 @@ import Qt.labs.folderlistmodel 2.1
 import Qt.labs.platform 1.0
 
 import HUDTheme 1.0
+
 Item {
     id: root
     property alias folder: folderModel.folder
     property alias showFiles: folderModel.showFiles
     property bool folderSelectable: false
-    property string selectedPath : folderSelectable?folderModel.folder:""
-    property alias nameFilters : folderModel.nameFilters
+    property string selectedPath: folderSelectable ? folderModel.folder : ""
+    property alias nameFilters: folderModel.nameFilters
 
     signal accepted(var path)
-    signal rejected()
-    function reset (){
-        folderModel.folder = "file://"+StandardPaths.standardLocations(StandardPaths.HomeLocation)
+    signal rejected
+    function reset() {
+        folderModel.folder = "file://" + StandardPaths.standardLocations(
+                    StandardPaths.HomeLocation)
     }
 
     Item {
         id: standardLocations
-        width: parent.width*0.3
+        width: parent.width * 0.3
         anchors.top: parent.top
         anchors.topMargin: 0
         anchors.bottom: buttons.top
@@ -50,9 +52,9 @@ Item {
                         width: 20
                         height: 20
                         source: iconImage
-                        mipmap:true
+                        mipmap: true
                         ColorOverlay {
-                            color:"#424242"
+                            color: "#424242"
                             anchors.fill: parent
                             enabled: true
                             source: parent
@@ -68,38 +70,38 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: folderModel.folder = "file://"+StandardPaths.standardLocations(path_key)
+                    onClicked: folderModel.folder = "file://" + StandardPaths.standardLocations(
+                                   path_key)
                 }
             }
             model: ListModel {
                 ListElement {
                     path_key: 8 //HomeLocation
-                    iconImage: "qrc:/qml/icons/home.png"
+                    iconImage: "image://icons/home"
                 }
                 ListElement {
                     path_key: 0 //DesktopLocation
-                    iconImage: "qrc:/qml/icons/folder.png"
+                    iconImage: "image://icons/folder"
                 }
                 ListElement {
                     path_key: 1 //DocumentsLocation
-                    iconImage: "qrc:/qml/icons/document.png"
+                    iconImage: "image://icons/document"
                 }
                 ListElement {
                     path_key: 14 //DownloadLocation
-                    iconImage: "qrc:/qml/icons/android-download.png"
+                    iconImage: "image://icons/android-download"
                 }
                 ListElement {
                     path_key: 4 //MusicLocation
-                    iconImage: "qrc:/qml/icons/music-note.png"
+                    iconImage: "image://icons/music-note"
                 }
                 ListElement {
                     path_key: 5 //MoviesLocation
-                    iconImage: "qrc:/qml/icons/videocamera.png"
+                    iconImage: "image://icons/videocamera"
                 }
             }
 
-
-            ScrollBar.vertical: ThemeScrollBar { }
+            ScrollBar.vertical: ThemeScrollBar {}
         }
         Rectangle {
             id: divider
@@ -121,8 +123,8 @@ Item {
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
-            delegate:Item {
-                height:40
+            delegate: Item {
+                height: 40
                 anchors.left: parent.left
                 anchors.right: parent.right
                 ThemeFormText {
@@ -135,16 +137,13 @@ Item {
                 }
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: folderModel.folder = "file://"+modelData.path
+                    onClicked: folderModel.folder = "file://" + modelData.path
                 }
             }
             model: getMountedVolumes()
 
-
-            ScrollBar.vertical: ThemeScrollBar { }
+            ScrollBar.vertical: ThemeScrollBar {}
         }
-
-
 
         Rectangle {
             id: rectangle
@@ -154,8 +153,6 @@ Item {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
         }
-
-
     }
 
     Item {
@@ -183,7 +180,8 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 ThemeFormText {
-                    text: folderModel.folder.toString().replace(/^(file:\/{2})|(qrc:\/{1})/, "")
+                    text: folderModel.folder.toString().replace(
+                              /^(file:\/{2})|(qrc:\/{1})/, "")
                     elide: Text.ElideLeft
                     anchors.left: parent.left
                     anchors.leftMargin: 0
@@ -199,21 +197,21 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 Image {
-                    x:5
+                    x: 5
                     width: 20
                     height: 20
-                    source: "qrc:/qml/icons/chevron-up.png"
+                    source: "image://icons/chevron-up"
                     anchors.verticalCenter: parent.verticalCenter
                     mipmap: true
                     ColorOverlay {
-                        color:"#424242"
+                        color: "#424242"
                         anchors.fill: parent
                         enabled: true
                         source: parent
                     }
                 }
                 ThemeFormText {
-                    x:35
+                    x: 35
                     text: "Up"
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
@@ -221,11 +219,11 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        if(folderModel.parentFolder != folderModel.rootFolder){
+                        if (folderModel.parentFolder != folderModel.rootFolder) {
                             folderModel.folder = folderModel.parentFolder
                         }
-                        folderView.item.currentIndex = -1;
-                        if(folderSelectable){
+                        folderView.item.currentIndex = -1
+                        if (folderSelectable) {
                             root.selectedPath = folderModel.folder
                         } else {
                             root.selectedPath = ""
@@ -241,7 +239,8 @@ Item {
             showHidden: false
             showDotAndDotDot: false
             showOnlyReadable: true
-            folder:"file://"+StandardPaths.standardLocations(StandardPaths.HomeLocation)
+            folder: "file://" + StandardPaths.standardLocations(
+                        StandardPaths.HomeLocation)
             sortField: FolderListModel.Name
             showDirsFirst: true
         }
@@ -261,56 +260,54 @@ Item {
                 border.width: 1
                 color: "#CACACA"
                 radius: 5
-                Image{
+                Image {
                     fillMode: Image.PreserveAspectFit
                     anchors.rightMargin: 8
                     anchors.leftMargin: 8
                     anchors.bottomMargin: 8
                     anchors.topMargin: 8
                     anchors.fill: parent
-                    source: listLayoutButton.checked ? "qrc:/qml/icons/grid.png" : "qrc:/qml/icons/svg/android-list.svg"
+                    source: listLayoutButton.checked ? "image://icons/grid" : "image://icons/android-list"
                 }
             }
         }
 
-        Loader{
-            id:folderView
+        Loader {
+            id: folderView
             anchors.top: dir_up.bottom
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.topMargin: 0
-            sourceComponent: listLayoutButton.checked?browserListView:browserGridView
+            sourceComponent: listLayoutButton.checked ? browserListView : browserGridView
         }
-        Component{
-            id:browserGridView
-            Item{
-                id:gridRoot
+        Component {
+            id: browserGridView
+            Item {
+                id: gridRoot
                 property alias currentIndex: gridView.currentIndex
                 property alias imageSize: sizeSlider.value
                 GridView {
-                    id:gridView
+                    id: gridView
                     anchors.bottom: sliderLabel.top
                     anchors.right: parent.right
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.bottomMargin: 0
-                    clip:true
+                    clip: true
                     cellWidth: gridRoot.imageSize
                     cellHeight: gridRoot.imageSize
-                    model:folderModel
-                    highlightMoveDuration : 50
+                    model: folderModel
+                    highlightMoveDuration: 50
                     currentIndex: -1
-                    highlight: Rectangle
-                    {
-                        color:"#00000000"
+                    highlight: Rectangle {
+                        color: "#00000000"
                         opacity: 0.5
                         focus: true
                         radius: 2
                         border.width: 1
-                        Rectangle
-                        {
-                            color:"black"
+                        Rectangle {
+                            color: "black"
                             opacity: 0.5
                             focus: true
                             radius: 2
@@ -322,10 +319,9 @@ Item {
                             }
                         ]
                     }
-                    ScrollBar.vertical: ScrollBar {
-                    }
+                    ScrollBar.vertical: ScrollBar {}
                     delegate: Item {
-                        id:folderViewDelegate
+                        id: folderViewDelegate
                         width: gridView.cellWidth
                         height: gridView.cellHeight
 
@@ -340,14 +336,15 @@ Item {
                             anchors.left: parent.left
                             anchors.leftMargin: 6
                             source: {
-                                if(fileIsDir){
-                                    return "qrc:/qml/icons/folder.png";
+                                if (fileIsDir) {
+                                    return "image://icons/folder"
                                 }
 
-                                if(["png","jpg", "jpeg", "gif", "tiff"].indexOf(fileSuffix.toLowerCase()) >= 0){
-                                    return fileURL;
+                                if (["png", "jpg", "jpeg", "gif", "tiff"].indexOf(
+                                            fileSuffix.toLowerCase()) >= 0) {
+                                    return fileURL
                                 }
-                                return "qrc:/qml/icons/document.png";
+                                return "image://icons/document"
                             }
                         }
 
@@ -369,13 +366,13 @@ Item {
                             anchors.leftMargin: 0
                             anchors.fill: parent
                             onClicked: {
-                                if(!fileIsDir){
-                                    gridView.currentIndex = index;
-                                    root.selectedPath = fileURL;
+                                if (!fileIsDir) {
+                                    gridView.currentIndex = index
+                                    root.selectedPath = fileURL
                                 } else {
-                                    folderModel.folder = fileURL;
-                                    gridView.currentIndex = -1;
-                                    if(folderSelectable){
+                                    folderModel.folder = fileURL
+                                    gridView.currentIndex = -1
+                                    if (folderSelectable) {
                                         root.selectedPath = folderModel.folder
                                     } else {
                                         root.selectedPath = ""
@@ -383,8 +380,6 @@ Item {
                                 }
                             }
                         }
-
-
                     }
                 }
                 ThemeFormText {
@@ -398,12 +393,12 @@ Item {
                     anchors.bottomMargin: 0
                 }
 
-                Slider{
+                Slider {
                     id: sizeSlider
                     stepSize: 1
                     from: 50
                     value: 200
-                    to: width>10?width/2:200
+                    to: width > 10 ? width / 2 : 200
                     anchors.right: parent.right
                     anchors.rightMargin: 0
                     anchors.left: parent.left
@@ -411,36 +406,34 @@ Item {
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: 0
                 }
-
             }
         }
 
-        Component{
-            id:browserListView
+        Component {
+            id: browserListView
             ListView {
                 id: listView
                 clip: true
-                highlightMoveDuration : 50
-                currentIndex : -1
-                highlight: Rectangle
-                {
-                    color:"black"
+                highlightMoveDuration: 50
+                currentIndex: -1
+                highlight: Rectangle {
+                    color: "black"
                     opacity: 0.5
                     focus: true
                 }
                 delegate: Item {
                     height: 40
-                    width:parent.width
+                    width: parent.width
                     Image {
-                        x:5
+                        x: 5
                         width: 20
                         height: 20
                         id: folder_image
-                        source: fileIsDir?"qrc:/qml/icons/folder.png": "qrc:/qml/icons/document.png"
+                        source: fileIsDir ? "image://icons/folder" : "image://icons/document"
                         anchors.verticalCenter: parent.verticalCenter
                         mipmap: true
                         ColorOverlay {
-                            color:"#424242"
+                            color: "#424242"
                             anchors.fill: parent
                             enabled: true
                             source: parent
@@ -457,13 +450,13 @@ Item {
                         id: mouseArea
                         anchors.fill: parent
                         onClicked: {
-                            if(!fileIsDir){
-                                listView.currentIndex = index;
-                                root.selectedPath = fileURL;
+                            if (!fileIsDir) {
+                                listView.currentIndex = index
+                                root.selectedPath = fileURL
                             } else {
-                                folderModel.folder = fileURL;
-                                listView.currentIndex = -1;
-                                if(folderSelectable){
+                                folderModel.folder = fileURL
+                                listView.currentIndex = -1
+                                if (folderSelectable) {
                                     root.selectedPath = folderModel.folder
                                 } else {
                                     root.selectedPath = ""
@@ -473,7 +466,7 @@ Item {
                     }
                 }
 
-                ScrollBar.vertical: ThemeScrollBar { }
+                ScrollBar.vertical: ThemeScrollBar {}
                 model: folderModel
             }
         }
@@ -506,11 +499,10 @@ Item {
             onClicked: root.accepted(root.selectedPath)
         }
     }
-
-
 }
 
 /*##^## Designer {
     D{i:0;autoSize:true;height:480;width:640}D{i:38;anchors_width:200}
 }
  ##^##*/
+

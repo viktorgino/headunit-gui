@@ -1,0 +1,23 @@
+module HUDSettingsPage
+
+SettingsPage 1.0                SettingsPage.qml
+SettingsPageBluetooth 1.0       SettingsPageBluetooth.qml
+SettingsPageItem 1.0            SettingsPageItem.qml
+SettingsPageItemAction 1.0      SettingsPageItemAction.qml
+SettingsPageItemButtons 1.0     SettingsPageItemButtons.qml
+SettingsPageItemCheckbox 1.0    SettingsPageItemCheckbox.qml
+SettingsPageItemColor 1.0       SettingsPageItemColor.qml
+SettingsPageItemCombobox 1.0    SettingsPageItemCombobox.qml
+SettingsPageItemFileBrowser.1.0 SettingsPageItemFileBrowser.qml
+SettingsPageItemHeader 1.0      SettingsPageItemHeader.qml
+SettingsPageItemIcon 1.0        SettingsPageItemIcon.qml
+SettingsPageItemItems 1.0       SettingsPageItemItems.qml
+SettingsPageItemList 1.0        SettingsPageItemList.qml
+SettingsPageItemLoader 1.0      SettingsPageItemLoader.qml
+SettingsPageItemSlider 1.0      SettingsPageItemSlider.qml
+SettingsPageItemSwitch 1.0      SettingsPageItemSwitch.qml
+SettingsPageItemText 1.0        SettingsPageItemText.qml
+SettingsPageItemTextfield 1.0   SettingsPageItemTextfield.qml
+SettingsPageItemTumbler 1.0     SettingsPageItemTumbler.qml
+SettingsPageSectionHeader 1.0   SettingsPageSectionHeader.qml
+SettingsPageTheme 1.0           SettingsPageTheme.qml

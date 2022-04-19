@@ -6,6 +6,7 @@
 #include <QtQml>
 #include <QQuickStyle>
 #include <QStorageInfo>
+#include "themeiconprovider.h"
 
 class GUIEvents : public QObject {
     Q_OBJECT

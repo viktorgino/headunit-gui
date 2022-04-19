@@ -21,6 +21,8 @@ void DefaultTheme::initializeEngine(QQmlEngine *engine, const char* /*uri*/)
         guiEvents = new GUIEvents();
         appEngine->rootContext()->setContextProperty("GUIEvents", guiEvents);
         appEngine->rootContext()->setContextObject(this);
+
+        engine->addImageProvider("icons", new ThemeIconProvider);
 //        appEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 }
 

@@ -4,14 +4,14 @@ import QtQuick.Controls.Styles 1.4
 
 Item {
     id: __root
-    signal answer()
-    signal decline()
+    signal answer
+    signal decline
     property string caller: "caller"
     property string callPath
-    function hide(){
+    function hide() {
         __root.state = ""
     }
-    function show(){
+    function show() {
         __root.state = "open"
     }
 
@@ -29,9 +29,8 @@ Item {
             color: "#eeeeee"
             anchors.fill: parent
 
-
             Rectangle {
-                id:dial
+                id: dial
                 width: height * 2
                 height: parent.height / 2
                 color: "#558b2f"
@@ -41,25 +40,25 @@ Item {
 
                 Image {
                     id: image1
-                    anchors.rightMargin: parent.width*0.1
-                    anchors.leftMargin: parent.width*0.1
-                    anchors.bottomMargin: parent.height*0.1
-                    anchors.topMargin: parent.height*0.1
+                    anchors.rightMargin: parent.width * 0.1
+                    anchors.leftMargin: parent.width * 0.1
+                    anchors.bottomMargin: parent.height * 0.1
+                    anchors.topMargin: parent.height * 0.1
                     fillMode: Image.PreserveAspectFit
                     anchors.fill: parent
-                    source: "qrc:/qml/icons/svg/android-call.svg"
+                    source: "image://icons/android-call"
                 }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        __root.hide();
-                        __root.answer();
+                        __root.hide()
+                        __root.answer()
                     }
                 }
             }
 
             Rectangle {
-                id:hangup
+                id: hangup
                 width: height * 2
                 height: parent.height / 2
                 color: "#c62828"
@@ -70,20 +69,20 @@ Item {
                 Image {
                     id: image2
                     anchors.bottomMargin: 0
-                    anchors.rightMargin: parent.width*0.1
-                    anchors.leftMargin: parent.width*0.1
-                    anchors.topMargin: parent.height*0.15
+                    anchors.rightMargin: parent.width * 0.1
+                    anchors.leftMargin: parent.width * 0.1
+                    anchors.topMargin: parent.height * 0.15
                     rotation: 135
                     anchors.fill: parent
-                    source: "qrc:/qml/icons/svg/android-call.svg"
+                    source: "image://icons/android-call"
                     fillMode: Image.PreserveAspectFit
                 }
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        __root.hide();
-                        __root.decline();
+                        __root.hide()
+                        __root.decline()
                     }
                 }
             }
@@ -109,7 +108,7 @@ Item {
 
             Text {
                 id: text1
-                y: parent.height/2 - height
+                y: parent.height / 2 - height
                 text: qsTr("Incoming call")
                 anchors.left: image.right
                 anchors.leftMargin: 8
@@ -118,7 +117,7 @@ Item {
 
             Text {
                 id: text2
-                y: parent.height/2
+                y: parent.height / 2
                 text: __root.caller
                 anchors.left: image.right
                 anchors.leftMargin: 8
@@ -126,9 +125,11 @@ Item {
             }
         }
     }
-    transitions:
-        Transition {
-            NumberAnimation { properties: "y"; duration: 250}
+    transitions: Transition {
+        NumberAnimation {
+            properties: "y"
+            duration: 250
+        }
     }
     states: [
         State {
@@ -140,5 +141,4 @@ Item {
             }
         }
     ]
-
 }

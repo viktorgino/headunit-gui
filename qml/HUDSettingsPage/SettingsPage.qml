@@ -18,7 +18,7 @@ Item {
     }
 
     StackView {
-        id:settingsPageStack
+        id: settingsPageStack
         anchors.topMargin: 16
         anchors.top: header.bottom
         anchors.right: parent.right
@@ -28,37 +28,43 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 16
         initialItem: settingsPluginList
-
     }
 
     Component {
-        id:stackComponent
-        Loader{
-            id:stackLoader
+        id: stackComponent
+        Loader {
+            id: stackLoader
+            property QtObject pluginContext
+            property QtObject pluginSettings
             Connections {
                 ignoreUnknownSignals: true
                 target: stackLoader.item
                 onPush: {
-                    settingsPageStack.push(stackComponent,{source:qml,properties:properties})
+                    settingsPageStack.push(stackComponent, {
+                                               "source": qml,
+                                               "pluginContext" : properties.pluginContext,
+                                               "pluginSettings" : properties.pluginSettings
+                                           })
                 }
                 onPop: {
                     settingsPageStack.pop()
                 }
             }
             Component.onDestruction: {
-                if(settingsPageStack.depth === 1 && currentMenuItem != ""){
-                    HUDPlugins.callSlot(currentMenuItem, "onSettingsPageDestroyed")
-                    currentMenuItem = "";
+                if (settingsPageStack.depth === 1 && currentMenuItem != "") {
+                    HUDPlugins.callSlot(currentMenuItem,
+                                        "onSettingsPageDestroyed")
+                    currentMenuItem = ""
                 }
             }
         }
     }
 
-    Component{
-        id:settingsPageList
+    Component {
+        id: settingsPageList
         SettingsPageItemList {
             onPush: {
-                if(qml === "SettingsPageItemList"){
+                if (qml === "SettingsPageItemList") {
                     properties.settings = settings[properties.name]
                     settingsPageStack.push(settingsPageList, properties)
                 } else {
@@ -71,20 +77,21 @@ Item {
                 settingsPageStack.pop()
             }
             Component.onDestruction: {
-                if(settingsPageStack.depth === 1 && currentMenuItem != ""){
-                    HUDPlugins.callSlot(currentMenuItem, "onSettingsPageDestroyed")
-                    currentMenuItem = "";
+                if (settingsPageStack.depth === 1 && currentMenuItem != "") {
+                    HUDPlugins.callSlot(currentMenuItem,
+                                        "onSettingsPageDestroyed")
+                    currentMenuItem = ""
                 }
             }
         }
     }
 
     Component {
-        id:settingsPluginList
+        id: settingsPluginList
         ListView {
             width: __root.width
-            model:PluginListModel {
-                plugins : HUDPlugins
+            model: PluginListModel {
+                plugins: HUDPlugins
                 listType: "SettingsMenu"
             }
             delegate: SettingsPageItemItems {
@@ -96,16 +103,20 @@ Item {
                 name: settingsItems.name
 
                 onPush: {
-                    currentMenuItem = name;
-                    if(settingsItems.type === "items"){
+                    currentMenuItem = name
+                    if (settingsItems.type === "items") {
                         settingsPageStack.push(settingsPageList, {
-                                                   model:settingsItems.items,
-                                                   name: settingsItems.name,
-                                                   settings : HUDSettings[settingsItems.name]
+                                                   "model": settingsItems.items,
+                                                   "name": settingsItems.name,
+                                                   "settings": settings
                                                })
-                    } else if(settingsItems.type === "loader"){
+                    } else if (settingsItems.type === "loader") {
                         settingsPageStack.push(stackComponent)
-                        settingsPageStack.currentItem.setSource(settingsItems.source)
+                        settingsPageStack.currentItem.setSource(
+                                    settingsItems.source, {
+                                        "pluginContext" : contextProperty,
+                                        "pluginSettings" : settings
+                                    })
                     }
                 }
             }
@@ -117,7 +128,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        height:parent.height * 0.15
+        height: parent.height * 0.15
         anchors.leftMargin: 0
 
         Item {
@@ -141,20 +152,19 @@ Item {
                 anchors.bottomMargin: 20
                 anchors.fill: parent
             }
-
-
         }
 
         Image {
             id: image
             width: height
-            height: parent.height/2
-            anchors.leftMargin: width/2
+            height: parent.height / 2
+            anchors.leftMargin: width / 2
             anchors.verticalCenter: parent.verticalCenter
             fillMode: Image.PreserveAspectFit
             anchors.left: parent.left
-            source: settingsPageStack.depth===1?"qrc:/qml/icons/android-settings.png":"qrc:/qml/icons/svg/android-arrow-back.svg"
-            mipmap:true
+            source: settingsPageStack.depth
+                    === 1 ? "image://icons/android-settings" : "image://icons/android-arrow-back"
+            mipmap: true
 
             ColorOverlay {
                 color: "#ffffff"
@@ -162,12 +172,13 @@ Item {
                 enabled: true
                 source: parent
             }
-            MouseArea{
+            MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    if(typeof settingsPageStack.currentItem.back === "function"){
+                    if (typeof settingsPageStack.currentItem.back === "function") {
                         settingsPageStack.currentItem.back()
-                    } else if (settingsPageStack.currentItem.item && (typeof settingsPageStack.currentItem.item.back === "function")){
+                    } else if (settingsPageStack.currentItem.item
+                               && (typeof settingsPageStack.currentItem.item.back === "function")) {
                         settingsPageStack.currentItem.item.back()
                     } else if (settingsPageStack.depth > 0) {
                         settingsPageStack.pop()
@@ -179,13 +190,12 @@ Item {
         ThemeHeaderText {
             id: text1
             text: qsTr("Settings")
-            anchors.leftMargin: image.width/2
+            anchors.leftMargin: image.width / 2
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: image.right
             anchors.right: parent.right
             anchors.rightMargin: 15
         }
-
     }
 }
 
@@ -193,3 +203,4 @@ Item {
     D{i:0;autoSize:true;height:480;width:640}
 }
  ##^##*/
+

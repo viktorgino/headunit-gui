@@ -52,14 +52,19 @@ Item {
                     id:loader
                     asynchronous: false
                     anchors.fill: parent
-                    source: plugin.qmlSource
-                    active: plugin.loaded
+                    active: pluginLoaded
                 }
                 Loader {
                     asynchronous: false
                     anchors.fill: parent
                     sourceComponent: loadingScreen
-                    active: !plugin.loaded
+                    active: !pluginLoaded
+                    onActiveChanged : {
+                        if(pluginLoaded)
+                            loader.setSource(qmlSource, {pluginContext : contextProperty, pluginSettings : settings})
+                        else
+                            loader.setSource("")
+                    }
                 }
             }
 
@@ -69,7 +74,7 @@ Item {
             id:settingsLoader
             asynchronous: false
             anchors.fill: parent
-            source: "qrc:/qml/SettingsPage/SettingsPage.qml"
+            source: "qrc:/qml/HUDSettingsPage/SettingsPage.qml"
         }
     }
 
@@ -177,7 +182,6 @@ Item {
             anchors.fill: parent
         }
     }
-
 }
 
 /*##^##

@@ -2,20 +2,20 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 
 Item {
-    property int animationInterval : 250
-    property int notificationInterval : 5000
-    property int margin : 12
-    property int modalHeight : 75
-    property int modalWidth : 300
+    property int animationInterval: 250
+    property int notificationInterval: 5000
+    property int margin: 12
+    property int modalHeight: 75
+    property int modalWidth: 300
 
     ListModel {
         id: notifications
     }
 
     function myQmlFunction(msg) {
-        console.log("Got message:", msg)
         return "some return value"
     }
+
 
     /*
      * Function that add a notification to the list of notifications
@@ -33,16 +33,17 @@ Item {
                           title: "New Android device detected",
                           text: "Tap here to start Android Auto"})
      */
-    function addNotification(notification){
+    function addNotification(notification) {
         notifications.append({
-                                 notificationImage:notification.image,
-                                 notificationTitle:notification.title,
-                                 notificationText:notification.description
-                             });
-        for(var i=0; i<notificationsList.count;i++){
-            notificationsList.itemAt(i).resources[0].start();
+                                 "notificationImage": notification.image,
+                                 "notificationTitle": notification.title,
+                                 "notificationText": notification.description
+                             })
+        for (var i = 0; i < notificationsList.count; i++) {
+            notificationsList.itemAt(i).resources[0].start()
         }
     }
+
     /*
      * Function that adds a notification to the list of notifications
      * with defining custom content through a delegate Component
@@ -59,13 +60,13 @@ Item {
 
         notifications1.addNotificationItem({delegateItem:delegate})
      */
-    function addNotificationItem(delegateItem){
-        notifications.append(delegateItem);
-        for(var i=0; i<notificationsList.count;i++){
-            notificationsList.itemAt(i).resources[0].start();
+    function addNotificationItem(delegateItem) {
+        notifications.append(delegateItem)
+        for (var i = 0; i < notificationsList.count; i++) {
+            notificationsList.itemAt(i).resources[0].start()
         }
     }
-    Item{
+    Item {
         anchors.fill: parent
         Repeater {
             id: notificationsList
@@ -77,32 +78,42 @@ Item {
             Item {
                 //Don't put any item before this object
                 Timer {
-                    interval: 1; running: true; repeat: false
+                    interval: 1
+                    running: true
+                    repeat: false
                     onTriggered: {
-                        y = notificationsList.height - (margin + modalHeight) - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)
+                        y = notificationsList.height - (margin + modalHeight)
+                                - ((notificationsList.count - index) * height)
+                                - ((notificationsList.count - index) * margin)
                     }
                 }
                 Timer {
-                    interval: notificationInterval; running: true; repeat: false
-                    onTriggered: opacity=0
+                    interval: notificationInterval
+                    running: true
+                    repeat: false
+                    onTriggered: opacity = 0
                 }
                 Timer {
-                    interval: animationInterval+notificationInterval+1; running: true; repeat: false
-                    onTriggered: notifications.remove(index,1)
+                    interval: animationInterval + notificationInterval + 1
+                    running: true
+                    repeat: false
+                    onTriggered: notifications.remove(index, 1)
                 }
-                y: notificationsList.height - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)//parent.height + margin + height - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)
+                y: notificationsList.height - ((notificationsList.count - index) * height)
+                   - ((notificationsList.count - index)
+                      * margin) //parent.height + margin + height - ((notificationsList.count-index) * height) - ((notificationsList.count-index) * margin)
                 width: modalWidth
                 height: modalHeight
                 opacity: 1
                 anchors.left: parent.left
                 anchors.leftMargin: margin
                 Loader {
-                    sourceComponent: typeof(delegateItem)==="undefined"?delegate:delegateItem
+                    sourceComponent: typeof (delegateItem) === "undefined" ? delegate : delegateItem
                     anchors.fill: parent
                 }
 
                 Component {
-                    id:delegate
+                    id: delegate
                     Rectangle {
                         color: "#212121"
                         opacity: 1
@@ -179,13 +190,13 @@ Item {
                         }
                     }
                 }
-                Behavior on y{
+                Behavior on y {
 
                     NumberAnimation {
                         duration: animationInterval
                     }
                 }
-                Behavior on opacity{
+                Behavior on opacity {
 
                     NumberAnimation {
                         duration: animationInterval
@@ -195,6 +206,9 @@ Item {
         }
     }
     transitions: Transition {
-        NumberAnimation { properties: "y,opacity"; duration: 250}
+        NumberAnimation {
+            properties: "y,opacity"
+            duration: 250
+        }
     }
 }

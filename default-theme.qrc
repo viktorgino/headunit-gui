@@ -632,15 +632,15 @@
         <file>qml/HUDTheme/ImageButton.qml</file>
         <file>qml/HUDTheme/AlphabetScrollBar.qml</file>
         <file>qml/icons/android-color-palette.png</file>
-        <file>qml/SettingsPage/SettingsPage.qml</file>
-        <file>qml/SettingsPage/SettingsPageSectionHeader.qml</file>
-        <file>qml/SettingsPage/SettingsPageBluetooth.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPage.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageSectionHeader.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageBluetooth.qml</file>
         <file>qml/icons/svg/backspace-outline.svg</file>
         <file>qml/icons/svg/gear-a.svg</file>
         <file>qml/icons/svg/android-call.svg</file>
         <file>qml/icons/svg/mic-a.svg</file>
         <file>qml/CallNotification.qml</file>
-        <file>qml/SettingsPage/SettingsPageTheme.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageTheme.qml</file>
         <file>qml/HUDTheme/ThemeText.qml</file>
         <file>qml/HUDTheme/qmldir</file>
         <file>qml/HUDTheme/ThemeHeaderText.qml</file>
@@ -650,25 +650,26 @@
         <file>qml/HUDTheme/ThemeFormSwitch.qml</file>
         <file>qml/HUDTheme/ThemeFormTextInput.qml</file>
         <file>qml/HUDTheme/BackgroundImage.qml</file>
-        <file>qml/SettingsPage/SettingsPageItem.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemList.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemLoader.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemSlider.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemColor.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemSwitch.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemCheckbox.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemTextfield.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemCombobox.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemButtons.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemText.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemIcon.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemItems.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemHeader.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemFileBrowser.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemAction.qml</file>
-        <file>qml/SettingsPage/SettingsPageItemTumbler.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItem.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemList.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemLoader.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemSlider.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemColor.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemSwitch.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemCheckbox.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemTextfield.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemCombobox.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemButtons.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemText.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemIcon.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemItems.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemHeader.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemFileBrowser.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemAction.qml</file>
+        <file>qml/HUDSettingsPage/SettingsPageItemTumbler.qml</file>
         <file>qml/HUDTheme/ImageIcon.qml</file>
         <file>qml/HUDTheme/ThemeScrollBar.qml</file>
         <file>qml/HUDTheme/ThemeSlider.qml</file>
+        <file>qml/HUDTheme/ThemeRoot.qml</file>
     </qresource>
 </RCC>

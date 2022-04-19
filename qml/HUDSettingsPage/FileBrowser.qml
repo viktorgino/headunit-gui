@@ -5,16 +5,18 @@ import Qt.labs.folderlistmodel 2.1
 import Qt.labs.platform 1.0
 
 import HUDTheme 1.0
+
 Item {
     id: root
     property alias folder: folderModel.folder
-    function reset (){
-        folderModel.folder = "file://"+StandardPaths.standardLocations(StandardPaths.HomeLocation)
+    function reset() {
+        folderModel.folder = "file://" + StandardPaths.standardLocations(
+                    StandardPaths.HomeLocation)
     }
 
     Item {
         id: standardLocations
-        width: parent.width*0.3
+        width: parent.width * 0.3
         anchors.top: parent.top
         anchors.topMargin: 0
         anchors.bottom: parent.bottom
@@ -33,7 +35,7 @@ Item {
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
-            ScrollBar.vertical: ThemeScrollBar { }
+            ScrollBar.vertical: ThemeScrollBar {}
             delegate: Item {
                 width: parent.width
                 height: 40
@@ -42,9 +44,9 @@ Item {
                         width: 20
                         height: 20
                         source: iconImage
-                        mipmap:true
+                        mipmap: true
                         ColorOverlay {
-                            color:"#424242"
+                            color: "#424242"
                             anchors.fill: parent
                             enabled: true
                             source: parent
@@ -60,33 +62,34 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: folderModel.folder = "file://"+StandardPaths.standardLocations(path_key)
+                    onClicked: folderModel.folder = "file://" + StandardPaths.standardLocations(
+                                   path_key)
                 }
             }
             model: ListModel {
                 ListElement {
                     path_key: 8 //HomeLocation
-                    iconImage: "qrc:/qml/icons/home.png"
+                    iconImage: "image://icons/home"
                 }
                 ListElement {
                     path_key: 0 //DesktopLocation
-                    iconImage: "qrc:/qml/icons/folder.png"
+                    iconImage: "image://icons/folder"
                 }
                 ListElement {
                     path_key: 1 //DocumentsLocation
-                    iconImage: "qrc:/qml/icons/document.png"
+                    iconImage: "image://icons/document"
                 }
                 ListElement {
                     path_key: 14 //DownloadLocation
-                    iconImage: "qrc:/qml/icons/android-download.png"
+                    iconImage: "image://icons/android-download"
                 }
                 ListElement {
                     path_key: 4 //MusicLocation
-                    iconImage: "qrc:/qml/icons/music-note.png"
+                    iconImage: "image://icons/music-note"
                 }
                 ListElement {
                     path_key: 5 //MoviesLocation
-                    iconImage: "qrc:/qml/icons/videocamera.png"
+                    iconImage: "image://icons/videocamera"
                 }
             }
         }
@@ -110,9 +113,9 @@ Item {
             anchors.leftMargin: 8
             anchors.right: parent.right
             anchors.rightMargin: 8
-            ScrollBar.vertical: ThemeScrollBar { }
-            delegate:Item {
-                height:40
+            ScrollBar.vertical: ThemeScrollBar {}
+            delegate: Item {
+                height: 40
                 anchors.left: parent.left
                 anchors.right: parent.right
                 Text {
@@ -125,12 +128,11 @@ Item {
                 }
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: folderModel.folder = "file://"+modelData.path
+                    onClicked: folderModel.folder = "file://" + modelData.path
                 }
             }
             model: mediaLibrary.getMountedVolumes()
         }
-
 
         Rectangle {
             id: rectangle
@@ -140,8 +142,6 @@ Item {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
         }
-
-
     }
 
     Item {
@@ -168,7 +168,8 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 Text {
-                    text: folderModel.folder.toString().replace(/^(file:\/{2})|(qrc:\/{1})/, "")
+                    text: folderModel.folder.toString().replace(
+                              /^(file:\/{2})|(qrc:\/{1})/, "")
                     elide: Text.ElideLeft
                     anchors.left: parent.left
                     anchors.leftMargin: 0
@@ -184,28 +185,30 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 Image {
-                    x:5
+                    x: 5
                     width: 20
                     height: 20
-                    source: "qrc:/qml/icons/chevron-up.png"
+                    source: "image://icons/chevron-up"
                     anchors.verticalCenter: parent.verticalCenter
                     mipmap: true
                     ColorOverlay {
-                        color:"#424242"
+                        color: "#424242"
                         anchors.fill: parent
                         enabled: true
                         source: parent
                     }
                 }
                 Text {
-                    x:35
+                    x: 35
                     text: "Up"
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
                 }
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: folderModel.parentFolder != folderModel.rootFolder?folderModel.folder = folderModel.parentFolder:null
+                    onClicked: folderModel.parentFolder
+                               != folderModel.rootFolder ? folderModel.folder
+                                                           = folderModel.parentFolder : null
                 }
             }
         }
@@ -218,27 +221,27 @@ Item {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.topMargin: 0
-            ScrollBar.vertical: ThemeScrollBar { }
+            ScrollBar.vertical: ThemeScrollBar {}
             delegate: Item {
                 height: 40
-                width:parent.width
+                width: parent.width
                 Image {
-                    x:5
+                    x: 5
                     width: 20
                     height: 20
                     id: folder_image
-                    source: "qrc:/qml/icons/android-folder.png"
+                    source: "image://icons/android-folder"
                     anchors.verticalCenter: parent.verticalCenter
                     mipmap: true
                     ColorOverlay {
-                        color:"#424242"
+                        color: "#424242"
                         anchors.fill: parent
                         enabled: true
                         source: parent
                     }
                 }
                 Text {
-                    x:35
+                    x: 35
                     text: fileName
                     anchors.verticalCenter: parent.verticalCenter
                     font.bold: true
@@ -255,12 +258,10 @@ Item {
                 showHidden: false
                 showDotAndDotDot: false
                 showOnlyReadable: true
-                folder:"file://"+StandardPaths.standardLocations(StandardPaths.HomeLocation)
+                folder: "file://" + StandardPaths.standardLocations(
+                            StandardPaths.HomeLocation)
             }
             model: folderModel
         }
-
     }
-
-
 }
