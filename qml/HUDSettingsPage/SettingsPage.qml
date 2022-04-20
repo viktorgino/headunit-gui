@@ -42,8 +42,8 @@ Item {
                 onPush: {
                     settingsPageStack.push(stackComponent, {
                                                "source": qml,
-                                               "pluginContext" : properties.pluginContext,
-                                               "pluginSettings" : properties.pluginSettings
+                                               "pluginContext": properties.pluginContext,
+                                               "pluginSettings": properties.pluginSettings
                                            })
                 }
                 onPop: {
@@ -96,26 +96,26 @@ Item {
             }
             delegate: SettingsPageItemItems {
                 width: __root.width
-                items: settingsItems.items
-                label: settingsItems.label
-                iconImage: settingsItems.iconImage ? settingsItems.iconImage : ""
+                items: settingsMenu.items
+                label: model.label + " Settings"
+                iconImage: model.icon
 
-                name: settingsItems.name
+                name: model.name
 
                 onPush: {
                     currentMenuItem = name
-                    if (settingsItems.type === "items") {
+                    if (settingsMenu.type === "items") {
                         settingsPageStack.push(settingsPageList, {
-                                                   "model": settingsItems.items,
-                                                   "name": settingsItems.name,
+                                                   "model": settingsMenu.items,
+                                                   "name": model.name,
                                                    "settings": settings
                                                })
-                    } else if (settingsItems.type === "loader") {
+                    } else if (settingsMenu.type === "loader") {
                         settingsPageStack.push(stackComponent)
                         settingsPageStack.currentItem.setSource(
-                                    settingsItems.source, {
-                                        "pluginContext" : contextProperty,
-                                        "pluginSettings" : settings
+                                    settingsMenu.source, {
+                                        "pluginContext": contextProperty,
+                                        "pluginSettings": settings
                                     })
                     }
                 }

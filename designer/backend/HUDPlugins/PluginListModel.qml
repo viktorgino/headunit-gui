@@ -23,28 +23,29 @@ QMapModel {
         property string color: "#00fff0"
     }
     model: {
-        "roles": ["name", "label", "plugin", "qmlSource", "pluginLoaded", "menu", "icon", "settings", "settingsItems", "contextProperty"],
+        "roles": ["name", "label", "plugin", "qmlSource", "pluginLoaded", "menu", "icon", "settings", "settingsMenu", "contextProperty"],
         "data": [{
                      "name": "settingsPlugin",
                      "label": "Theme",
-                     "icon": "icons/svg/gear-a.svg",
+                     "icon": "image://icons/gear-a",
                      "qmlSource": "HUDSettingsPage/SettingsPageTheme.qml",
                      "pluginLoaded": true,
                      "settings": "",
                      "contextProperty": {},
-                     "settingsItems": {
+                     "settingsMenu": {
                          "type": "loader",
                          "source": "SettingsPageTheme.qml"
                      }
                  }, {
                      "name": "samplePlugin",
                      "label": "Settings",
-                     "icon": "icons/svg/gear-a.svg",
+                     "icon": "image://icons/gear-a",
                      "qmlSource": "HUDSettingsPage/SettingsPage.qml",
                      "pluginLoaded": true,
                      "settings": sampleSettings,
                      "contextProperty": {},
-                     "settingsItems": {
+                     "settingsMenu": {
+                         "type": "items",
                          "description": "Settings Menu Test",
                          "items": [{
                                  "enableIcons": false,
@@ -256,10 +257,7 @@ QMapModel {
                                  "label": "Action",
                                  "name": "action",
                                  "type": "action"
-                             }],
-                         "label": "Sample Plugin",
-                         "name": "samplePlugin",
-                         "type": "items"
+                             }]
                      }
                  }]
     }
