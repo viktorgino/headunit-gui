@@ -6,20 +6,21 @@ import HUDTheme 1.0
 
 Item {
     id: __root
-    height: visible? 50 : 0
-    property var value : ""
+    height: visible ? 50 : 0
+    property var value: ""
 
-    property string name : ""
-    property alias label : title.text
-    property alias description : subtitle.text
-    property alias iconImage : itemIcon.iconImage
+    property string name: ""
+    property alias label: title.text
+    property alias description: subtitle.text
+    property alias iconImage: itemIcon.iconImage
     property bool enableIcon: true
 
     signal push(var qml, var properties)
 
     Item {
-        id:__wrapper
-        width: subtitle.width>title.width?itemIcon.width+subtitle.width:itemIcon.width+title.width
+        id: __wrapper
+        width: subtitle.width > title.width ? itemIcon.width
+                                              + subtitle.width : itemIcon.width + title.width
         anchors.top: parent.top
         anchors.topMargin: 0
         anchors.bottom: parent.bottom
@@ -27,10 +28,9 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: 0
 
-
         ThemeFormText {
             id: title
-            height: subtitle.text === ""?50:25
+            height: subtitle.text === "" ? 50 : 25
             text: "Title"
             anchors.leftMargin: 0
             horizontalAlignment: Text.AlignLeft
@@ -54,8 +54,8 @@ Item {
         }
 
         SettingsPageItemIcon {
-            id:itemIcon
-            width: enableIcon?height:0
+            id: itemIcon
+            width: enableIcon ? height : 0
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             anchors.topMargin: 0
@@ -63,5 +63,3 @@ Item {
         }
     }
 }
-
-

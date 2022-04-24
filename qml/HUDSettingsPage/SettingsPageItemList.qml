@@ -45,8 +45,7 @@ ListView {
 
     delegate: Loader {
         id: loader
-        anchors.left: parent.left
-        anchors.right: parent.right
+        width: __root.width - 15
         anchors.rightMargin: __root.ScrollBar.vertical.width
         clip: true
 

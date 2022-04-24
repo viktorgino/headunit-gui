@@ -7,29 +7,28 @@ import HUDTheme 1.0
 
 SettingsPageItem {
     id: __root
-    property alias value : spinBox.value
+    property alias value: spinBox.value
 
-//    itemData : {
-//        "label":"Tumbler",
-//        "name": "tumbler",
-//        "default":18,
-//        "minimum": 5,
-//        "maximum": 30,
-//        "stepSize":1,
-//        "prefix" : "",
-//        "suffix" : ""
-//    }
-
-    property alias minimum : spinBox.from
-    property alias maximum : spinBox.to
-    property alias stepSize : spinBox.stepSize
-    property alias prefix : prefixText.text
-    property alias suffix : suffixText.text
+    //    itemData : {
+    //        "label":"Tumbler",
+    //        "name": "tumbler",
+    //        "default":18,
+    //        "minimum": 5,
+    //        "maximum": 30,
+    //        "stepSize":1,
+    //        "prefix" : "",
+    //        "suffix" : ""
+    //    }
+    property alias minimum: spinBox.from
+    property alias maximum: spinBox.to
+    property alias stepSize: spinBox.stepSize
+    property alias prefix: prefixText.text
+    property alias suffix: suffixText.text
 
     ThemeFormText {
-        id:prefixText
+        id: prefixText
         width: 60
-        height: parent.height/2
+        height: parent.height / 2
         anchors.verticalCenter: parent.verticalCenter
         verticalAlignment: Text.AlignVCenter
         anchors.right: spinBox.left
@@ -97,14 +96,12 @@ SettingsPageItem {
                 verticalAlignment: Text.AlignVCenter
             }
         }
-        background: Item {
-
-        }
+        background: Item {}
     }
     ThemeFormText {
-        id:suffixText
-        width: 60
-        height: parent.height/2
+        id: suffixText
+        width: text ? 60 : 0
+        height: parent.height / 2
         anchors.verticalCenter: parent.verticalCenter
         verticalAlignment: Text.AlignVCenter
         anchors.right: parent.right
@@ -118,3 +115,4 @@ Designer {
     D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/
+

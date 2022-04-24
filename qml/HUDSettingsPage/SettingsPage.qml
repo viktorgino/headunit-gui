@@ -120,6 +120,7 @@ Item {
                     }
                 }
             }
+            ScrollBar.vertical: ThemeScrollBar {}
         }
     }
 

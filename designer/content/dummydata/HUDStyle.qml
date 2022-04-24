@@ -52,47 +52,47 @@ QtObject {
     property var settings: [{
             "items": [{
                     "defaultValue": "#ffffff",
-                    "label": "UI text color",
+                    "label": "UI text",
                     "name": "text",
                     "type": "color"
                 }, {
                     "defaultValue": "#CACACA",
-                    "label": "UI sub text color",
+                    "label": "UI sub text",
                     "name": "subText",
                     "type": "color"
                 }, {
                     "defaultValue": "#ffffff",
-                    "label": "Heading Level 1 text color",
+                    "label": "Heading Level 1",
                     "name": "headingText1",
                     "type": "color"
                 }, {
                     "defaultValue": "#ffffff",
-                    "label": "Heading Level 2 text color",
+                    "label": "Heading Level 2",
                     "name": "headingText2",
                     "type": "color"
                 }, {
                     "defaultValue": "#ffffff",
-                    "label": "Heading Level 3 text color",
+                    "label": "Heading Level 3",
                     "name": "headingText3",
                     "type": "color"
                 }, {
                     "defaultValue": "#ffffff",
-                    "label": "Heading Level 4 text color",
+                    "label": "Heading Level 4",
                     "name": "headingText4",
                     "type": "color"
                 }, {
                     "defaultValue": "#ffffff",
-                    "label": "Heading Level 5 text color",
+                    "label": "Heading Level 5",
                     "name": "headingText5",
                     "type": "color"
                 }, {
                     "defaultValue": "#ffffff",
-                    "label": "Icon color",
+                    "label": "Icon",
                     "name": "icon",
                     "type": "color"
                 }, {
                     "defaultValue": "#ff5722",
-                    "label": "Active icon color",
+                    "label": "Active icon",
                     "name": "iconActive",
                     "type": "color"
                 }, {
@@ -102,27 +102,27 @@ QtObject {
                     "type": "color"
                 }, {
                     "defaultValue": "#3f51b5",
-                    "label": "Form box color",
+                    "label": "Form box",
                     "name": "formBox",
                     "type": "color"
                 }, {
                     "defaultValue": "#ffffff",
-                    "label": "Form text color",
+                    "label": "Form text",
                     "name": "formText",
                     "type": "color"
                 }, {
                     "defaultValue": "#aaaaaa",
-                    "label": "Form sub text color",
+                    "label": "Form sub text",
                     "name": "formSubText",
                     "type": "color"
                 }, {
                     "defaultValue": "#80000000",
-                    "label": "Form background color",
+                    "label": "Form background",
                     "name": "formBackground",
                     "type": "color"
                 }, {
                     "defaultValue": "#646464",
-                    "label": "Form Popup background color",
+                    "label": "Popup background",
                     "name": "formPopupBackground",
                     "type": "color"
                 }],
@@ -132,57 +132,57 @@ QtObject {
         }, {
             "items": [{
                     "defaultValue": 11,
-                    "label": "UI text size",
+                    "label": "UI text",
                     "name": "text",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 10,
-                    "label": "UI sub text size",
+                    "label": "UI sub text",
                     "name": "subText",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 12,
-                    "label": "Heading Level 1 text size",
+                    "label": "Heading Level 1",
                     "name": "headingText1",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 14,
-                    "label": "Heading Level 2 text size",
+                    "label": "Heading Level 2",
                     "name": "headingText2",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 16,
-                    "label": "Heading Level 3 text size",
+                    "label": "Heading Level 3",
                     "name": "headingText3",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 18,
-                    "label": "Heading Level 4 text size",
+                    "label": "Heading Level 4",
                     "name": "headingText4",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 20,
-                    "label": "Heading Level 5 text size",
+                    "label": "Heading Level 5",
                     "name": "headingText5",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 11,
-                    "label": "Form text size",
+                    "label": "Form text",
                     "name": "formText",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 10,
-                    "label": "Form sub text size",
+                    "label": "Form sub text",
                     "name": "formSubText",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 10,
-                    "label": "Side menu text size",
+                    "label": "Side menu text",
                     "name": "menuText",
                     "type": "tumbler"
                 }, {
                     "defaultValue": 30,
-                    "label": "Side menu icon size",
+                    "label": "Side menu icon",
                     "name": "menuIcon",
                     "type": "tumbler"
                 }, {
@@ -207,7 +207,7 @@ QtObject {
                     "conditionValue": false,
                     "conditional": true,
                     "defaultValue": "#ffffff",
-                    "label": "Background Color",
+                    "label": "Background",
                     "name": "color",
                     "type": "color"
                 }, {
