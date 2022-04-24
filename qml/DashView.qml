@@ -137,7 +137,10 @@ Item {
 
     Notifications {
         id: notificationsItem
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: bottomBar.top
     }
 
     Item {

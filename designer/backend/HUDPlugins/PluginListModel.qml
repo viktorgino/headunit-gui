@@ -25,6 +25,17 @@ QMapModel {
     model: {
         "roles": ["name", "label", "plugin", "qmlSource", "pluginLoaded", "menu", "icon", "settings", "settingsMenu", "contextProperty"],
         "data": [{
+                     "name": "themeTest",
+                     "label": "Theme Test",
+                     "icon": "image://icons/gear-a",
+                     "qmlSource": "../designer/content/ThemeTest.qml",
+                     "pluginLoaded": true,
+                     "settings": "",
+                     "contextProperty": {},
+                     "settingsMenu": {
+                         "items": []
+                     }
+                 }, {
                      "name": "settingsPlugin",
                      "label": "Theme",
                      "icon": "image://icons/gear-a",

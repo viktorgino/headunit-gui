@@ -44,6 +44,7 @@ Item {
         }
     }
 
+
     /*
      * Function that adds a notification to the list of notifications
      * with defining custom content through a delegate Component
@@ -187,6 +188,10 @@ Item {
                                 anchors.rightMargin: 0
                                 anchors.left: parent.left
                             }
+                        }
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: notifications.remove(index, 1)
                         }
                     }
                 }
