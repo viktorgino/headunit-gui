@@ -26,7 +26,7 @@ Item {
         start: Qt.point(0, 0)
     }
 
-    BackgroundImage{
+    BackgroundImage {
         anchors.fill: parent
     }
 
@@ -41,15 +41,15 @@ Item {
         anchors.rightMargin: 0
         Repeater {
             id: contentsRepeater
-            model:PluginListModel {
-                plugins : HUDPlugins
+            model: PluginListModel {
+                plugins: HUDPlugins
                 listType: "MainMenu"
             }
 
             Item {
                 anchors.fill: parent
                 Loader {
-                    id:loader
+                    id: loader
                     asynchronous: false
                     anchors.fill: parent
                     active: pluginLoaded
@@ -59,19 +59,21 @@ Item {
                     anchors.fill: parent
                     sourceComponent: loadingScreen
                     active: !pluginLoaded
-                    onActiveChanged : {
-                        if(pluginLoaded)
-                            loader.setSource(qmlSource, {pluginContext : contextProperty, pluginSettings : settings})
+                    onActiveChanged: {
+                        if (pluginLoaded)
+                            loader.setSource(qmlSource, {
+                                                 "pluginContext": contextProperty,
+                                                 "pluginSettings": settings
+                                             })
                         else
                             loader.setSource("")
                     }
                 }
             }
-
         }
 
         Loader {
-            id:settingsLoader
+            id: settingsLoader
             asynchronous: false
             anchors.fill: parent
             source: "qrc:/qml/HUDSettingsPage/SettingsPage.qml"
@@ -79,7 +81,7 @@ Item {
     }
 
     Component {
-        id:loadingScreen
+        id: loadingScreen
         Item {
             anchors.fill: parent
             ThemeText {
@@ -92,45 +94,48 @@ Item {
 
     RightMenu {
         id: rightMenu
-        width: height/5
+        width: height / 5
         anchors.right: parent.right
         anchors.rightMargin: 0
         anchors.top: parent.top
         anchors.topMargin: 0
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
-        onItemChanged:{
-            if(contentsRepeater.count > 0){
-                for(var i=0; i<contentsRepeater.count;i++){
+        onItemChanged: {
+            if (contentsRepeater.count > 0) {
+                for (var i = 0; i < contentsRepeater.count; i++) {
                     contentsRepeater.itemAt(i).visible = false
                 }
-                settingsLoader.visible = false;
+                settingsLoader.visible = false
                 contentsRepeater.itemAt(index).visible = true
             }
         }
         onShowSettings: {
-            for(var i=0; i<contentsRepeater.count;i++){
+            for (var i = 0; i < contentsRepeater.count; i++) {
                 contentsRepeater.itemAt(i).visible = false
             }
-            settingsLoader.visible = true;
+            settingsLoader.visible = true
         }
     }
 
     transitions: Transition {
-        NumberAnimation { properties: "y,opacity"; duration: 250}
+        NumberAnimation {
+            properties: "y,opacity"
+            duration: 250
+        }
     }
 
     Connections {
         target: GUIEvents
         ignoreUnknownSignals: true
-        onNotificationReceived:{
+        onNotificationReceived: {
             notificationsItem.addNotification(notification)
         }
-        onOpenOverlay : {
-            overlayLoader.setSource(source, properties);
+        onOpenOverlay: {
+            overlayLoader.setSource(source, properties)
             overlays.open()
         }
-        onCloseOverlay : {
+        onCloseOverlay: {
             overlays.close()
         }
     }
@@ -143,52 +148,72 @@ Item {
         anchors.bottom: bottomBar.top
     }
 
+    //    Item {
+    //        id: bottomBar
+    //        height: parent.height * 0.1 //HUDStyle.sizes.bottomBarHeight
+    //        anchors.left: parent.left
+    //        anchors.right: rightMenu.left
+    //        anchors.bottom: parent.bottom
+    //        Loader {
+    //            id: bottomBarLoader
+    //            anchors.fill: parent
+    //            source: "qrc:/HVAC/ClimateControl/HVACBottomBar.qml"
+    //            asynchronous: false
+    //        }
+    //    }
     Item {
         id: bottomBar
-        height: parent.height * 0.1//HUDStyle.sizes.bottomBarHeight
+        height: parent.height * 0.1 //HUDStyle.sizes.bottomBarHeight
         anchors.left: parent.left
         anchors.right: rightMenu.left
         anchors.bottom: parent.bottom
-        Loader {
-            id:bottomBarLoader
-            anchors.fill: parent
-            source: "qrc:/HVAC/ClimateControl/HVACBottomBar.qml"
-            asynchronous: false
-        }
     }
 
     Timer {
-        id:overlayCloseTimer
-        interval: 5000; running: false; repeat: false
+        id: overlayCloseTimer
+        interval: 5000
+        running: false
+        repeat: false
         onTriggered: overlays.close()
     }
 
     Item {
-        id:overlays
+        id: overlays
         anchors.left: parent.left
         anchors.right: rightMenu.left
         anchors.top: parent.top
         anchors.bottom: bottomBar.top
         opacity: 0
-        property var currentOverlay : ""
-        function open () {
-//            overlayCloseTimer.restart()
-            opacity = 1;
+        property var currentOverlay: ""
+        function open() {
+            //            overlayCloseTimer.restart()
+            opacity = 1
         }
-        function close () {
-            opacity = 0;
-            overlayLoader.sourceComponent = undefined;
+        function close() {
+            opacity = 0
+            overlayLoader.sourceComponent = undefined
         }
 
         Loader {
-            id:overlayLoader
+            id: overlayLoader
             anchors.fill: parent
         }
     }
+    Connections{
+        target: overlayLoader.item
+        ignoreUnknownSignals: true
+        onClose : {
+            overlays.close()
+        }
+    }
+
+    BottomBar {
+        height: parent.height * 0.1 //HUDStyle.sizes.bottomBarHeight
+        anchors.left: parent.left
+        anchors.right: rightMenu.left
+        anchors.bottom: parent.bottom
+    }
 }
 
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
+
+

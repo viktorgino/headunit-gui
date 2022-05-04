@@ -671,5 +671,8 @@
         <file>qml/HUDTheme/ThemeScrollBar.qml</file>
         <file>qml/HUDTheme/ThemeSlider.qml</file>
         <file>qml/HUDTheme/ThemeRoot.qml</file>
+        <file>qml/BottomBar.qml</file>
+        <file>qml/BottomBarEditPanel.qml</file>
+        <file>qml/BottomBarSpacer.qml</file>
     </qresource>
 </RCC>

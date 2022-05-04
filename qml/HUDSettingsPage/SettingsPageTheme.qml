@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.0
 import QtGraphicalEffects 1.0
 
 import HUDTheme 1.0
+import HUDPlugins 1.0
 
 Item {
     id: __root
@@ -34,21 +35,46 @@ Item {
         clip: true
     }
     Component {
-        id: itemList
+        id: settingsList
         SettingsPageItemList {
-            settings: HUDStyle
-            model: HUDStyle.settings
-            enableIcons: false
+            enableIcons : false
             autoSave: true
             onPush: {
                 properties.settings = settings[properties.name]
                 properties.enableIcons = false
                 properties.autoSave = true
 
-                settingStack.push(itemList, properties)
+                settingStack.push(settingsList, properties)
             }
-            onPop: {
+        }
+    }
+    Component {
+        id: itemList
+        Column {
+            Repeater {
+                model : HUDStyle.settings
+                SettingsPageItemItems {
+                    enableIcons : true
+                    name:modelData.name
+                    label:modelData.label
+                    items:modelData.items
+                    width:parent.width
+                    onPush: {
+                        properties["settings"] = HUDStyle[modelData.name]
+                        properties["autoSave"] = true
+                        properties["enableIcons"] = false
+                        settingStack.push(settingsList, properties)
+                    }
+                }
+            }
 
+            SettingsPageItemAction{
+                width:parent.width
+                label: "Edit Bottom Bar"
+                onItemClicked : {
+                    BottomBarModel.editing = true
+                    GUIEvents.openOverlay("BottomBarEditPanel.qml", {})
+                }
             }
         }
     }

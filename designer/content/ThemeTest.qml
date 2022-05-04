@@ -6,7 +6,7 @@ Item {
         id: button
         x: 8
         y: 8
-        text: qsTr("Open Overlay")
+        text: qsTr("Send Notification")
         onClicked: {
             GUIEvents.emitNotificationReceived({
                                                    "image": "image://icons/alert",
@@ -15,4 +15,20 @@ Item {
                                                })
         }
     }
+    Button {
+        id: button2
+        x: 8
+        y: 54
+        text: qsTr("Open Bottom Bar Items")
+        onClicked: {
+            BottomBarModel.editing = true
+            GUIEvents.emitOpenOverlay("BottomBarEditPanel.qml", {})
+        }
+    }
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:600}
+}
+##^##*/

@@ -2,161 +2,135 @@
     "name": "base",
     "label": "Base Theme",
     "source": "qrc:/qml/DashView.qml",
-    "colors": [
-        {
+    "settingsPageSource": "qrc:/qml/HUDSettingsPage/SettingsPageTheme.qml",
+    "colors": [{
             "name": "text",
             "label": "UI text color",
             "defaultValue": "#ffffff"
-        },
-        {
+        }, {
             "name": "subText",
             "label": "UI sub text color",
             "defaultValue": "#CACACA"
-        },
-        {
+        }, {
             "name": "headingText1",
             "label": "Heading Level 1 text color",
             "defaultValue": "#ffffff"
-        },
-        {
+        }, {
             "name": "headingText2",
             "label": "Heading Level 2 text color",
             "defaultValue": "#ffffff"
-        },
-        {
+        }, {
             "name": "headingText3",
             "label": "Heading Level 3 text color",
             "defaultValue": "#ffffff"
-        },
-        {
+        }, {
             "name": "headingText4",
             "label": "Heading Level 4 text color",
             "defaultValue": "#ffffff"
-        },
-        {
+        }, {
             "name": "headingText5",
             "label": "Heading Level 5 text color",
             "defaultValue": "#ffffff"
-        },
-        {
+        }, {
             "name": "icon",
             "label": "Icon color",
             "defaultValue": "#ffffff"
-        },
-        {
+        }, {
             "name": "iconActive",
             "label": "Active icon color",
             "defaultValue": "#ff5722"
-        },
-        {
+        }, {
             "name": "box",
             "label": "Main UI box",
             "defaultValue": "#212121"
-        },
-        {
+        }, {
             "name": "formBox",
             "label": "Form box color",
             "defaultValue": "#3f51b5"
-        },
-        {
+        }, {
             "name": "formText",
             "label": "Form text color",
             "defaultValue": "#ffffff"
-        },
-        {
+        }, {
             "name": "formSubText",
             "label": "Form sub text color",
             "defaultValue": "#aaaaaa"
-        },
-        {
+        }, {
             "name": "formBackground",
             "label": "Form background color",
             "defaultValue": "#80000000"
-        },
-        {
+        }, {
             "name": "formPopupBackground",
             "label": "Form Popup background color",
             "defaultValue": "#646464"
         }
     ],
-    "sizes": [
-        {
+    "sizes": [{
             "name": "text",
             "label": "UI text size",
             "defaultValue": 11,
             "minimum": 5,
             "maximum": 100,
-            "suffix" : "Point"
-        },
-        {
+            "suffix": "Point"
+        }, {
             "name": "subText",
             "label": "UI sub text size",
             "defaultValue": 10,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "headingText1",
             "label": "Heading Level 1 text size",
             "defaultValue": 12,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "headingText2",
             "label": "Heading Level 2 text size",
             "defaultValue": 14,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "headingText3",
             "label": "Heading Level 3 text size",
             "defaultValue": 16,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "headingText4",
             "label": "Heading Level 4 text size",
             "defaultValue": 18,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "headingText5",
             "label": "Heading Level 5 text size",
             "defaultValue": 20,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "formText",
             "label": "Form text size",
             "defaultValue": 11,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "formSubText",
             "label": "Form sub text size",
             "defaultValue": 10,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "menuText",
             "label": "Side menu text size",
             "defaultValue": 10
-        },
-        {
+        }, {
             "name": "menuIcon",
             "label": "Side menu icon size",
             "defaultValue": 30,
             "minimum": 5,
             "maximum": 100
-        },
-        {
+        }, {
             "name": "bottomBarHeight",
             "label": "Bottom Bar height",
             "defaultValue": 100,
@@ -165,41 +139,36 @@
         }
 
     ],
-    "settings": [
-        {
-            "label":"Background Settings",
+    "settings": [{
+            "label": "Background Settings",
             "name": "background",
-            "type":"items",
-            "items": [
-                {
+            "type": "items",
+            "items": [{
                     "label": "Type",
                     "name": "image",
                     "type": "switch",
                     "textOff": "Color",
                     "textOn": "Image",
-                    "defaultValue" : true
-                },
-                {
+                    "defaultValue": true
+                }, {
                     "label": "Background Color",
                     "name": "color",
                     "type": "color",
                     "defaultValue": "#ffffff",
-                    "conditional":true,
+                    "conditional": true,
                     "conditionTarget": "image",
-                    "conditionValue":false
-                },
-                {
+                    "conditionValue": false
+                }, {
                     "label": "Type",
                     "name": "slideshow",
                     "type": "switch",
                     "textOff": "Image",
                     "textOn": "Slideshow",
-                    "conditional":true,
+                    "conditional": true,
                     "conditionTarget": "image",
-                    "conditionValue":true,
-                    "defaultValue" : false
-                },
-                {
+                    "conditionValue": true,
+                    "defaultValue": false
+                }, {
                     "label": "Slide show time",
                     "name": "slideshowTime",
                     "type": "tumbler",
@@ -208,45 +177,50 @@
                     "maximum": 120,
                     "stepSize": 1,
                     "suffix": "secs",
-                    "conditional":true,
+                    "conditional": true,
                     "conditionTarget": "slideshow",
-                    "conditionValue":true
-                },
-                {
+                    "conditionValue": true
+                }, {
                     "label": "Select folder",
                     "name": "slideshowPath",
                     "type": "file",
-                    "browserType" : "folder",
-                    "conditional":true,
+                    "browserType": "folder",
+                    "conditional": true,
                     "conditionTarget": "slideshow",
-                    "conditionValue":true
-                },
-                {
+                    "conditionValue": true
+                }, {
                     "label": "Select image",
                     "name": "imagePath",
                     "type": "file",
-                    "browserType" : "file",
-                    "nameFilters" : [ "*.png", "*.jpg" ],
-                    "conditional":true,
+                    "browserType": "file",
+                    "nameFilters": ["*.png", "*.jpg"],
+                    "conditional": true,
                     "conditionTarget": "slideshow",
-                    "conditionValue":false,
-                    "defaultValue" : "backgrounds/micah-hallahan-14075-unsplash.jpg"
+                    "conditionValue": false,
+                    "defaultValue": "backgrounds/micah-hallahan-14075-unsplash.jpg"
                 }
             ]
-        },
-        {
-            "label":"Theme Settings",
+        }, {
+            "label": "Theme Settings",
             "name": "themeSettings",
-            "type":"items",
-            "items": [
-                {
-                    "label":"Font",
+            "type": "items",
+            "items": [{
+                    "label": "Font",
                     "name": "font",
-                    "type":"textfield",
-                    "textType" : "string",
-                    "defaultValue" : "Raleway"
+                    "type": "textfield",
+                    "textType": "string",
+                    "defaultValue": "Raleway"
                 }
             ]
         }
+    ],
+    "bottomBarItems": [{
+            "name": "spacer",
+            "source": "qrc:/qml/BottomBarSpacer.qml",
+            "label": "Spacer",
+            "fillSpace" : true
+        }
     ]
 }
+
+

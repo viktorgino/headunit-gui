@@ -23,7 +23,7 @@ QMapModel {
         property string color: "#00fff0"
     }
     model: {
-        "roles": ["name", "label", "plugin", "qmlSource", "pluginLoaded", "menu", "icon", "settings", "settingsMenu", "contextProperty"],
+        "roles": ["name", "label", "plugin", "qmlSource", "pluginLoaded", "menu", "icon", "settings", "settingsMenu", "contextProperty", "bottomBarItems"],
         "data": [{
                      "name": "themeTest",
                      "label": "Theme Test",
@@ -34,9 +34,26 @@ QMapModel {
                      "contextProperty": {},
                      "settingsMenu": {
                          "items": []
-                     }
+                     },
+                     "bottomBarItems": [{
+                             "name": "themeTestOverlay1",
+                             "label": "Theme Test Overlay 1",
+                             "source": "qrc://overlay1"
+                         }, {
+                             "name": "themeTestOverlay2",
+                             "label": "Theme Test Overlay 2",
+                             "source": "qrc://overlay2"
+                         }, {
+                             "name": "themeTestOverlay3",
+                             "label": "Theme Test Overlay 3",
+                             "source": "qrc://overlay3"
+                         }, {
+                             "name": "themeTestOverlay4",
+                             "label": "Theme Test Overlay 4",
+                             "source": "qrc://overlay4"
+                         }]
                  }, {
-                     "name": "settingsPlugin",
+                     "name": "themePlugin",
                      "label": "Theme",
                      "icon": "image://icons/gear-a",
                      "qmlSource": "HUDSettingsPage/SettingsPageTheme.qml",
@@ -46,15 +63,50 @@ QMapModel {
                      "settingsMenu": {
                          "type": "loader",
                          "source": "SettingsPageTheme.qml"
-                     }
+                     },
+                     "overlay": "BottomBarItems.qml",
+                     "bottomBarItems": [{
+                             "name": "themePluginOverlay1",
+                             "label": "Theme Overlay 1",
+                             "source": "qrc://overlay1"
+                         }, {
+                             "name": "themePluginOverlay2",
+                             "label": "Theme Overlay 2",
+                             "source": "qrc://overlay2"
+                         }, {
+                             "name": "themePluginOverlay13",
+                             "label": "Theme Overlay 3",
+                             "source": "qrc://overlay3"
+                         }, {
+                             "name": "themePluginOverlay14",
+                             "label": "Theme Overlay 4",
+                             "source": "qrc://overlay4"
+                         }]
                  }, {
                      "name": "samplePlugin",
-                     "label": "Settings",
+                     "label": "Sample Plugin",
                      "icon": "image://icons/gear-a",
                      "qmlSource": "HUDSettingsPage/SettingsPage.qml",
                      "pluginLoaded": true,
                      "settings": sampleSettings,
                      "contextProperty": {},
+                     "bottomBarItems": [{
+                             "name": "samplePluginOverlay1",
+                             "label": "Sample Plugin Overlay 1",
+                             "source": "qrc://overlay1"
+                         }, {
+                             "name": "samplePluginOverlay2",
+                             "label": "Sample Plugin Overlay 2",
+                             "source": "qrc://overlay2"
+                         }, {
+                             "name": "samplePluginOverlay3",
+                             "label": "Sample PluginOverlay 3",
+                             "source": "qrc://overlay3"
+                         }, {
+                             "name": "samplePluginOverlay4",
+                             "label": "Sample Plugin Overlay 4",
+                             "source": "qrc://overlay4"
+                         }],
                      "settingsMenu": {
                          "type": "items",
                          "description": "Settings Menu Test",
