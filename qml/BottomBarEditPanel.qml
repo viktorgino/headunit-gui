@@ -78,12 +78,11 @@ Item {
             id: listView1
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top: parent.top
+            anchors.top: closeButton.bottom
             anchors.bottom: arrowWrapper.top
             anchors.bottomMargin: 8
             anchors.rightMargin: 8
             anchors.leftMargin: 8
-            anchors.topMargin: 8
             clip: true
 
             ScrollBar.vertical: ThemeScrollBar {}
@@ -94,7 +93,7 @@ Item {
             delegate: Item {
                 id: item1
                 width: listView1.width
-                height: 100
+                height: 120
                 property var itemList : grid
                 ThemeHeaderText {
                     id: itemLabel
@@ -110,13 +109,14 @@ Item {
 
                 ListView {
                     id: grid
-                    width: listView1.width
+                    width: parent.width
                     anchors.top: itemLabel.bottom
                     orientation: ListView.Horizontal
-                    height: 60
+                    height: 80
                     spacing: 10
 
                     ScrollBar.horizontal: ThemeScrollBar {
+                        height: 15
                         orientation: Qt.Horizontal
                     }
 
@@ -242,6 +242,7 @@ Item {
         }
 
         ImageIcon {
+            id: closeButton
             width: 20
             height: 20
             color: "#ffffff"
