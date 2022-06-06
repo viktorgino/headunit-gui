@@ -40,11 +40,8 @@ Item {
                 ignoreUnknownSignals: true
                 target: stackLoader.item
                 onPush: {
-                    settingsPageStack.push(stackComponent, {
-                                               "source": qml,
-                                               "pluginContext": properties.pluginContext,
-                                               "pluginSettings": properties.pluginSettings
-                                           })
+                    settingsPageStack.push(stackComponent)
+                    settingsPageStack.currentItem.setSource(qml, properties)
                 }
                 onPop: {
                     settingsPageStack.pop()

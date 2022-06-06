@@ -17,8 +17,8 @@ Item {
     signal accepted(var path)
     signal rejected
     function reset() {
-        folderModel.folder = "file://" + StandardPaths.standardLocations(
-                    StandardPaths.HomeLocation)
+        folderModel.folder = StandardPaths.standardLocations(
+                    StandardPaths.HomeLocation)[0]
     }
 
     Item {
@@ -32,7 +32,7 @@ Item {
         anchors.leftMargin: 0
 
         ListView {
-            id: listView1
+            id: userFolders
 
             anchors.bottom: divider.top
             anchors.topMargin: 8
@@ -46,8 +46,9 @@ Item {
             clip: true
             delegate: Item {
                 width: parent.width
-                height: 40
+                height: 30
                 Row {
+                    anchors.verticalCenter: parent.verticalCenter
                     Image {
                         width: 20
                         height: 20
@@ -70,8 +71,8 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: folderModel.folder = "file://" + StandardPaths.standardLocations(
-                                   path_key)
+                    onClicked: folderModel.folder = StandardPaths.standardLocations(
+                                   path_key)[0]
                 }
             }
             model: ListModel {
@@ -105,15 +106,15 @@ Item {
         }
         Rectangle {
             id: divider
+            y: parent.height * 0.75
             height: 1
             color: "#424242"
-            anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.right: parent.right
         }
 
         ListView {
-            id: listView2
+            id: drives
             clip: true
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 8
@@ -124,7 +125,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 8
             delegate: Item {
-                height: 40
+                height: 30
                 anchors.left: parent.left
                 anchors.right: parent.right
                 ThemeFormText {
@@ -137,7 +138,7 @@ Item {
                 }
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: folderModel.folder = "file://" + modelData.path
+                    onClicked: folderModel.folder = modelData.path
                 }
             }
             model: getMountedVolumes()
@@ -169,10 +170,10 @@ Item {
         Item {
             id: dir_up
             height: 80
-            anchors.rightMargin: 8
+            anchors.rightMargin: 6
             anchors.top: parent.top
             anchors.left: parent.left
-            anchors.right: listLayoutButton.left
+            anchors.right: listZoomButton.left
             Item {
                 id: item2
                 height: 40
@@ -239,10 +240,61 @@ Item {
             showHidden: false
             showDotAndDotDot: false
             showOnlyReadable: true
-            folder: "file://" + StandardPaths.standardLocations(
-                        StandardPaths.HomeLocation)
+            folder: StandardPaths.standardLocations(
+                        StandardPaths.HomeLocation)[0]
             sortField: FolderListModel.Name
             showDirsFirst: true
+        }
+
+        Button {
+            id: listZoomButton
+            anchors.right: listLayoutButton.left
+            anchors.rightMargin: 6
+            width: height
+            height: 40
+            anchors.verticalCenter: dir_up.verticalCenter
+            visible : !listLayoutButton.checked
+            background: Rectangle {
+                anchors.fill: parent
+                opacity: listLayoutButton.down ? 0.8 : 1
+                border.color: "#000000"
+                border.width: 1
+                color: "#CACACA"
+                radius: 5
+                Image {
+                    fillMode: Image.PreserveAspectFit
+                    anchors.rightMargin: 8
+                    anchors.leftMargin: 8
+                    anchors.bottomMargin: 8
+                    anchors.topMargin: 8
+                    anchors.fill: parent
+                    source: "image://icons/arrow-expand"
+                }
+            }
+            onClicked: {
+                popup.open()
+            }
+
+            Popup {
+                id: popup
+                x: 0
+                y: 0
+                width: 70
+                height: 300
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                Slider {
+                    id: sizeSlider
+                    stepSize: 1
+                    from: 2
+                    value: 5
+                    to: 25
+                    anchors.fill : parent
+                    wheelEnabled: true
+                    orientation: Qt.Vertical
+                }
+            }
         }
 
         Button {
@@ -283,128 +335,94 @@ Item {
         }
         Component {
             id: browserGridView
-            Item {
-                id: gridRoot
-                property alias currentIndex: gridView.currentIndex
-                property alias imageSize: sizeSlider.value
-                GridView {
-                    id: gridView
-                    anchors.bottom: sliderLabel.top
-                    anchors.right: parent.right
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    anchors.bottomMargin: 0
-                    clip: true
-                    cellWidth: gridRoot.imageSize
-                    cellHeight: gridRoot.imageSize
-                    model: folderModel
-                    highlightMoveDuration: 50
-                    currentIndex: -1
-                    highlight: Rectangle {
-                        color: "#00000000"
+            GridView {
+                id: gridView
+                clip: true
+                cellWidth: width / sizeSlider.value
+                cellHeight: cellWidth
+                model: folderModel
+                highlightMoveDuration: 50
+                currentIndex: -1
+                highlight: Rectangle {
+                    color: "#00000000"
+                    opacity: 0.5
+                    focus: true
+                    radius: 2
+                    border.width: 1
+                    Rectangle {
+                        color: "black"
                         opacity: 0.5
                         focus: true
                         radius: 2
-                        border.width: 1
-                        Rectangle {
-                            color: "black"
-                            opacity: 0.5
-                            focus: true
-                            radius: 2
-                            anchors.fill: parent
-                        }
-                        states: [
-                            State {
-                                name: "State1"
-                            }
-                        ]
+                        anchors.fill: parent
                     }
-                    ScrollBar.vertical: ScrollBar {}
-                    delegate: Item {
-                        id: folderViewDelegate
-                        width: gridView.cellWidth
-                        height: gridView.cellHeight
+                    states: [
+                        State {
+                            name: "State1"
+                        }
+                    ]
+                }
+                ScrollBar.vertical: ScrollBar {}
+                delegate: Item {
+                    id: folderViewDelegate
+                    width: gridView.cellWidth
+                    height: gridView.cellHeight
 
-                        ImageIcon {
-                            id: image
-                            anchors.bottom: text1.top
-                            anchors.bottomMargin: 8
-                            anchors.top: parent.top
-                            anchors.topMargin: 8
-                            anchors.right: parent.right
-                            anchors.rightMargin: 8
-                            anchors.left: parent.left
-                            anchors.leftMargin: 6
-                            source: {
-                                if (fileIsDir) {
-                                    return "image://icons/folder"
-                                }
-
-                                if (["png", "jpg", "jpeg", "gif", "tiff"].indexOf(
-                                            fileSuffix.toLowerCase()) >= 0) {
-                                    return fileURL
-                                }
-                                return "image://icons/document"
+                    ImageIcon {
+                        id: image
+                        anchors.bottom: text1.top
+                        anchors.bottomMargin: 8
+                        anchors.top: parent.top
+                        anchors.topMargin: 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+                        anchors.left: parent.left
+                        anchors.leftMargin: 6
+                        source: {
+                            if (fileIsDir) {
+                                return "image://icons/folder"
                             }
-                        }
 
-                        ThemeText {
-                            id: text1
-                            text: fileName
-                            anchors.bottom: parent.bottom
-                            anchors.bottomMargin: 8
-                            elide: Text.ElideMiddle
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignHCenter
-                            anchors.right: parent.right
-                            anchors.rightMargin: 8
-                            anchors.left: parent.left
-                            anchors.leftMargin: 8
+                            if (["png", "jpg", "jpeg", "gif", "tiff"].indexOf(
+                                        fileSuffix.toLowerCase()) >= 0) {
+                                return fileURL
+                            }
+                            return "image://icons/document"
                         }
-                        MouseArea {
-                            id: mouseArea
-                            anchors.leftMargin: 0
-                            anchors.fill: parent
-                            onClicked: {
-                                if (!fileIsDir) {
-                                    gridView.currentIndex = index
-                                    root.selectedPath = fileURL
+                    }
+
+                    ThemeText {
+                        id: text1
+                        text: fileName
+                        anchors.bottom: parent.bottom
+                        anchors.bottomMargin: 8
+                        elide: Text.ElideMiddle
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                    }
+                    MouseArea {
+                        id: mouseArea
+                        anchors.leftMargin: 0
+                        anchors.fill: parent
+                        onClicked: {
+                            if (!fileIsDir) {
+                                gridView.currentIndex = index
+                                root.selectedPath = fileURL
+                            } else {
+                                folderModel.folder = fileURL
+                                gridView.currentIndex = -1
+                                if (folderSelectable) {
+                                    root.selectedPath = folderModel.folder
                                 } else {
-                                    folderModel.folder = fileURL
-                                    gridView.currentIndex = -1
-                                    if (folderSelectable) {
-                                        root.selectedPath = folderModel.folder
-                                    } else {
-                                        root.selectedPath = ""
-                                    }
+                                    root.selectedPath = ""
                                 }
                             }
                         }
                     }
-                }
-                ThemeFormText {
-                    id: sliderLabel
-                    text: qsTr("Size")
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    anchors.bottom: sizeSlider.top
-                    anchors.bottomMargin: 0
-                }
-
-                Slider {
-                    id: sizeSlider
-                    stepSize: 1
-                    from: 50
-                    value: 200
-                    to: width > 10 ? width / 2 : 200
-                    anchors.right: parent.right
-                    anchors.rightMargin: 0
-                    anchors.left: parent.left
-                    anchors.leftMargin: 0
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 0
                 }
             }
         }
@@ -474,7 +492,7 @@ Item {
 
     Item {
         id: buttons
-        height: 60
+        height: 30
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         anchors.left: parent.left
@@ -483,6 +501,7 @@ Item {
         anchors.rightMargin: 0
 
         Button {
+            height: 25
             text: qsTr("Cancel")
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
@@ -491,6 +510,7 @@ Item {
         }
 
         Button {
+            height: 25
             text: qsTr("OK")
             enabled: root.selectedPath !== ""
             anchors.verticalCenter: parent.verticalCenter
@@ -501,8 +521,9 @@ Item {
     }
 }
 
-/*##^## Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:38;anchors_width:200}
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
 }
- ##^##*/
+##^##*/
 

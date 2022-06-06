@@ -3,7 +3,6 @@ import QtQuick.Controls 2.15
 
 Item {
     Button {
-        id: button
         x: 8
         y: 8
         text: qsTr("Send Notification")
@@ -16,13 +15,49 @@ Item {
         }
     }
     Button {
-        id: button2
         x: 8
         y: 54
         text: qsTr("Open Bottom Bar Items")
         onClicked: {
             BottomBarModel.editing = true
             GUIEvents.emitOpenOverlay("BottomBarEditPanel.qml", {})
+        }
+    }
+    Button {
+        x: 8
+        y: 100
+        text: qsTr("Level Slider")
+        onClicked: {
+            GUIEvents.emitOpenOverlay("../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/SliderVolume.qml"})
+        }
+    }
+    Button {
+        x: 8
+        y: 146
+        text: qsTr("Center Slider")
+        onClicked: {
+            GUIEvents.emitOpenOverlay("../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/SliderCenter.qml"})
+        }
+    }
+    Button {
+        x: 8
+        y: 192
+        text: qsTr("File Browser")
+        onClicked: {
+            GUIEvents.emitOpenOverlay("../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/FileBrowser.qml"})
+        }
+    }
+    Button {
+        x: 8
+        y: 238
+        text: qsTr("Folder Browser")
+        onClicked: {
+            GUIEvents.emitOpenOverlay("../designer/content/Overlay.qml", {
+                                          source: "../../qml/HUDTheme/FileBrowser.qml",
+                                          properties : {
+                                              showFiles: false,
+                                              folderSelectable: true
+                                          }})
         }
     }
 }
