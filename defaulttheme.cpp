@@ -23,10 +23,12 @@ void DefaultTheme::initializeEngine(QQmlEngine *engine, const char* /*uri*/)
         appEngine->rootContext()->setContextObject(this);
 
         engine->addImageProvider("icons", new ThemeIconProvider);
+        
 //        appEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 }
 
-void DefaultTheme::onEvent(QString sender, QString event, QVariant eventData) {
+void DefaultTheme::onEvent(AbstractPlugin* plugin, QString sender, QString event, QVariant eventData) {
+    qDebug() << "Theme event : " << event << eventData;
     if(event == "Notification"){
         QJsonDocument doc = QJsonDocument::fromJson(eventData.toString().toUtf8());
         if(!doc.isObject()){
@@ -40,8 +42,7 @@ void DefaultTheme::onEvent(QString sender, QString event, QVariant eventData) {
         emit guiEvents->notificationReceived(object.toVariantMap());
     } else if (event == "OpenOverlay") {
         QVariantMap map = eventData.toMap();
-
-        emit guiEvents->openOverlay(map["source"].toString(), map["properties"].toMap());
+        emit guiEvents->openOverlay(plugin->getSettings(), plugin->getContextProperty(), map["source"].toString(), map["properties"].toMap());
     } else if (event == "CloseOverlay") {
         emit guiEvents->closeOverlay();
     }

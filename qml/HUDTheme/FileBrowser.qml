@@ -492,7 +492,7 @@ Item {
 
     Item {
         id: buttons
-        height: 30
+        height: 25
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         anchors.left: parent.left

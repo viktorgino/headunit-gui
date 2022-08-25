@@ -19,3 +19,5 @@ ThemeScrollBar 1.0 ThemeScrollBar.qml
 TopMenu 1.0 TopMenu.qml
 ThemeIcon 1.0 ThemeIcon.qml
 ThemeRoot 1.0 ThemeRoot.qml
+SliderCenter 1.0 SliderCenter.qml
+SliderVolume 1.0 SliderVolume.qml

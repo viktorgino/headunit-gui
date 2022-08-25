@@ -132,6 +132,8 @@ Item {
             notificationsItem.addNotification(notification)
         }
         onOpenOverlay: {
+            properties.pluginContext = contextProperty
+            properties.pluginSettings = settings
             overlayLoader.setSource(source, properties)
             overlays.open()
         }

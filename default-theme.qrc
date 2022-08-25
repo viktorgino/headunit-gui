@@ -650,6 +650,8 @@
         <file>qml/HUDTheme/ThemeFormSwitch.qml</file>
         <file>qml/HUDTheme/ThemeFormTextInput.qml</file>
         <file>qml/HUDTheme/BackgroundImage.qml</file>
+        <file>qml/HUDTheme/SliderVolume.qml</file>
+        <file>qml/HUDTheme/SliderCenter.qml</file>
         <file>qml/HUDSettingsPage/SettingsPageItem.qml</file>
         <file>qml/HUDSettingsPage/SettingsPageItemList.qml</file>
         <file>qml/HUDSettingsPage/SettingsPageItemLoader.qml</file>

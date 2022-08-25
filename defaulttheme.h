@@ -7,12 +7,13 @@
 #include <QQuickStyle>
 #include <QStorageInfo>
 #include "themeiconprovider.h"
+#include <abstractplugin.h>
 
 class GUIEvents : public QObject {
     Q_OBJECT
 signals:
     void notificationReceived(QVariantMap notification);
-    void openOverlay(QString source, QVariantMap properties);
+    void openOverlay(QVariant settings, QObject *contextProperty, QString source, QVariantMap properties);
     void closeOverlay();
 };
 
@@ -27,7 +28,7 @@ public:
 
     Q_INVOKABLE QVariantList getMountedVolumes();
 public slots:
-    void onEvent(QString sender, QString event, QVariant eventData);
+    void onEvent(AbstractPlugin* plugin, QString sender, QString event, QVariant eventData);
 private:
     GUIEvents *guiEvents;
 };
