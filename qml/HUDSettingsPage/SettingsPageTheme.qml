@@ -73,7 +73,7 @@ Item {
                 label: "Edit Bottom Bar"
                 onItemClicked : {
                     BottomBarModel.editing = true
-                    GUIEvents.openOverlay("BottomBarEditPanel.qml", {})
+                    GUIEvents.openOverlay({}, null, "BottomBarEditPanel.qml", {})
                 }
             }
         }
