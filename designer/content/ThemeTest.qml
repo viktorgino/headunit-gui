@@ -28,7 +28,7 @@ Item {
         y: 100
         text: qsTr("Level Slider")
         onClicked: {
-            GUIEvents.emitOpenOverlay("../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/SliderVolume.qml"})
+            GUIEvents.emitOpenOverlay({}, {}, "../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/SliderVolume.qml"})
         }
     }
     Button {
@@ -36,7 +36,7 @@ Item {
         y: 146
         text: qsTr("Center Slider")
         onClicked: {
-            GUIEvents.emitOpenOverlay("../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/SliderCenter.qml"})
+            GUIEvents.emitOpenOverlay({}, {}, "../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/SliderCenter.qml"})
         }
     }
     Button {
@@ -44,7 +44,7 @@ Item {
         y: 192
         text: qsTr("File Browser")
         onClicked: {
-            GUIEvents.emitOpenOverlay("../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/FileBrowser.qml"})
+            GUIEvents.emitOpenOverlay({}, {}, "../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/FileBrowser.qml"})
         }
     }
     Button {
@@ -52,7 +52,7 @@ Item {
         y: 238
         text: qsTr("Folder Browser")
         onClicked: {
-            GUIEvents.emitOpenOverlay("../designer/content/Overlay.qml", {
+            GUIEvents.emitOpenOverlay({}, {}, "../designer/content/Overlay.qml", {
                                           source: "../../qml/HUDTheme/FileBrowser.qml",
                                           properties : {
                                               showFiles: false,

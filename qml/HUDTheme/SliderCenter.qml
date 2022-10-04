@@ -9,6 +9,7 @@ Slider {
     from: -15
     to: 15
     stepSize: 1
+    property int centerLocation: 0
     property int tickHeight : 100
     property color color : "#ffffff"
     background: Item {
@@ -57,15 +58,15 @@ Slider {
             color: control.color
 
             Rectangle {
-                property real asd : parent.width / 2 - (control.visualPosition * parent.width)
-                width: Math.abs(asd)
+                property real stepCount : Math.abs(control.from - control.to)
+                property real zeroPos : Math.abs(control.centerLocation - control.from ) / stepCount
+                property real asd : parent.width * zeroPos
+                width: Math.abs(parent.width * (zeroPos - control.visualPosition))
                 height: parent.height
+                x : control.visualPosition >= zeroPos ? parent.width * zeroPos : zeroPos * parent.width - width
                 color: "#21be2b"
                 radius: 2
-                anchors.left: asd < 0 ? parent.left : undefined
-                anchors.right: asd > 0 ? parent.right : undefined
-                anchors.leftMargin: parent.width/2
-                anchors.rightMargin: parent.width/2
+
             }
         }
     }
