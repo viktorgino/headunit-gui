@@ -128,6 +128,8 @@ Item {
     Connections {
         target: GUIEvents
         ignoreUnknownSignals: true
+        property int prevVisiblePageIndex: 0
+
         onNotificationReceived: {
             notificationsItem.addNotification(notification)
         }
@@ -139,6 +141,107 @@ Item {
         }
         onCloseOverlay: {
             overlays.close()
+        }
+        //Go to the page next to the currently visible page
+        onChangePageNext: {
+            var foundVisible = false
+            var setVisible = false
+
+            if (contentsRepeater.count > 0) {
+                if(settingsLoader.visible) {
+                    settingsLoader.visible = false
+                    contentsRepeater.itemAt(0).visible = true
+                } else {
+                    for (var i = 0; i < contentsRepeater.count; i++) {
+                        //Find first visible
+                        if (foundVisible) {
+                            contentsRepeater.itemAt(i).visible = true
+                            setVisible = true
+                            break
+                        } else if (contentsRepeater.itemAt(i).visible) {
+                            foundVisible = true
+                            contentsRepeater.itemAt(i).visible = false
+                        }
+                    }
+
+                    if (setVisible == false) {
+                        settingsLoader.visible = true
+                    } else {
+                        settingsLoader.visible = false
+                    }
+                }
+            }
+        }
+        //Go to the page previous to the currently visible page
+        onChangePagePrev: {
+            var foundVisible = false
+            var setVisible = false
+
+            if (contentsRepeater.count > 0) {
+                if(settingsLoader.visible) {
+                    settingsLoader.visible = false
+                    contentsRepeater.itemAt(contentsRepeater.count - 1).visible = true
+                } else {
+                    for (var i = contentsRepeater.count - 1; i >= 0; i--) {
+                        //Find first visible
+                        if (foundVisible) {
+                            contentsRepeater.itemAt(i).visible = true
+                            setVisible = true
+                            break
+                        } else if (contentsRepeater.itemAt(i).visible) {
+                            foundVisible = true
+                            contentsRepeater.itemAt(i).visible = false
+                        }
+                    }
+
+                    if (setVisible == false) {
+                        settingsLoader.visible = true
+                    } else {
+                        settingsLoader.visible = false
+                    }
+                }
+            }
+        }
+        //Jump to a particular page index
+        onChangePageIndex: {
+            var i = 0;
+            if (contentsRepeater.count > 0) {
+
+                //Find currently visible page
+                if(settingsLoader.visible == true) {
+                    prevVisiblePageIndex = -1;
+                } else {
+                    for (i = 0; i < contentsRepeater.count; i++) {
+                        if (contentsRepeater.itemAt(i).visible == true) {
+                            prevVisiblePageIndex = i;
+                            break;
+                        }
+                    }
+                }
+
+                settingsLoader.visible = false;
+                for (i = 0; i < index; i++) {
+                    contentsRepeater.itemAt(i).visible = false;
+                }
+                contentsRepeater.itemAt(index).visible = true;
+                for (i = index+1; i < contentsRepeater.count; i++) {
+                    contentsRepeater.itemAt(i).visible = false;
+                }
+            }
+        }
+        //Change back to the page that was visible before onChangePageIndex was called
+        onChangePagePrevIndex: {
+            var i = 0;
+            if (contentsRepeater.count > 0) {
+                for (i = 0; i < contentsRepeater.count; i++) {
+                    contentsRepeater.itemAt(i).visible = (i == prevVisiblePageIndex);
+                }
+                if (prevVisiblePageIndex == -1) {
+                    settingsLoader.visible = true;
+                } else {
+                    settingsLoader.visible = false;
+                }
+            }
         }
     }
 

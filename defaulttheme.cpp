@@ -45,6 +45,14 @@ void DefaultTheme::onEvent(AbstractPlugin* plugin, QString sender, QString event
         emit guiEvents->openOverlay(plugin->getSettings(), plugin->getContextProperty(), map["source"].toString(), map["properties"].toMap());
     } else if (event == "CloseOverlay") {
         emit guiEvents->closeOverlay();
+    } else if (event == "ChangePageNext") {
+        emit guiEvents->changePageNext();
+    } else if (event == "ChangePagePrev") {
+        emit guiEvents->changePagePrev();
+    } else if (event == "ChangePageIndex") {
+         emit guiEvents->changePageIndex(eventData.toInt());
+    } else if (event == "ChangePagePrevIndex") {
+         emit guiEvents->changePagePrevIndex();
     }
 }
 
