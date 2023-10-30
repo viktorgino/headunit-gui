@@ -4,25 +4,18 @@ import Qt.labs.settings 1.0
 import QtGraphicalEffects 1.0
 
 import HUDPlugins 1.0
+import HUDTheme 1.0
 
 Item {
-    property int menuItemIndex: 0
     id: __root
-    signal itemChanged(int index)
     signal showSettings
 
-    function menuItemClicked(index) {
-        menuItemIndex = index
-        active_button_bg.y = menuItemsRepeater.itemAt(index).y
-        __root.itemChanged(index)
-    }
-
-    Component.onCompleted: {
-        itemChanged(menuItemIndex)
-    }
+    property int currentIndex: 0
+    property bool extendedMenu: false
 
     Settings {
-        property alias menuItemIndex: __root.menuItemIndex
+        property alias currentIndex: __root.currentIndex
+        property alias extendedMenu: __root.extendedMenu
     }
 
     Rectangle {
@@ -32,61 +25,102 @@ Item {
     }
 
     Rectangle {
-        id: active_button_bg
-        height: (parent.height / menuItemsRepeater.count) + 5
-        color: "#80ffffff"
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.left: parent.left
-        anchors.leftMargin: 0
-        Layout.columnSpan: 0
-        Layout.rowSpan: 0
-        border.width: 0
-        y: menuItemsRepeater.count > 0 ? menuItemsRepeater.itemAt(
-                                             menuItemIndex).y : 0
+        color: "#212121"
+        id: rightMenuOptions
+        width: parent.width
+        height: 40
 
-        Behavior on y {
+        RowLayout {
+            anchors.fill: parent
+            spacing: 0
 
-            NumberAnimation {
-                //This specifies how long the animation takes
-                duration: 600
-                //This selects an easing curve to interpolate with, the default is Easing.Linear
-                easing.type: Easing.OutBounce
+            Item {
+                Layout.maximumWidth: 32 + 12 + 5
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                MenuButton {
+                    id: menuButton
+                    anchors.bottomMargin: 8
+                    anchors.topMargin: 8
+                    width: height
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    rotation: 180
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    isActive: __root.extendedMenu
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        __root.extendedMenu = !__root.extendedMenu
+                    }
+                }
+            }
+            ImageButton {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                imageSource: "image://icons/gear-a"
+                onClicked: {
+                    __root.showSettings()
+                }
             }
         }
     }
 
-    ColumnLayout {
-        id: menuColumn
-        anchors.topMargin: 5
-        spacing: 0
-        anchors.fill: parent
+    Item {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: rightMenuOptions.bottom
+        anchors.bottom: parent.bottom
 
-        Repeater {
-            id: menuItemsRepeater
-            model: PluginListModel {
-                plugins: HUDPlugins
-                listType: "MainMenu"
+        Rectangle {
+            id: active_button_bg
+            height: (parent.height / menuItemsRepeater.count) + 3
+            color: "#80ffffff"
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            Layout.columnSpan: 0
+            Layout.rowSpan: 0
+            border.width: 0
+            y: menuItemsRepeater.count > 0 ? menuItemsRepeater.itemAt(
+                                                 currentIndex).y : 0
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: 600
+                    easing.type: Easing.OutBounce
+                }
             }
+        }
+        ColumnLayout {
+            id: menuColumn
+            anchors.fill: parent
+            anchors.topMargin: 6
+            anchors.bottomMargin: 6
+            anchors.leftMargin: 6
+            spacing: 6
 
-            Item {
-                Layout.fillHeight: true
-                Layout.columnSpan: 1
-                Layout.fillWidth: true
+            Repeater {
+                id: menuItemsRepeater
+                model: PluginListModel {
+                    plugins: PluginList
+                    listType: "MainMenu"
+                }
+
                 Rectangle {
-                    anchors.leftMargin: 5
-                    anchors.rightMargin: 5
-                    anchors.bottomMargin: 5
-                    anchors.fill: parent
-                    color: Qt.darker("#673AB7", 1 + (index+1) * 0.1)
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    color: Qt.darker("#673AB7", 1 + (index + 1) * 0.1)
 
                     Image {
                         id: button_image
-                        width: HUDStyle.sizes.menuIcon
-                        height: HUDStyle.sizes.menuIcon
+                        width: 32
+                        height: 32
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: parent.left
-                        anchors.leftMargin: 0
+                        anchors.leftMargin: 6
                         fillMode: Image.PreserveAspectFit
                         source: icon
                         mipmap: true
@@ -109,7 +143,7 @@ Item {
                         anchors.right: parent.right
                         anchors.rightMargin: 0
                         anchors.left: button_image.right
-                        anchors.leftMargin: 0
+                        anchors.leftMargin: 6
                         wrapMode: Text.WordWrap
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
@@ -117,9 +151,10 @@ Item {
                     }
 
                     MouseArea {
-                        id: mouseArea1
                         anchors.fill: parent
-                        onClicked: menuItemClicked(index)
+                        onClicked: {
+                            __root.currentIndex = index
+                        }
                     }
                 }
             }
@@ -129,8 +164,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:100}D{i:1}D{i:2}D{i:3}D{i:9}D{i:10}D{i:11}D{i:12}
-D{i:8}D{i:7}D{i:5}D{i:4}
+    D{i:0;autoSize:true;height:480;width:100}
 }
 ##^##*/
 

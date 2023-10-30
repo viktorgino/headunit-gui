@@ -49,7 +49,7 @@ Item {
             }
             Component.onDestruction: {
                 if (settingsPageStack.depth === 1 && currentMenuItem != "") {
-                    HUDPlugins.callSlot(currentMenuItem,
+                    PluginList.callSlot(currentMenuItem,
                                         "onSettingsPageDestroyed")
                     currentMenuItem = ""
                 }
@@ -75,7 +75,7 @@ Item {
             }
             Component.onDestruction: {
                 if (settingsPageStack.depth === 1 && currentMenuItem != "") {
-                    HUDPlugins.callSlot(currentMenuItem,
+                    PluginList.callSlot(currentMenuItem,
                                         "onSettingsPageDestroyed")
                     currentMenuItem = ""
                 }
@@ -88,7 +88,7 @@ Item {
         ListView {
             width: __root.width
             model: PluginListModel {
-                plugins: HUDPlugins
+                plugins: PluginList
                 listType: "SettingsMenu"
             }
             delegate: SettingsPageItemItems {
