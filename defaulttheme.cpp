@@ -1,7 +1,7 @@
 #include "defaulttheme.h"
 
 DefaultTheme::~DefaultTheme(){
-
+    qDebug() << "Default theme dead";
 }
 
 void DefaultTheme::registerTypes(const char* /*uri*/)
@@ -23,8 +23,6 @@ void DefaultTheme::initializeEngine(QQmlEngine *engine, const char* /*uri*/)
         appEngine->rootContext()->setContextObject(this);
 
         engine->addImageProvider("icons", new ThemeIconProvider);
-        
-//        appEngine->load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 }
 
 void DefaultTheme::onEvent(AbstractPlugin* plugin, QString sender, QString event, QVariant eventData) {

@@ -1,4 +1,5 @@
 import QtQuick 2.11
+import QtQuick.Layouts 1.11
 import QtGraphicalEffects 1.0
 import QtQuick.Controls 2.4
 
@@ -8,6 +9,7 @@ import HUDPlugins 1.0
 Item {
     id: dashLayout
     anchors.fill: parent
+    state: rightMenu.extendedMenu ? "menuOpen" : ""
 
     LinearGradient {
         anchors.fill: parent
@@ -42,7 +44,7 @@ Item {
         Repeater {
             id: contentsRepeater
             model: PluginListModel {
-                plugins: HUDPlugins
+                plugins: PluginList
                 listType: "MainMenu"
             }
 
@@ -53,12 +55,15 @@ Item {
                     asynchronous: false
                     anchors.fill: parent
                     active: pluginLoaded
+                    visible: pluginLoaded && rightMenu.currentIndex === index
+                             && !settingsLoader.active
                 }
                 Loader {
                     asynchronous: false
                     anchors.fill: parent
                     sourceComponent: loadingScreen
                     active: !pluginLoaded
+                    visible: !pluginLoaded && rightMenu.currentIndex === index
                     onActiveChanged: {
                         if (pluginLoaded)
                             loader.setSource(qmlSource, {
@@ -76,7 +81,17 @@ Item {
             id: settingsLoader
             asynchronous: false
             anchors.fill: parent
-            source: "qrc:/qml/HUDSettingsPage/SettingsPage.qml"
+            active: false
+            function loadSettings() {
+                active = true
+                visible = true
+                setSource("HUDSettingsPage/SettingsPage.qml")
+            }
+            function unloadSettings() {
+                active = false
+                visible = false
+                setSource("")
+            }
         }
     }
 
@@ -94,34 +109,22 @@ Item {
 
     RightMenu {
         id: rightMenu
-        width: height / 5
-        anchors.right: parent.right
-        anchors.rightMargin: 0
+        x: parent.width - (32 + 12 + 5)
+        width: parent.width * 0.15
         anchors.top: parent.top
-        anchors.topMargin: 0
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        onItemChanged: {
-            if (contentsRepeater.count > 0) {
-                for (var i = 0; i < contentsRepeater.count; i++) {
-                    contentsRepeater.itemAt(i).visible = false
-                }
-                settingsLoader.visible = false
-                contentsRepeater.itemAt(index).visible = true
-            }
+        anchors.bottom: bottomBar.top
+        onCurrentIndexChanged: {
+            settingsLoader.unloadSettings()
         }
         onShowSettings: {
-            for (var i = 0; i < contentsRepeater.count; i++) {
-                contentsRepeater.itemAt(i).visible = false
-            }
-            settingsLoader.visible = true
+            settingsLoader.loadSettings()
         }
-    }
 
-    transitions: Transition {
-        NumberAnimation {
-            properties: "y,opacity"
-            duration: 250
+        transitions: Transition {
+            NumberAnimation {
+                properties: "x"
+                easing.type: Easing.InOutQuad
+            }
         }
     }
 
@@ -253,27 +256,6 @@ Item {
         anchors.bottom: bottomBar.top
     }
 
-    //    Item {
-    //        id: bottomBar
-    //        height: parent.height * 0.1 //HUDStyle.sizes.bottomBarHeight
-    //        anchors.left: parent.left
-    //        anchors.right: rightMenu.left
-    //        anchors.bottom: parent.bottom
-    //        Loader {
-    //            id: bottomBarLoader
-    //            anchors.fill: parent
-    //            source: "qrc:/HVAC/ClimateControl/HVACBottomBar.qml"
-    //            asynchronous: false
-    //        }
-    //    }
-    Item {
-        id: bottomBar
-        height: parent.height * 0.1 //HUDStyle.sizes.bottomBarHeight
-        anchors.left: parent.left
-        anchors.right: rightMenu.left
-        anchors.bottom: parent.bottom
-    }
-
     Timer {
         id: overlayCloseTimer
         interval: 5000
@@ -304,21 +286,45 @@ Item {
             anchors.fill: parent
         }
     }
-    Connections{
+    BottomBar {
+        id: bottomBar
+        height: parent.height * 0.1 //HUDStyle.sizes.bottomBarHeight
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+    }
+
+    Connections {
         target: overlayLoader.item
         ignoreUnknownSignals: true
-        onClose : {
+        onClose: {
             overlays.close()
         }
     }
 
-    BottomBar {
-        height: parent.height * 0.1 //HUDStyle.sizes.bottomBarHeight
-        anchors.left: parent.left
-        anchors.right: rightMenu.left
-        anchors.bottom: parent.bottom
+    states: [
+        State {
+            name: "menuOpen"
+
+            PropertyChanges {
+                target: rightMenu
+                x: parent.width - width
+                anchors.rightMargin: 0
+            }
+        }
+    ]
+
+    transitions: Transition {
+        NumberAnimation {
+            properties: "y,opacity,x"
+            duration: 250
+        }
     }
 }
 
-
+/*##^##
+Designer {
+    D{i:0;autoSize:true;formeditorColor:"#4c4e50";height:480;width:640}D{i:5;invisible:true}
+}
+##^##*/
 

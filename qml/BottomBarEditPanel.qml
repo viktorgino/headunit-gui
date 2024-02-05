@@ -7,7 +7,7 @@ import HUDPlugins 1.0
 
 Item {
     id: __root
-    signal close()
+    signal close
 
     Rectangle {
         id: rectangle
@@ -16,7 +16,7 @@ Item {
 
         DropArea {
             anchors.fill: parent
-            property int removeIndex : 0
+            property int removeIndex: 0
             onDropped: {
                 if (drag.source.visualIndex !== undefined) {
                     removeIndex = drag.source.visualIndex
@@ -44,13 +44,13 @@ Item {
             Canvas {
                 id: removeBoxBorder
                 anchors.fill: parent
-                onPaint:{
-                    var ctx = getContext("2d");
-                    ctx.setLineDash([5, 15]);
-                    ctx.beginPath();
-                    ctx.rect(0, 0, width, height);
-                    ctx.strokeStyle = '#ffffff';
-                    ctx.stroke();
+                onPaint: {
+                    var ctx = getContext("2d")
+                    ctx.setLineDash([5, 15])
+                    ctx.beginPath()
+                    ctx.rect(0, 0, width, height)
+                    ctx.strokeStyle = '#ffffff'
+                    ctx.stroke()
                 }
             }
 
@@ -60,7 +60,7 @@ Item {
                 height: parent.height * 0.8
                 source: "image://icons/trash-b"
                 anchors.horizontalCenter: parent.horizontalCenter
-                color : "#ffffff"
+                color: "#ffffff"
                 anchors.verticalCenter: parent.verticalCenter
             }
 
@@ -87,14 +87,14 @@ Item {
 
             ScrollBar.vertical: ThemeScrollBar {}
             model: PluginListModel {
-                plugins: HUDPlugins
+                plugins: PluginList
                 listType: "BottomBar"
             }
             delegate: Item {
                 id: item1
                 width: listView1.width
                 height: 120
-                property var itemList : grid
+                property var itemList: grid
                 ThemeHeaderText {
                     id: itemLabel
                     text: label
@@ -103,7 +103,7 @@ Item {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     anchors.leftMargin: 0
-                    level : 1
+                    level: 1
                     height: 40
                 }
 
@@ -122,7 +122,7 @@ Item {
 
                     model: bottomBarItems
                     delegate: Item {
-                        id:delegateRoot
+                        id: delegateRoot
                         width: 60
                         height: 60
 
@@ -132,7 +132,7 @@ Item {
                             width: delegateRoot.width
                             height: delegateRoot.height
                             color: "#ffffff"
-                            property string name : modelData.name
+                            property string name: modelData.name
                             function disableMouseArea() {
                                 rectangle2.dragActive = false
                             }
@@ -158,14 +158,13 @@ Item {
                                     parent.dragActive = true
                                 }
                                 drag.onActiveChanged: {
-                                    if(!active){
+                                    if (!active) {
                                         rectangle2.visible = true
                                     }
-
                                 }
                             }
 
-                            property bool dragActive : false
+                            property bool dragActive: false
                             Drag.active: mouseArea.drag.active
                             Drag.hotSpot.x: rectangle2.width / 2
                             Drag.hotSpot.y: rectangle2.height / 2
@@ -217,7 +216,6 @@ Item {
                 anchors.verticalCenterOffset: 1
             }
 
-
             ImageIcon {
                 id: rightArrow
                 width: 20
@@ -229,7 +227,6 @@ Item {
                 anchors.rightMargin: 8
             }
 
-
             ThemeFormText {
                 id: arrowText
                 text: qsTr("Drag items to rearrange")
@@ -237,8 +234,6 @@ Item {
                 anchors.bottomMargin: 4
                 anchors.horizontalCenter: arrowLine.horizontalCenter
             }
-
-
         }
 
         ImageIcon {
@@ -255,13 +250,12 @@ Item {
             MouseArea {
                 id: mouseArea1
                 anchors.fill: parent
-                onClicked : {
+                onClicked: {
                     __root.close()
                     BottomBarModel.editing = false
                 }
             }
         }
-
     }
     states: [
         State {

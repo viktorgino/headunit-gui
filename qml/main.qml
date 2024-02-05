@@ -1,33 +1,34 @@
 import QtQuick 2.5
-import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 
-Window {
+import HUDPlugins 1.0
 
-    id: window
-    visible: true
-    title: qsTr("viktorgino's HeadUnit")
-//    visibility: Window.Maximized
+Item {
+
+    id: root
     width: 800
     height: 480
 
-    FontLoader{id:ralewayRegular; source:"qrc:/qml/fonts/Raleway-Regular.ttf"}
+    FontLoader {
+        id: ralewayRegular
+        source: "qrc:/qml/fonts/Raleway-Regular.ttf"
+    }
 
     Rectangle {
         id: rectangle1
         color: "#000000"
         anchors.fill: parent
     }
-    DashView{
+    DashView {
         id: dashview
         anchors.fill: parent
     }
     Shortcut {
         sequence: "F11"
         onActivated: {
-            if(window.visibility == Window.FullScreen)
+            if (window.visibility == Window.FullScreen)
                 window.visibility = Window.Windowed
-            else if(window.visibility == Window.Windowed)
+            else if (window.visibility == Window.Windowed)
                 window.visibility = Window.Maximized
             else
                 window.visibility = Window.FullScreen

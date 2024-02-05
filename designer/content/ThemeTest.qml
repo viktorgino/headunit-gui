@@ -1,7 +1,10 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import HUDPlugins 1.0
+
 Item {
+    id: root
     Button {
         x: 8
         y: 8
@@ -20,7 +23,9 @@ Item {
         text: qsTr("Open Bottom Bar Items")
         onClicked: {
             BottomBarModel.editing = true
-            GUIEvents.emitOpenOverlay("BottomBarEditPanel.qml", {})
+
+            //            GUIEvents.emitOpenOverlay({}, {}, "BottomBarEditPanel.qml", {source: "../../qml/HUDTheme/SliderVolume.qml"})
+            GUIEvents.openOverlay({}, null, "BottomBarEditPanel.qml", {})
         }
     }
     Button {
@@ -28,7 +33,10 @@ Item {
         y: 100
         text: qsTr("Level Slider")
         onClicked: {
-            GUIEvents.emitOpenOverlay({}, {}, "../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/SliderVolume.qml"})
+            GUIEvents.emitOpenOverlay({}, {},
+                                      "../designer/content/Overlay.qml", {
+                                          "source": "../../qml/HUDTheme/SliderVolume.qml"
+                                      })
         }
     }
     Button {
@@ -36,7 +44,10 @@ Item {
         y: 146
         text: qsTr("Center Slider")
         onClicked: {
-            GUIEvents.emitOpenOverlay({}, {}, "../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/SliderCenter.qml"})
+            GUIEvents.emitOpenOverlay({}, {},
+                                      "../designer/content/Overlay.qml", {
+                                          "source": "../../qml/HUDTheme/SliderCenter.qml"
+                                      })
         }
     }
     Button {
@@ -44,7 +55,10 @@ Item {
         y: 192
         text: qsTr("File Browser")
         onClicked: {
-            GUIEvents.emitOpenOverlay({}, {}, "../designer/content/Overlay.qml", {source: "../../qml/HUDTheme/FileBrowser.qml"})
+            GUIEvents.emitOpenOverlay({}, {},
+                                      "../designer/content/Overlay.qml", {
+                                          "source": "../../qml/HUDTheme/FileBrowser.qml"
+                                      })
         }
     }
     Button {
@@ -52,12 +66,14 @@ Item {
         y: 238
         text: qsTr("Folder Browser")
         onClicked: {
-            GUIEvents.emitOpenOverlay({}, {}, "../designer/content/Overlay.qml", {
-                                          source: "../../qml/HUDTheme/FileBrowser.qml",
-                                          properties : {
-                                              showFiles: false,
-                                              folderSelectable: true
-                                          }})
+            GUIEvents.emitOpenOverlay({}, {},
+                                      "../designer/content/Overlay.qml", {
+                                          "source": "../../qml/HUDTheme/FileBrowser.qml",
+                                          "properties": {
+                                              "showFiles": false,
+                                              "folderSelectable": true
+                                          }
+                                      })
         }
     }
 }
@@ -67,3 +83,4 @@ Designer {
     D{i:0;autoSize:true;height:480;width:600}
 }
 ##^##*/
+
