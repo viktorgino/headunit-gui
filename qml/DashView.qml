@@ -149,14 +149,14 @@ Item {
         //Go to the page next to the currently visible page
         onChangePageNext: {
             if(settingsLoader.visible) {
-                bottomMenu.currentIndex = 0;
-            } else if (bottomMenu.currentIndex === (contentsRepeater.count - 1)) {
+                rightMenu.currentIndex = 0;
+            } else if (rightMenu.currentIndex === (contentsRepeater.count - 1)) {
                 settingsLoader.loadSettings();
             } else {
-                if(bottomMenu.currentIndex >= (contentsRepeater.count - 1)) {
-                    bottomMenu.currentIndex = contentsRepeater.count - 1;
+                if(rightMenu.currentIndex >= (contentsRepeater.count - 1)) {
+                    rightMenu.currentIndex = contentsRepeater.count - 1;
                 } else {
-                    bottomMenu.currentIndex++;
+                    rightMenu.currentIndex++;
                 }
             }
         }
@@ -164,14 +164,14 @@ Item {
         //Go to the page previous to the currently visible page
         onChangePagePrev: {
              if(settingsLoader.visible) {
-                bottomMenu.currentIndex = contentsRepeater.count - 1;
-            } else if (bottomMenu.currentIndex === 0) {
+                rightMenu.currentIndex = contentsRepeater.count - 1;
+            } else if (rightMenu.currentIndex === 0) {
                 settingsLoader.loadSettings();
             } else {
-                if(bottomMenu.currentIndex <= 0) {
-                    bottomMenu.currentIndex = 0;
+                if(rightMenu.currentIndex <= 0) {
+                    rightMenu.currentIndex = 0;
                 } else {
-                    bottomMenu.currentIndex--;
+                    rightMenu.currentIndex--;
                 }
             }
         }
@@ -180,16 +180,16 @@ Item {
             if(settingsLoader.visible) {
                 prevVisiblePageIndex = -1;
             } else {
-                prevVisiblePageIndex = bottomMenu.currentIndex;
+                prevVisiblePageIndex = rightMenu.currentIndex;
             }
-            bottomMenu.currentIndex = index;
+            rightMenu.currentIndex = index;
         }
         //Change back to the page that was visible before onChangePageIndex was called
         onChangePagePrevIndex: {
             if(prevVisiblePageIndex === -1) {
                 settingsLoader.loadSettings();
             } else {
-                bottomMenu.currentIndex = prevVisiblePageIndex;
+                rightMenu.currentIndex = prevVisiblePageIndex;
             }
         }
     }
