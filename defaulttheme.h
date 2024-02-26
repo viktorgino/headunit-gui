@@ -15,6 +15,10 @@ signals:
     void notificationReceived(QVariantMap notification);
     void openOverlay(QVariant settings, QObject *contextProperty, QString source, QVariantMap properties);
     void closeOverlay();
+    void changePageNext();
+    void changePagePrev();
+    void changePageIndex(qint32 index);
+    void changePagePrevIndex();
 };
 
 class DefaultTheme : public QQmlExtensionPlugin

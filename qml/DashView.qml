@@ -131,6 +131,8 @@ Item {
     Connections {
         target: GUIEvents
         ignoreUnknownSignals: true
+        property int prevVisiblePageIndex: 0
+
         onNotificationReceived: {
             notificationsItem.addNotification(notification)
         }
@@ -142,6 +144,53 @@ Item {
         }
         onCloseOverlay: {
             overlays.close()
+        }
+
+        //Go to the page next to the currently visible page
+        onChangePageNext: {
+            if(settingsLoader.visible) {
+                rightMenu.currentIndex = 0;
+            } else if (rightMenu.currentIndex === (contentsRepeater.count - 1)) {
+                settingsLoader.loadSettings();
+            } else {
+                if(rightMenu.currentIndex >= (contentsRepeater.count - 1)) {
+                    rightMenu.currentIndex = contentsRepeater.count - 1;
+                } else {
+                    rightMenu.currentIndex++;
+                }
+            }
+        }
+
+        //Go to the page previous to the currently visible page
+        onChangePagePrev: {
+             if(settingsLoader.visible) {
+                rightMenu.currentIndex = contentsRepeater.count - 1;
+            } else if (rightMenu.currentIndex === 0) {
+                settingsLoader.loadSettings();
+            } else {
+                if(rightMenu.currentIndex <= 0) {
+                    rightMenu.currentIndex = 0;
+                } else {
+                    rightMenu.currentIndex--;
+                }
+            }
+        }
+        //Jump to a particular page index
+        onChangePageIndex: {
+            if(settingsLoader.visible) {
+                prevVisiblePageIndex = -1;
+            } else {
+                prevVisiblePageIndex = rightMenu.currentIndex;
+            }
+            rightMenu.currentIndex = index;
+        }
+        //Change back to the page that was visible before onChangePageIndex was called
+        onChangePagePrevIndex: {
+            if(prevVisiblePageIndex === -1) {
+                settingsLoader.loadSettings();
+            } else {
+                rightMenu.currentIndex = prevVisiblePageIndex;
+            }
         }
     }
 
